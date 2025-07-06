@@ -9,7 +9,7 @@ class MathUtil
    * Euler's constant and the base of the natural logarithm.
    * Math.E is not a constant in Haxe, so we'll just define it ourselves.
    */
-  public static final E:Float = bobbydx.sophie.SFMath.E;
+  public static final E:Float = Math.exp(1);
 
   /**
    * Perform linear interpolation between the base and the target, based on the current framerate.

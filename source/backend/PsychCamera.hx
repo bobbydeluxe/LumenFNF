@@ -1,5 +1,7 @@
 package backend;
 
+import psychlua.Constants;
+
 // PsychCamera handles followLerp based on elapsed
 // and stops camera from snapping at higher framerates
 
@@ -100,9 +102,8 @@ class PsychCamera extends FlxCamera
 				_lastTargetPosition.y = target.y;
 			}
 		}
-
-		var expBase = Math.pow((bobbydx.sophie.SFMath.PHI * 2), (Math.PI / 2.2));
-		var mult:Float = 1 - Math.pow(expBase, -elapsed * followLerp / (1/60));
+		var mult:Float = 1 - Math.exp(-elapsed * followLerp / (1/60));
+		
 		scroll.x += (_scrollTarget.x - scroll.x) * mult;
 		scroll.y += (_scrollTarget.y - scroll.y) * mult;
 		//trace('lerp on this frame: $mult');
