@@ -3,6 +3,7 @@ package states;
 import mikolka.stages.standard.StageWeek1;
 import substates.StickerSubState;
 import mikolka.vslice.freeplay.FreeplayState;
+import states.PsychFreeplayState;
 import backend.Highscore;
 import backend.StageData;
 import backend.WeekData;
@@ -2620,35 +2621,42 @@ class PlayState extends ScriptedState
 				
 				camOther.fade(FlxColor.BLACK, 0.6,false,() -> {
 					FlxTransitionableState.skipNextTransOut = true;
-                FlxG.switchState(() -> FreeplayState.build(
-                  {
-                    {
-                      fromResults:
-                        {
-                          oldRank: prevScoreRank,
-                          newRank: fpRank,
-                          songId: curSong,
-                          difficultyId: Difficulty.getString(),
-                          playRankAnim: !botplay
-                        }
-                    }
-                  }));
+				if (psychlua.Constants.legacyFreeplay == true)
+					FlxG.switchState(() -> new PsychFreeplayState());
+				else
+					FlxG.switchState(() -> FreeplayState.build(
+					  {
+						{
+						  fromResults:
+							{
+							  oldRank: prevScoreRank,
+							  newRank: fpRank,
+							  songId: curSong,
+							  difficultyId: Difficulty.getString(),
+							  playRankAnim: !botplay
+							}
+						}
+					  }));
 				});
 			}
 			else if (!isStoryMode){
-				openSubState(new StickerSubState(null, (sticker) -> FreeplayState.build(
-					{
-					  {
-						fromResults:
+					if (psychlua.Constants.legacyFreeplay == true)
+						openSubState(new StickerSubState(null, (sticker) -> new PsychFreeplayState(sticker)));
+					else {
+						openSubState(new StickerSubState(null, (sticker) -> FreeplayState.build(
+						{
 						  {
-							oldRank: null,
-							playRankAnim: false,
-							newRank: fpRank,
-							songId: curSong,
-                          	difficultyId: Difficulty.getString()
+							fromResults:
+							  {
+								oldRank: null,
+								playRankAnim: false,
+								newRank: fpRank,
+								songId: curSong,
+								difficultyId: Difficulty.getString()
+							  }
 						  }
-					  }
-					}, sticker)));
+						}, sticker)));
+					}
 			}
 			else {
 				openSubState(new StickerSubState(null, (sticker) -> new StoryMenuState(sticker)));

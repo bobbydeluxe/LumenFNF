@@ -8,6 +8,7 @@ import flixel.util.FlxStringUtil;
 
 import states.StoryMenuState;
 import mikolka.vslice.freeplay.FreeplayState;
+import states.PsychFreeplayState;
 import options.OptionsState;
 
 class PauseSubState extends ScriptedSubState
@@ -318,7 +319,11 @@ class PauseSubState extends ScriptedSubState
 						}
 						else
 						{
-							openSubState(new StickerSubState(null, (sticker) -> FreeplayState.build(null, sticker)));
+							if (psychlua.Constants.legacyFreeplay == true) {
+								openSubState(new StickerSubState(null, (sticker) -> new PsychFreeplayState(sticker)));
+							} else {
+								openSubState(new StickerSubState(null, (sticker) -> FreeplayState.build(null, sticker)));
+							}
 						}
 						PlayState.changedDifficulty = false;
 						PlayState.chartingMode = false;

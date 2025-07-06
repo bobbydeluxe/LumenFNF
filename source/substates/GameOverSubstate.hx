@@ -9,6 +9,7 @@ import flixel.math.FlxPoint;
 
 import states.StoryMenuState;
 import mikolka.vslice.freeplay.FreeplayState;
+import states.PsychFreeplayState;
 
 class GameOverSubstate extends ScriptedSubState
 {
@@ -140,7 +141,11 @@ class GameOverSubstate extends ScriptedSubState
 					}
 					else
 					{
-						openSubState(new StickerSubState(null, (sticker) -> FreeplayState.build(null, sticker)));
+						if (psychlua.Constants.legacyFreeplay == true) {
+								openSubState(new StickerSubState(null, (sticker) -> new PsychFreeplayState(sticker)));
+							} else {
+								openSubState(new StickerSubState(null, (sticker) -> FreeplayState.build(null, sticker)));
+							}
 					}
 				}
 			} else if (justPlayedLoop) {

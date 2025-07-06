@@ -192,6 +192,7 @@ class MasterEditorMenu extends ScriptedSubState
 				if (optionFunc != null) {
 					optionFunc();
 					FlxG.sound.music.volume = 0;
+					states.PsychFreeplayState.destroyFreeplayVocals();
 				} else {
 					trace('Option "$option" doesn\'t do anything');
 				}

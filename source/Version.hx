@@ -4,7 +4,7 @@ package;
 
 class Version {
     // Year, Month, Day
-    public static final dateParts:Array<Int> = [2025, 7, 5];
+    public static final dateParts:Array<Int> = [2025, 7, 6];
     // HAPPY 249TH AMERICA DAY
 
     // Build number for the day (e.g., 1 = first build of the day)

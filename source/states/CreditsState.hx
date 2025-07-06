@@ -25,6 +25,7 @@ class CreditsState extends ScriptedState
 		["Lumen Contributors"],
 		['unholywanderer04', 'unholy', 			'epic rating graphic [taken from unholy engine]', 			 			'https://github.com/Unholywanderer', '		7a83ff'],
 		['SunkyDev31',			'sunky',			'Translated the Week 6 dialogues for Português (Brasil)', 'https://bsky.app/profile/sunkydunky31.bsky.social', 'FF3B25'],
+		['falkimore', 			'falkimore',		'made the gradient map shader', 		'', 		'F5A742'],
 		[""],
 		["P-Slice Engine Team"],
 		['Mikolka9144',			'mikolka',			'The lead for P-Slice',								 'https://gamebanana.com/members/3329541',					'2ebcfa'],

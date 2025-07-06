@@ -498,6 +498,10 @@ class TitleState extends ScriptedState
 								}
 							});
 							FlxG.sound.music.fadeOut();
+							if(states.PsychFreeplayState.vocals != null)
+							{
+								states.PsychFreeplayState.vocals.fadeOut();
+							}
 							closedState = true;
 							transitioning = true;
 							playJingle = true;

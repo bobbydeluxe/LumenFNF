@@ -27,6 +27,7 @@ import objects.Character;
 import states.MainMenuState;
 import states.StoryMenuState;
 import mikolka.vslice.freeplay.FreeplayState;
+import states.PsychFreeplayState;
 
 import substates.PauseSubState;
 import substates.GameOverSubstate;
@@ -1471,8 +1472,13 @@ class FunkinLua {
 				}
 				else
 				{
-					if(skipTransition) FlxG.switchState(() -> FreeplayState.build(null, null))
-					else target.openSubState(new substates.StickerSubState(null, (sticker) -> FreeplayState.build(null, sticker)));
+					if (psychlua.Constants.legacyFreeplay == true) {
+						if(skipTransition) FlxG.switchState(() -> new PsychFreeplayState())
+					else target.openSubState(new substates.StickerSubState(null, (sticker) -> new PsychFreeplayState(sticker)));
+					} else {
+						if(skipTransition) FlxG.switchState(() -> FreeplayState.build(null, null))
+						else target.openSubState(new substates.StickerSubState(null, (sticker) -> FreeplayState.build(null, sticker)));
+					}
 				}
 			return true;
 		});

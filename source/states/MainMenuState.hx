@@ -101,21 +101,26 @@ class MainMenuState extends ScriptedState
 			MusicBeatState.switchState(new StoryMenuState());
 		}
 		menuFunctions['freeplay'] ??= (item:MenuItem) -> {
-			persistentDraw = true;
-			persistentUpdate = false;
-			// Freeplay has its own custom transition
-			skipTransitionFades(true);
+			if (psychlua.Constants.legacyFreeplay == true) {
+				skipTransitionFades(false);
+				MusicBeatState.switchState(new PsychFreeplayState());
+			} else {
+				persistentDraw = true;
+				persistentUpdate = false;
+				// Freeplay has its own custom transition
+				skipTransitionFades(true);
 
-			openSubState(new mikolka.vslice.freeplay.FreeplayState());
-			subStateOpened.addOnce(state -> {
-				for (i in 0...menuItems.members.length) {
-					menuItems.members[i].revive();
-					menuItems.members[i].alpha = 1;
-					menuItems.members[i].visible = true;
-					selectedSomethin = false;
-				}
-				changeItem(0);
-			});
+				openSubState(new mikolka.vslice.freeplay.FreeplayState());
+				subStateOpened.addOnce(state -> {
+					for (i in 0...menuItems.members.length) {
+						menuItems.members[i].revive();
+						menuItems.members[i].alpha = 1;
+						menuItems.members[i].visible = true;
+						selectedSomethin = false;
+					}
+					changeItem(0);
+				});
+			}
 		}
 		menuFunctions['mods'] ??= (item:MenuItem) -> {
 			skipTransitionFades(false);

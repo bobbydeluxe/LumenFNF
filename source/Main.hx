@@ -22,6 +22,7 @@ import states.CopyState;
 #if mobile
 import mobile.backend.MobileScaleMode;
 #end
+import psychlua.Constants;
 
 #if (linux && !debug)
 import lime.graphics.Image;
@@ -132,6 +133,8 @@ class Main extends Sprite
 		#end
 
 		var gameObject = new FlxGame(game.width, game.height, #if COPYSTATE_ALLOWED !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen);
+
+		Constants.resetConstants();
 		// FlxG.game._customSoundTray wants just the class, it calls new from
     	// create() in there, which gets called when it's added to stage
     	// which is why it needs to be added before addChild(game) here

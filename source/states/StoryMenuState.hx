@@ -384,6 +384,7 @@ class StoryMenuState extends ScriptedState
 		new FlxTimer().start(1, (_) -> {
 			#if !SHOW_LOADING_SCREEN FlxG.sound.music.stop(); #end
 			LoadingState.loadAndSwitchState(new PlayState(), true);
+			states.PsychFreeplayState.destroyFreeplayVocals();
 		});
 		
 		#if (MODS_ALLOWED && DISCORD_ALLOWED)
