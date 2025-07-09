@@ -5,7 +5,23 @@ class Constants {
     // if false, then it will use the updated FNF 0.3.0+ freeplay system
     public static var legacyFreeplay = false;
 
+    // determines which video should be played in the intro splash state
+    public static var introVideo:String = "intro";
+
+    // determines which logo should be used in the intro splash state
+    public static var introLogo:String = "default";
+
+    // determines the sound prefix for the intro splash state
+    public static var introSoundPrefix:String = "intro";
+
+    // determines how many intro sounds are there
+    public static var introSoundCount:Int = 3;
+
     public static function resetConstants():Void {
         legacyFreeplay = false;
+        introVideo = "intro";
+        introLogo = "default";
+        introSoundPrefix = "intro";
+        introSoundCount = 3;
     }
 }
