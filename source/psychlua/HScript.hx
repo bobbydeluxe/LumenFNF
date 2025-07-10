@@ -37,6 +37,9 @@ import crowplexus.iris.ErrorSeverity;
 import crowplexus.hscript.Expr.Error as IrisError;
 import crowplexus.hscript.Printer;
 
+// don't wanna wipe out this
+import psychlua.ScriptMemBank;
+
 typedef HScriptInfos = {
 	> haxe.PosInfos,
 	var ?funcName:String;
@@ -255,7 +258,6 @@ class HScript extends Iris {
 		#if flxanimate
 		set('FlxAnimate', FlxAnimate);
 		#end
-		set('ScriptMemBank', psychlua.ScriptMemBank);
 
 		// Functions & Variables
 		var variableMap:Map<String, Dynamic> = getVariables();

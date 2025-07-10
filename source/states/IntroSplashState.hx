@@ -21,8 +21,10 @@ class IntroSplashState extends ScriptedState
 
 	override function create()
 	{
-		if (Paths.fileExists('intro.${Paths.VIDEO_EXT}', BINARY, false, 'videos')) {
-			startVideo("intro");
+		FlxG.autoPause = ClientPrefs.data.autoPause;
+
+		if (Paths.fileExists('${Constants.introVideo}.${Paths.VIDEO_EXT}', BINARY, false, 'videos')) {
+			startVideo(Constants.introVideo);
 		} else {
 			logoFunc();
 		}
@@ -52,7 +54,7 @@ class IntroSplashState extends ScriptedState
 	{
 		var fadeShader = new BlueFade();
 
-		logo = new FlxSprite().loadGraphic(Paths.image('opening/intro${Constants.introLogo}'));
+		logo = new FlxSprite().loadGraphic(Paths.image('opening/intro_${Constants.introLogo}'));
 		logo.antialiasing = ClientPrefs.data.antialiasing;
 		logo.screenCenter();
 		logo.shader = fadeShader;

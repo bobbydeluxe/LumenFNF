@@ -623,7 +623,7 @@ class PsychFreeplayState extends ScriptedState
 	var _lastVisibles:Array<Int> = [];
 	public function updateTexts(elapsed:Float = 0.0)
 	{
-		lerpSelected = FlxMath.lerp(curSelected, lerpSelected, Math.exp(-elapsed * 9.6));
+		lerpSelected = FlxMath.lerp(curSelected, lerpSelected, Math.pow(Math.PI, -elapsed * 9.6));
 		for (i in _lastVisibles)
 		{
 			grpSongs.members[i].visible = grpSongs.members[i].active = false;

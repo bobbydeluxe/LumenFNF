@@ -102,7 +102,7 @@ class PsychCamera extends FlxCamera
 				_lastTargetPosition.y = target.y;
 			}
 		}
-		var mult:Float = 1 - Math.exp(-elapsed * followLerp / (1/60));
+		var mult:Float = FlxEase.expoOut(elapsed * followLerp * 15); // 15 is a magic number to make it feel right
 		
 		scroll.x += (_scrollTarget.x - scroll.x) * mult;
 		scroll.y += (_scrollTarget.y - scroll.y) * mult;

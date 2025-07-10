@@ -1,11 +1,11 @@
 function onCreate()
 	if lowQuality == false then
-		makeLuaSprite('sky', 'philly/sky', -100, 0)
+		makeLuaSprite('sky', 'philly/erect/sky', -100, 0)
 		setScrollFactor('sky', 0.1, 0.1)
 		addLuaSprite('sky')
 	end
 
-	makeLuaSprite('city', 'philly/city', -10, 0)
+	makeLuaSprite('city', 'philly/erect/city', -10, 0)
 	scaleObject('city', 0.85, 0.85)
 	setScrollFactor('city', 0.3, 0.3)
 	addLuaSprite('city')
@@ -17,7 +17,7 @@ function onCreate()
 	setProperty('window.alpha', 0)
 
 	if lowQuality == false then
-		makeLuaSprite('behindTrain', 'philly/behindTrain', -40, 50)
+		makeLuaSprite('behindTrain', 'philly/erect/behindTrain', -40, 50)
 		addLuaSprite('behindTrain')
 	end
 
@@ -25,11 +25,21 @@ function onCreate()
 	addLuaSprite('train')
 	precacheSound('train_passes')
 
-	makeLuaSprite('street', 'philly/street', -40, 50)
+	makeLuaSprite('street', 'philly/erect/street', -40, 50)
 	addLuaSprite('street')
 end
 
 function onCreatePost()
+
+	runHaxeCode([[
+		var colorShader = new shaders.AdjustColorScreenspace();
+		colorShader.setAdjustColor(-26, -16, -5, 0);
+		colorShader.threshold = 1;
+		game.dad.shader = colorShader;
+		game.boyfriend.shader = colorShader;
+		game.gf.shader = colorShader;
+	]])
+
 	-- Sets up the sprites for the 'Philly Glow' event if it's present in the chart.
 	for note = 0, getProperty('eventNotes.length') - 1 do
         if getPropertyFromGroup('eventNotes', note, 'event') == 'Philly Glow' then
@@ -96,11 +106,11 @@ end
 
 -- All of this down below is to make the mechanics of the stage work. 
 windowsColors = {
-	0x31A2FD,
-	0x31FD8C,
-	0xFB33F5,
-	0xFD4531,
-	0xFBA633
+	0x2663AC,
+	0x329A6D,
+	0x502D64,
+	0x932C28,
+	0xB66F43
 }
 
 isTrainMoving = false
@@ -153,6 +163,7 @@ end
 function updateTrainPos()
 	if getSoundTime('trainSound') >= 4700 then
 		startedMoving = true
+		setVar('picoTrainStartedMoving', startedMoving)
 		playAnim('gf', 'hairBlow')
 		setProperty('gf.specialAnim', true)
 	end
@@ -179,6 +190,7 @@ function trainReset()
 	trainCars = 8
 	isTrainFinished = false
 	startedMoving = false
+	setVar('picoTrainStartedMoving', startedMoving)
 	setProperty('train.x', screenWidth + 200)
 
 	setProperty('gf.danced', false)
@@ -216,6 +228,15 @@ function onEvent(eventName, value1, value2, strumTime)
 				setProperty('street.color', 0xFFFFFF)
 				for i, object in ipairs({'boyfriend', 'dad', 'gf'}) do
 					setProperty(object..'.color', 0xFFFFFF)
+					-- Re-enabling the shaders here since we removed them.
+					runHaxeCode([[
+						var colorShader = new shaders.AdjustColorScreenspace();
+						colorShader.setAdjustColor(-26, -16, -5, 0);
+						colorShader.threshold = 1;
+						game.dad.shader = colorShader;
+						game.boyfriend.shader = colorShader;
+						game.gf.shader = colorShader;
+					]])
 				end
 			end
 		elseif value1 == '1' then -- Activates the event, and/or chooses a random color.
@@ -236,19 +257,27 @@ function onEvent(eventName, value1, value2, strumTime)
 				setProperty('blackenScreen.visible', true)
 				setProperty('windowEvent.visible', true)
 				setProperty('gradient.visible', true)
+
+				if shadersEnabled == true then
+					for i, object in ipairs({'boyfriend', 'dad', 'gf'}) do
+						-- Removing the shader here or else we can't change the character's colors
+						removeSpriteShader(object)
+					end
+				end
 			elseif flashingLights == true then
 				doFlash(windowsEventColors[selectedColor], 0.5, 0.25, true)
 			end
 
 			setProperty('windowEvent.color', getColorFromHex(windowsEventColors[selectedColor]))
 			setProperty('gradient.color', getColorFromHex(windowsEventColors[selectedColor]))
-			for num = 1, particles do
-				setProperty('particle'..num..'.color', getColorFromHex(windowsEventColors[selectedColor]))
-			end
 
 			setProperty('street.color', streetColors[selectedColor])
 			for i, object in ipairs({'boyfriend', 'dad', 'gf'}) do
 				setProperty(object..'.color', charactersColors[selectedColor])
+			end
+			
+			for num = 1, particles do
+				setProperty('particle'..num..'.color', getColorFromHex(windowsEventColors[selectedColor]))
 			end
 		elseif value1 == '2' then -- Resets gradient, and creates new particles
 			if lowQuality == false then
