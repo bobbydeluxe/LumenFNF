@@ -19,6 +19,9 @@ class IntroSplashState extends ScriptedState
 	var spriteEvents:FlxTimer;
 	var logo:FlxSprite;
 
+	var videoPlaying:Bool = false;
+	var logoPlaying:Bool = false;
+
 	override function create()
 	{
 		FlxG.autoPause = ClientPrefs.data.autoPause;
@@ -32,6 +35,8 @@ class IntroSplashState extends ScriptedState
 
 	public function startVideo(name:String)
     {
+		videoPlaying = true;
+		logoPlaying = false;
         videoCutscene = new FlxVideoSprite(0, 0);
         add(videoCutscene);
         videoCutscene.load(Paths.video(name));
@@ -42,6 +47,7 @@ class IntroSplashState extends ScriptedState
         {
             new FlxTimer().start(0.1, function(tmr:FlxTimer)
                 {
+					videoPlaying = false;
                 	logoFunc();
 					videoCutscene.visible = false;
 					videoCutscene.kill();
@@ -67,6 +73,7 @@ class IntroSplashState extends ScriptedState
 				introSoundNum = Math.floor(Math.random() * Constants.introSoundCount) + 1;
 				FlxG.sound.play(Paths.sound('opening/${Constants.introSoundPrefix}${introSoundNum}'));
 				logo.visible = true;
+				logoPlaying = true;
 				logo.scale.set(0.2, 1.25);
 				new FlxTimer().start(1/16, (t2:FlxTimer) -> {
 					logo.scale.set(1.25, 0.5);
@@ -77,16 +84,10 @@ class IntroSplashState extends ScriptedState
 								ease: FlxEase.elasticOut,
 								onComplete: (t:FlxTween) -> {
 									new FlxTimer().start(1, (t5:FlxTimer) -> {
-										FlxTween.tween(logo.scale, {x: 0.2, y: 0.2}, 1.5, {ease: FlxEase.cubeIn});
+										FlxTween.tween(logo.scale, {x: 0.2, y: 0.2}, 1.5, {ease: FlxEase.quartIn});
 										FlxTween.tween(fadeShader, {fadeVal: 0}, 1.5, {
-											ease: FlxEase.cubeIn,
+											ease: FlxEase.quartIn,
 											onComplete: (t:FlxTween) -> {
-												/*
-												fadeShader.destroy();
-												logo.shader = null;
-												logo.kill();
-												logo = null;
-												*/
 												FlxTimer.wait(0.8, finish);
 											}
 										});
@@ -99,8 +100,33 @@ class IntroSplashState extends ScriptedState
 		});
 	}
 
+	var skipCooldown:Bool = false;
+
+	override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+
+		if (!skipCooldown && FlxG.keys.justPressed.ANY)
+		{
+			skipCooldown = true;
+
+			if (videoPlaying)
+			{
+				videoCutscene.stop();
+				logoFunc();
+			}
+			else if (logoPlaying)
+			{
+				finish();
+			}
+		}
+	}
+
+
 	function finish()
 	{
+		logoPlaying = false;
+		videoPlaying = false;
 		if (spriteEvents != null)
 		{
 			spriteEvents.cancel();

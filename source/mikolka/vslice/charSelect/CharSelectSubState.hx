@@ -138,6 +138,7 @@ class CharSelectSubState extends MusicBeatSubState
     bg.loadGraphic(Paths.image('charSelect/charSelectBG'));
     bg.scrollFactor.set(0.1, 0.1);
     add(bg);
+    callOnScripts('onLoad', ['bg', bg]);
 
     var crowd:FlxAtlasSprite = new FlxAtlasSprite(0, 0, Paths.animateAtlas("charSelect/crowd"));
     crowd.anim.play();
@@ -146,17 +147,20 @@ class CharSelectSubState extends MusicBeatSubState
     });
     crowd.scrollFactor.set(0.3, 0.3);
     add(crowd);
+    callOnScripts('onLoad', ['crowd', crowd]);
 
     var stageSpr:FlxSprite = new FlxSprite(-40, 391);
     stageSpr.frames = Paths.getSparrowAtlas("charSelect/charSelectStage");
     stageSpr.animation.addByPrefix("idle", "stage full instance 1", 24, true);
     stageSpr.animation.play("idle");
     add(stageSpr);
+    callOnScripts('onLoad', ['stageSpr', stageSpr]);
 
     var curtains:FlxSprite = new FlxSprite(-47, -49);
     curtains.loadGraphic(Paths.image('charSelect/curtains'));
     curtains.scrollFactor.set(1.4, 1.4);
     add(curtains);
+    callOnScripts('onLoad', ['curtains', curtains]);
 
     barthing = new FlxAtlasSprite(0, 0, Paths.animateAtlas("charSelect/barThing"));
     barthing.anim.play("");
@@ -166,6 +170,7 @@ class CharSelectSubState extends MusicBeatSubState
     barthing.blend = BlendMode.MULTIPLY;
     barthing.scrollFactor.set(0, 0);
     add(barthing);
+    callOnScripts('onLoad', ['barthing', barthing]);
 
     barthing.y += 80;
     FlxTween.tween(barthing, {y: barthing.y - 80}, 1.3, {ease: FlxEase.expoOut});
@@ -173,23 +178,28 @@ class CharSelectSubState extends MusicBeatSubState
     var charLight:FlxSprite = new FlxSprite(800, 250);
     charLight.loadGraphic(Paths.image('charSelect/charLight'));
     add(charLight);
+    callOnScripts('onLoad', ['charLight', charLight]);
 
     var charLightGF:FlxSprite = new FlxSprite(180, 240);
     charLightGF.loadGraphic(Paths.image('charSelect/charLight'));
     add(charLightGF);
+    callOnScripts('onLoad', ['charLightGF', charLightGF]);
 
     gfChill = new CharSelectGF();
     gfChill.switchGF(curChar);
     add(gfChill);
+    callOnScripts('onLoad', ['gfChill', gfChill]);
 
     playerChillOut = new CharSelectPlayer(0, 0);
     playerChillOut.switchChar(curChar); //? Do not init him
     playerChillOut.visible = false;
     add(playerChillOut);
+    callOnScripts('onLoad', ['playerChillOut', playerChillOut]);
 
     playerChill = new CharSelectPlayer(0, 0);
     playerChill.switchChar(curChar); //? Set to current character
     add(playerChill);
+    callOnScripts('onLoad', ['playerChill', playerChill]);
 
     var speakers:FlxAtlasSprite = new FlxAtlasSprite(0, 0, Paths.animateAtlas("charSelect/charSelectSpeakers"));
     speakers.anim.play("");
@@ -198,11 +208,13 @@ class CharSelectSubState extends MusicBeatSubState
     });
     speakers.scrollFactor.set(1.8, 1.8);
     add(speakers);
+    callOnScripts('onLoad', ['speakers', speakers]);
 
     var fgBlur:FlxSprite = new FlxSprite(-125, 170);
     fgBlur.loadGraphic(Paths.image('charSelect/foregroundBlur'));
     fgBlur.blend = openfl.display.BlendMode.MULTIPLY;
     add(fgBlur);
+    callOnScripts('onLoad', ['fgBlur', fgBlur]);
 
     dipshitBlur = new FlxSprite(419, -65);
     dipshitBlur.frames = Paths.getSparrowAtlas("charSelect/dipshitBlur");
@@ -210,6 +222,7 @@ class CharSelectSubState extends MusicBeatSubState
     dipshitBlur.blend = BlendMode.ADD;
     dipshitBlur.animation.play("idle");
     add(dipshitBlur);
+    callOnScripts('onLoad', ['dipshitBlur', dipshitBlur]);
 
     dipshitBacking = new FlxSprite(423, -17);
     dipshitBacking.frames = Paths.getSparrowAtlas("charSelect/dipshitBacking");
@@ -217,6 +230,7 @@ class CharSelectSubState extends MusicBeatSubState
     dipshitBacking.blend = BlendMode.ADD;
     dipshitBacking.animation.play("idle");
     add(dipshitBacking);
+    callOnScripts('onLoad', ['dipshitBacking', dipshitBacking]);
 
     dipshitBacking.y += 210;
     FlxTween.tween(dipshitBacking, {y: dipshitBacking.y - 210}, 1.1, {ease: FlxEase.expoOut});
@@ -224,6 +238,7 @@ class CharSelectSubState extends MusicBeatSubState
     chooseDipshit = new FlxSprite(426, -13);
     chooseDipshit.loadGraphic(Paths.image('charSelect/chooseDipshit'));
     add(chooseDipshit);
+    callOnScripts('onLoad', ['chooseDipshit', chooseDipshit]);
 
     chooseDipshit.y += 200;
     FlxTween.tween(chooseDipshit, {y: chooseDipshit.y - 200}, 1, {ease: FlxEase.expoOut});
@@ -237,6 +252,7 @@ class CharSelectSubState extends MusicBeatSubState
 
     nametag = new Nametag(0,0,curChar);//? Set to current char
     add(nametag);
+    callOnScripts('onLoad', ['nametag', nametag]);
 
     nametag.scrollFactor.set();
 
@@ -260,6 +276,7 @@ class CharSelectSubState extends MusicBeatSubState
 
     grpCursors = new FlxTypedGroup<FlxSprite>();
     add(grpCursors);
+    callOnScripts('onLoad', ['grpCursors', grpCursors]);
 
     chrSelectCursor = new FlxSprite(0, 0);
     chrSelectCursor.loadGraphic(Paths.image('charSelect/charSelector'));
@@ -284,6 +301,7 @@ class CharSelectSubState extends MusicBeatSubState
     cursorConfirmed.animation.addByPrefix("idle", "cursor ACCEPTED instance 1", 24, true);
     cursorConfirmed.visible = false;
     add(cursorConfirmed);
+    callOnScripts('onLoad', ['cursorConfirmed', cursorConfirmed]);
 
     cursorDenied = new FlxSprite(0, 0);
     cursorDenied.scrollFactor.set();
@@ -291,6 +309,7 @@ class CharSelectSubState extends MusicBeatSubState
     cursorDenied.animation.addByPrefix("idle", "cursor DENIED instance 1", 24, false);
     cursorDenied.visible = false;
     add(cursorDenied);
+    callOnScripts('onLoad', ['cursorDenied', cursorDenied]);
 
     grpCursors.add(cursorDarkBlue);
     grpCursors.add(cursorBlue);
@@ -304,6 +323,7 @@ class CharSelectSubState extends MusicBeatSubState
     modSelector = new ModSelector(this);
     modSelector.camera = UICam;
     add(modSelector);
+    callOnScripts('onLoad', ['modSelector', modSelector]);
 
     modSelector.y +=80;
     FlxTween.tween(modSelector, {y: modSelector.y - 80}, 1.3, {ease: FlxEase.expoOut});
@@ -374,6 +394,7 @@ class CharSelectSubState extends MusicBeatSubState
 
     camFollow = new FlxObject(0, 0, 1, 1);
     add(camFollow);
+    callOnScripts('onLoad', ['camFollow', camFollow]);
     camFollow.screenCenter();
 
     // FlxG.camera.follow(camFollow, LOCKON, 0.01);
@@ -395,6 +416,7 @@ class CharSelectSubState extends MusicBeatSubState
     transitionGradient.updateHitbox();
     FlxTween.tween(transitionGradient, {y: -720}, 1, {ease: FlxEase.expoOut});
     add(transitionGradient);
+    callOnScripts('onLoad', ['transitionGradient', transitionGradient]);
 
     camFollow.screenCenter();
     camFollow.y -= 150;
@@ -412,6 +434,7 @@ class CharSelectSubState extends MusicBeatSubState
     blackScreen.x = -(FlxG.width * 0.5);
     blackScreen.y = -(FlxG.height * 0.5);
     add(blackScreen);
+    callOnScripts('onLoad', ['blackScreen', blackScreen]);
 
     introSound = FunkinSound.load(Paths.sound('CS_Lights'),0); //? fix call
     introSound.pitch = 1;
@@ -480,6 +503,7 @@ class CharSelectSubState extends MusicBeatSubState
   {
     grpIcons = new FlxSpriteGroup();
     add(grpIcons);
+    callOnScripts('onLoad', ['grpIcons', grpIcons]);
 
     FlxG.debugger.addTrackerProfile(new TrackerProfile(FlxSpriteGroup, ["x", "y"]));
     // FlxG.debugger.track(grpIcons, "iconGrp");

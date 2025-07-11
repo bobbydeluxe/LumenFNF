@@ -378,6 +378,7 @@ class FreeplayState extends ScriptedSubState
 		if (backingCard != null)
 		{
 			add(backingCard);
+			callOnScripts('onLoad', ['backingCard', backingCard]);
 			backingCard.init();
 			backingCard.applyExitMovers(exitMovers, exitMoversCharSel);
 			backingCard.instance = this;
@@ -392,6 +393,7 @@ class FreeplayState extends ScriptedSubState
 				speed: 0.5
 			});
 			add(dj);
+			callOnScripts('onLoad', ['dj', dj]);
 			exitMoversCharSel.set([dj], {
 				y: -175,
 				speed: 0.8,
@@ -403,6 +405,7 @@ class FreeplayState extends ScriptedSubState
 		djTouchHitbox.cameras = dj.cameras;
 		djTouchHitbox.active = false;
 		add(djTouchHitbox);
+		callOnScripts('onLoad', ['djTouchHitbox', djTouchHitbox]);
 
 		bgDad.shader = angleMaskShader;
 		bgDad.visible = false;
@@ -410,6 +413,7 @@ class FreeplayState extends ScriptedSubState
 		var blackOverlayBullshitLOLXD:FlxSprite = new FlxSprite(FlxG.width, 0, Paths.image("back"));
 		blackOverlayBullshitLOLXD.alpha = 1; // ? graphic because shareds are shit
 		add(blackOverlayBullshitLOLXD); // used to mask the text lol!
+		callOnScripts('onLoad', ['blackOverlayBullshitLOLXD', blackOverlayBullshitLOLXD]);
 
 		// this makes the texture sizes consistent, for the angle shader
 		bgDad.setGraphicSize(0, FlxG.height);
@@ -431,6 +435,7 @@ class FreeplayState extends ScriptedSubState
 		});
 
 		add(bgDad);
+		callOnScripts('onLoad', ['bgDad', bgDad]);
 		// ? changed offset
 		FlxTween.tween(blackOverlayBullshitLOLXD, {x: (backingCard.pinkBack.width * 0.74)}, 0.7, {ease: FlxEase.quintOut});
 
@@ -438,18 +443,23 @@ class FreeplayState extends ScriptedSubState
 
 		rankBg.makeSolidColor(FlxG.width, FlxG.height, 0xD3000000);
 		add(rankBg);
+		callOnScripts('onLoad', ['rankBg', rankBg]);
 
 		add(grpSongs);
+		callOnScripts('onLoad', ['grpSongs', grpSongs]);
 
 		add(grpCapsules);
+		callOnScripts('onLoad', ['grpCapsules', grpCapsules]);
 
 		grpFallbackDifficulty = new FlxText(70, 90, 250, "AAAAAAAAAAAAAA");
 		grpFallbackDifficulty.setFormat("VCR OSD Mono", 60, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 		grpFallbackDifficulty.borderSize = 2;
 		add(grpFallbackDifficulty);
+		callOnScripts('onLoad', ['grpFallbackDifficulty', grpFallbackDifficulty]);
 
 		grpDifficulties = new FlxTypedSpriteGroup<DifficultySprite>(-300, 80);
 		add(grpDifficulties);
+		callOnScripts('onLoad', ['grpDifficulties', grpDifficulties]);
 
 		exitMovers.set([grpDifficulties], {
 			x: -300,
@@ -487,6 +497,7 @@ class FreeplayState extends ScriptedSubState
 
 		albumRoll.albumId = null;
 		add(albumRoll);
+		callOnScripts('onLoad', ['albumRoll', albumRoll]);
 
 		var overhangStuff:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 164, FlxColor.BLACK);
 		overhangStuff.y -= overhangStuff.height;
@@ -549,6 +560,7 @@ class FreeplayState extends ScriptedSubState
 		fnfHighscoreSpr.setGraphicSize(0, Std.int(fnfHighscoreSpr.height * 1));
 		fnfHighscoreSpr.updateHitbox();
 		add(fnfHighscoreSpr);
+		callOnScripts('onLoad', ['fnfHighscoreSpr', fnfHighscoreSpr]);
 
 		new FlxTimer().start(FlxG.random.float(12, 50), function(tmr)
 		{
@@ -558,15 +570,19 @@ class FreeplayState extends ScriptedSubState
 
 		fp.visible = false;
 		add(fp);
+		callOnScripts('onLoad', ['fp', fp]);
 
 		var clearBoxSprite:FlxSprite = new FlxSprite(1165, 65).loadGraphic(Paths.image('freeplay/clearBox'));
 		clearBoxSprite.visible = false;
 		add(clearBoxSprite);
+		callOnScripts('onLoad', ['clearBoxSprite', clearBoxSprite]);
 
 		txtCompletion.visible = false;
 		add(txtCompletion);
+		callOnScripts('onLoad', ['txtCompletion', txtCompletion]);
 
 		add(letterSort);
+		callOnScripts('onLoad', ['letterSort', letterSort]);
 		letterSort.visible = false;
 
 		exitMovers.set([letterSort], {
@@ -620,16 +636,22 @@ class FreeplayState extends ScriptedSubState
 		diffSelLeft.visible = false;
 		diffSelRight.visible = false;
 		add(diffSelLeft);
+		callOnScripts('onLoad', ['diffSelLeft', diffSelLeft]);
 		add(diffSelRight);
+		callOnScripts('onLoad', ['diffSelRight', diffSelRight]);
 
 		// putting these here to fix the layering
 		add(overhangStuff);
+		callOnScripts('onLoad', ['overhangStuff', overhangStuff]);
 		add(fnfFreeplay);
+		callOnScripts('onLoad', ['fnfFreeplay', fnfFreeplay]);
 		add(ostName);
+		callOnScripts('onLoad', ['ostName', ostName]);
 
 		if (PlayerRegistry.instance.hasNewCharacter() == true)
 		{
 			add(charSelectHint);
+			callOnScripts('onLoad', ['charSelectHint', charSelectHint]);
 		}
 
 		// be careful not to "add()" things in here unless it's to a group that's already added to the state
@@ -730,6 +752,7 @@ class FreeplayState extends ScriptedSubState
 		rankVignette.blend = BlendMode.ADD;
 		// rankVignette.cameras = [rankCamera];
 		add(rankVignette);
+		callOnScripts('onLoad', ['rankVignette', rankVignette]);
 		rankVignette.alpha = 0;
 
 		forEach(function(bs)
@@ -998,6 +1021,7 @@ class FreeplayState extends ScriptedSubState
 			sparks.setPosition(517, 134);
 			sparks.scale.set(0.5, 0.5);
 			add(sparks);
+			callOnScripts('onLoad', ['sparks', sparks]);
 			sparks.cameras = [rankCamera];
 
 			sparksADD.visible = false;
@@ -1007,6 +1031,7 @@ class FreeplayState extends ScriptedSubState
 			sparksADD.blend = BlendMode.ADD;
 			sparksADD.scale.set(0.5, 0.5);
 			add(sparksADD);
+			callOnScripts('onLoad', ['sparksADD', sparksADD]);
 			sparksADD.cameras = [rankCamera];
 
 			switch (fromResults.oldRank)
@@ -1330,6 +1355,7 @@ class FreeplayState extends ScriptedSubState
 			wait: 0.1
 		});
 		add(transitionGradient);
+		callOnScripts('onLoad', ['transitionGradientTo', transitionGradient]);
 		for (index => capsule in grpCapsules.members)
 		{
 			var distFromSelected:Float = Math.abs(index - curSelected) - 1;
@@ -1391,6 +1417,7 @@ class FreeplayState extends ScriptedSubState
 			wait: 0.1
 		});
 		add(transitionGradient);
+		callOnScripts('onLoad', ['transitionGradientFrom', transitionGradient]);
 		changeDiff(0, true);
 		// FlxTween.tween(transitionGradient, {alpha: 0}, 1, {ease: FlxEase.circIn});
 		// for (index => capsule in grpCapsules.members)
@@ -2065,6 +2092,7 @@ class FreeplayState extends ScriptedSubState
 		capsuleOptionsMenu.cameras = [funnyCam];
 		capsuleOptionsMenu.zIndex = 10000;
 		add(capsuleOptionsMenu);
+		callOnScripts('onLoad', ['capsuleOptionsMenu', capsuleOptionsMenu]);
 
 		capsuleOptionsMenu.onConfirm = function(targetInstId:String)
 		{

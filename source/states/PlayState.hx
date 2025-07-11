@@ -1888,10 +1888,7 @@ class PlayState extends ScriptedState
 	// Health icon updaters
 	public dynamic function updateIconsScale(elapsed:Float)
 	{
-		var codenameBop:Float = FlxEase.expoOut(elapsed * 9 * playbackRate); // imitates codename engine's icon scaling
-		var psychBop:Float = Math.exp(-elapsed * 9 * playbackRate); // imitates psych engine's icon scaling
-
-		var decay:Float = FlxMath.lerp(codenameBop, psychBop, 7/9);
+		var decay:Float = Math.exp(-elapsed * 9 * playbackRate);
 
 		for (icon in [iconP1, iconP2]) {
 			var mult:Float = FlxMath.lerp(1, icon.scale.x, decay);

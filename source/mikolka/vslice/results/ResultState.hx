@@ -173,12 +173,14 @@ class ResultState extends EpicSubState
     bg.zIndex = 10;
     bg.cameras = [cameraBG];
     add(bg);
+    callOnScripts('onLoad', ['bg', bg]);
 
     bgFlash.scrollFactor.set();
     bgFlash.visible = false;
     bgFlash.zIndex = 20;
     // bgFlash.cameras = [cameraBG];
     add(bgFlash);
+    callOnScripts('onLoad', ['bgFlash', bgFlash]);
 
     // The sound system which falls into place behind the score text. Plays every time!
     var soundSystem:FlxSprite = FunkinSprite.createSparrow(-15, -180, 'resultScreen/soundSystem');
@@ -190,6 +192,7 @@ class ResultState extends EpicSubState
     });
     soundSystem.zIndex = 1100;
     add(soundSystem);
+    callOnScripts('onLoad', ['soundSystem', soundSystem]);
 
     // Fetch playable character data. Default to BF on the results screen if we can't find it.
     //? changed a little code here
@@ -268,6 +271,7 @@ class ResultState extends EpicSubState
             });
           // Add to the scene.
           add(animation);
+          callOnScripts('onLoad', ['animation', animation]);
         case 'sparrow':
           var animation:FunkinSprite = FunkinSprite.createSparrow(offsets[0], offsets[1], animPath);
           animation.animation.addByPrefix('idle', '', 24, false, false, false);
@@ -292,14 +296,17 @@ class ResultState extends EpicSubState
             });
           // Add to the scene.
           add(animation);
+          callOnScripts('onLoad', ['animation', animation]);
       }
     }
 
     var diffSpr:String = 'diff_${params?.difficultyId ?? 'Normal'}';
     difficulty.loadGraphic(Paths.image("resultScreen/" + diffSpr));
     add(difficulty);
+    callOnScripts('onLoad', ['difficulty', difficulty]);
 
     add(songName);
+    callOnScripts('onLoad', ['songName', songName]);
 
     var angleRad = songName.angle * Math.PI / 180;
     speedOfTween.x = -1.0 * Math.cos(angleRad);
@@ -318,11 +325,13 @@ class ResultState extends EpicSubState
     FlxTween.tween(blackTopBar, {y: 0}, 7 / 24, {ease: FlxEase.quartOut, startDelay: 3 / 24});
     blackTopBar.zIndex = 1010;
     add(blackTopBar);
+    callOnScripts('onLoad', ['topBarBlack', blackTopBar]);
 
     resultsAnim.animation.addByPrefix("result", "results instance 1", 24, false);
     resultsAnim.visible = false;
     resultsAnim.zIndex = 1200;
     add(resultsAnim);
+    callOnScripts('onLoad', ['resultsAnim', resultsAnim]);
     new FlxTimer().start(6 / 24, _ -> {
       resultsAnim.visible = true;
       resultsAnim.animation.play("result");
@@ -332,6 +341,7 @@ class ResultState extends EpicSubState
     ratingsPopin.visible = false;
     ratingsPopin.zIndex = 1200;
     add(ratingsPopin);
+    callOnScripts('onLoad', ['ratingsPopin', ratingsPopin]);
     new FlxTimer().start(21 / 24, _ -> {
       ratingsPopin.visible = true;
       ratingsPopin.animation.play("idle");
@@ -341,6 +351,7 @@ class ResultState extends EpicSubState
     scorePopin.visible = false;
     scorePopin.zIndex = 1200;
     add(scorePopin);
+    callOnScripts('onLoad', ['scorePopin', scorePopin]);
     new FlxTimer().start(36 / 24, _ -> {
       scorePopin.visible = true;
       scorePopin.animation.play("score");
@@ -368,6 +379,7 @@ class ResultState extends EpicSubState
     highscoreNew.updateHitbox();
     highscoreNew.zIndex = 1200;
     add(highscoreNew);
+    callOnScripts('onLoad', ['highscoreNew', highscoreNew]);
 
     new FlxTimer().start(rank.getHighscoreDelay(), _ -> {
       if (params.isNewHighscore ?? false)
@@ -387,6 +399,7 @@ class ResultState extends EpicSubState
     var ratingGrp:FlxTypedGroup<TallyCounter> = new FlxTypedGroup<TallyCounter>();
     ratingGrp.zIndex = 1200;
     add(ratingGrp);
+    callOnScripts('onLoad', ['ratingGrp', ratingGrp]);
 
     /**
      * NOTE: We display how many notes were HIT, not how many notes there were in total.
@@ -424,6 +437,7 @@ class ResultState extends EpicSubState
     score.visible = false;
     score.zIndex = 1200;
     add(score);
+    callOnScripts('onLoad', ['score', score]);
 
     for (ind => rating in ratingGrp.members)
     {
@@ -474,6 +488,7 @@ class ResultState extends EpicSubState
     rankBg.makeSolidColor(FlxG.width, FlxG.height, 0xFF000000);
     rankBg.zIndex = 99999;
     add(rankBg);
+    callOnScripts('onLoad', ['rankBg', rankBg]);
 
     rankBg.alpha = 0;
 
@@ -548,6 +563,7 @@ class ResultState extends EpicSubState
       });
     clearPercentCounter.zIndex = 450;
     add(clearPercentCounter);
+    callOnScripts('onLoad', ['clearPercentCounter', clearPercentCounter]);
 
     if (ratingsPopin == null)
     {
@@ -589,6 +605,7 @@ class ResultState extends EpicSubState
     rankTextVert.y = 100;
     rankTextVert.zIndex = 990;
     add(rankTextVert);
+    callOnScripts('onLoad', ['rankTextVert', rankTextVert]);
 
     FlxFlicker.flicker(rankTextVert, 2 / 24 * 3, 2 / 24, true);
 
@@ -606,6 +623,8 @@ class ResultState extends EpicSubState
       rankTextBack.zIndex = 100;
       rankTextBack.cameras = [cameraScroll];
       add(rankTextBack);
+      callOnScripts('onLoad', ['rankTextBack' + i, rankTextBack]);
+      callOnScripts('onLoad', ['rankTextBack', rankTextBack]); //? for compatibility i guess idk
 
       // Scrolling.
       rankTextBack.velocity.x = (i % 2 == 0) ? -7.0 : 7.0;
@@ -675,6 +694,7 @@ class ResultState extends EpicSubState
     if (clearPercentSmall != null)
     {
       add(clearPercentSmall);
+      callOnScripts('onLoad', ['clearPercentSmall', clearPercentSmall]);
       clearPercentSmall.visible = true;
       clearPercentSmall.flash(true);
       new FlxTimer().start(0.4, _ -> {

@@ -1,9 +1,7 @@
--- shooting tankmen script [for stress] by ledonic--
--- shader application logic in oncreatepost by bobbyDX [me lol] --
-
 local shootNotes = {}
 local runTankmen = {}
 function onCreate()
+    -- Creates the table using the 'picospeaker' chart.
     local songFormat = callMethodFromClass('backend.Paths', 'formatToSongPath', {songPath})
     local shootChart = callMethodFromClass('backend.Song', 'getChart', {'picospeaker', songFormat})
     for _, section in pairs(shootChart.notes) do
@@ -12,6 +10,7 @@ function onCreate()
         end
     end
 
+    -- Randomly spawns all the running tankmen for the song.
     if lowQuality == false then
         local tankNum = 0
         for i = 1, #shootNotes do
@@ -44,6 +43,7 @@ function onCreatePost()
     end
 end
 
+-- Shooting and tankmen running behavior.
 function onUpdatePost(elapsed)
     updateTankman()
     if #shootNotes > 0 and getSongPosition() > shootNotes[1][1] then
@@ -85,16 +85,13 @@ function updateTankman()
                     setProperty(tag..'.x', (0.95 * screenWidth + runTankmen[tankNum].endingOffset) - curSpeed)
                 end
             elseif getProperty(tag..'.animation.finished') then
-                -- removeLuaSprite(tag)
-                -- this freezes the tankmen so i won't add it here
+                removeLuaSprite(tag)
             end
 
             if getSongPosition() > runTankmen[tankNum].strumTime then
                 if runTankmen[tankNum].isDead == false then
                     playAnim(tag, 'shot', true)
                     runTankmen[tankNum].isDead = true
-                    removeLuaSprite(tag)
-                    -- there it goes, tankmen should no longer move after being shot in the head
                 end
             end
         end
