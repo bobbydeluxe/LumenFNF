@@ -340,19 +340,19 @@ enum abstract ScoringRank(String)
 		switch (abstract)
 		{
 			case PERFECT_GOLD:
-				return 'resultScreen/rankText/rankScrollPERFECT';
+				return 'resultScreen/rankText/horizontal/rankScrollPERFECT';
 			case PERFECT:
-				return 'resultScreen/rankText/rankScrollPERFECT';
+				return 'resultScreen/rankText/horizontal/rankScrollPERFECT';
 			case EXCELLENT:
-				return 'resultScreen/rankText/rankScrollEXCELLENT';
+				return 'resultScreen/rankText/horizontal/rankScrollEXCELLENT';
 			case GREAT:
-				return 'resultScreen/rankText/rankScrollGREAT';
+				return 'resultScreen/rankText/horizontal/rankScrollGREAT';
 			case GOOD:
-				return 'resultScreen/rankText/rankScrollGOOD';
+				return 'resultScreen/rankText/horizontal/rankScrollGOOD';
 			case SHIT:
-				return 'resultScreen/rankText/rankScrollLOSS';
+				return 'resultScreen/rankText/horizontal/rankScrollLOSS';
 			default:
-				return 'resultScreen/rankText/rankScrollGOOD';
+				return 'resultScreen/rankText/horizontal/rankScrollGOOD';
 		}
 	}
 
@@ -361,19 +361,19 @@ enum abstract ScoringRank(String)
 		switch (abstract)
 		{
 			case PERFECT_GOLD:
-				return 'resultScreen/rankText/rankTextPERFECT';
+				return 'resultScreen/rankText/vertical/rankTextPERFECT';
 			case PERFECT:
-				return 'resultScreen/rankText/rankTextPERFECT';
+				return 'resultScreen/rankText/vertical/rankTextPERFECT';
 			case EXCELLENT:
-				return 'resultScreen/rankText/rankTextEXCELLENT';
+				return 'resultScreen/rankText/vertical/rankTextEXCELLENT';
 			case GREAT:
-				return 'resultScreen/rankText/rankTextGREAT';
+				return 'resultScreen/rankText/vertical/rankTextGREAT';
 			case GOOD:
-				return 'resultScreen/rankText/rankTextGOOD';
+				return 'resultScreen/rankText/vertical/rankTextGOOD';
 			case SHIT:
-				return 'resultScreen/rankText/rankTextLOSS';
+				return 'resultScreen/rankText/vertical/rankTextLOSS';
 			default:
-				return 'resultScreen/rankText/rankTextGOOD';
+				return 'resultScreen/rankText/vertical/rankTextGOOD';
 		}
 	}
 }

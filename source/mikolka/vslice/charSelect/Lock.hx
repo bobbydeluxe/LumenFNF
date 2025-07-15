@@ -6,7 +6,7 @@ import mikolka.funkin.FlxAtlasSprite;
 import mikolka.compatibility.FunkinPath as Paths; 
 class Lock extends FlxAtlasSprite
 {
-  var colors:Array<FlxColor> = [
+  public static var colors:Array<FlxColor> = [
     0x31F2A5, 0x20ECCD, 0x24D9E8,
     0x20ECCD, 0x20C8D4, 0x209BDD,
     0x209BDD, 0x2362C9, 0x243FB9

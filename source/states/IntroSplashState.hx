@@ -22,6 +22,8 @@ class IntroSplashState extends ScriptedState
 	var videoPlaying:Bool = false;
 	var logoPlaying:Bool = false;
 
+	public static var doLogo:Bool = true;
+
 	override function create()
 	{
 		FlxG.autoPause = ClientPrefs.data.autoPause;
@@ -29,7 +31,11 @@ class IntroSplashState extends ScriptedState
 		if (Paths.fileExists('${Constants.introVideo}.${Paths.VIDEO_EXT}', BINARY, false, 'videos')) {
 			startVideo(Constants.introVideo);
 		} else {
-			logoFunc();
+			if (doLogo) {
+				logoFunc();
+			} else {
+				finish();
+			}
 		}
 	}
 
@@ -48,7 +54,11 @@ class IntroSplashState extends ScriptedState
             new FlxTimer().start(0.1, function(tmr:FlxTimer)
                 {
 					videoPlaying = false;
-                	logoFunc();
+                	if (doLogo) {
+						logoFunc();
+					} else {
+						finish();
+					}
 					videoCutscene.visible = false;
 					videoCutscene.kill();
 					videoCutscene = null;
@@ -84,9 +94,9 @@ class IntroSplashState extends ScriptedState
 								ease: FlxEase.elasticOut,
 								onComplete: (t:FlxTween) -> {
 									new FlxTimer().start(1, (t5:FlxTimer) -> {
-										FlxTween.tween(logo.scale, {x: 0.2, y: 0.2}, 1.5, {ease: FlxEase.quartIn});
+										FlxTween.tween(logo.scale, {x: 0.2, y: 0.2}, 1.5, {ease: FlxEase.circIn});
 										FlxTween.tween(fadeShader, {fadeVal: 0}, 1.5, {
-											ease: FlxEase.quartIn,
+											ease: FlxEase.circIn,
 											onComplete: (t:FlxTween) -> {
 												FlxTimer.wait(0.8, finish);
 											}
@@ -113,7 +123,11 @@ class IntroSplashState extends ScriptedState
 			if (videoPlaying)
 			{
 				videoCutscene.stop();
-				logoFunc();
+				if (doLogo) {
+					logoFunc();
+				} else {
+					finish();
+				}
 			}
 			else if (logoPlaying)
 			{

@@ -34,8 +34,21 @@ end
 
 function onCreatePost()
 	-- dad trail, due to being too case-specific, there's no native implementation for the trails, so we just use runHaxeCode for it.
-	addHaxeLibrary('FlxTrail', 'flixel.addons.effects');
-	runHaxeCode("game.insert(game.members.indexOf(game.dadGroup) - 1, new FlxTrail(game.dad, null, 4, 24, 0.3, 0.069));");
+	runHaxeCode([[
+		import flixel.math.FlxAngle;
+		import flixel.addons.effects.FlxTrail;
+
+		if (game.dadTrail != null) {
+			game.dadTrail.destroy(); // Cleanly destroy the old trail
+			game.remove(game.dadTrail); // Optional: also remove from scene graph
+			game.dadTrail = null;
+		}
+
+		// Add new trail
+		var newTrail:FlxTrail = new FlxTrail(dad, null, 4, 24, 0.3, 0.069);
+		game.dadTrail = newTrail;
+		game.addBehindDad(dadTrail);
+	]]);
 end
 
 function onEvent(name, value1, value2)

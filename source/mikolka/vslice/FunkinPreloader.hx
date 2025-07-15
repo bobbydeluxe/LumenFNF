@@ -157,10 +157,6 @@ class FunkinPreloader extends FlxBasePreloader
 		var icon = lime.graphics.Image.fromFile("icon.png");
 		Lib.current.stage.window.setIcon(icon);
 		#end
-    #if TITLE_SCREEN_EASTER_EGG
-    if(Date.now().getMonth() == 3 && Date.now().getDate() == 28) Lib.current.stage.window.title = "friday night funkin - quasiluminaryengine [creator bday]";
-    // if 0 is january then 3 gotta be april
-    #end
     // Scale assets to the screen size.
     ratio = this._width / BASE_WIDTH / 2.0;
 

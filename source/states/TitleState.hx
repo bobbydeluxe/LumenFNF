@@ -59,6 +59,8 @@ class TitleState extends ScriptedState
 
 	var wackyImage:FlxSprite;
 
+	var cancelLoad:Bool = false;
+
 	#if TITLE_SCREEN_EASTER_EGG
 	final easterEggKeys:Array<String> = [
 		'SHADOW', 'RIVEREN', 'BBPANZU', 'PESSY'
@@ -81,6 +83,8 @@ class TitleState extends ScriptedState
 		}
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
+
+		cancelLoad = false;
 
 		if(!initialized)
 		{
@@ -247,10 +251,15 @@ class TitleState extends ScriptedState
 		ngSpr.visible = false;
 		
 		add(gfDance);
+		callOnScripts('onLoad', ['gfDance', gfDance], true);
 		add(logoBl); //FNF Logo
+		callOnScripts('onLoad', ['logoBl', logoBl], true);
 		add(titleText); //"Press Enter to Begin" text
+		callOnScripts('onLoad', ['titleText', titleText], true);
 		add(credGroup);
+		callOnScripts('onLoad', ['credGroup', credGroup], true);
 		add(ngSpr);
+		callOnScripts('onLoad', ['ngSpr', ngSpr], true);
 
 		if (initialized)
 			skipIntro();
@@ -298,6 +307,7 @@ class TitleState extends ScriptedState
 						var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image(titleJSON.backgroundSprite));
 						bg.antialiasing = ClientPrefs.data.antialiasing;
 						add(bg);
+						callOnScripts('onLoad', ['backgroundSprite', bg], true);
 					}
 				}
 				catch(e:haxe.Exception)
@@ -488,6 +498,7 @@ class TitleState extends ScriptedState
 							black.updateHitbox();
 							black.alpha = 0;
 							add(black);
+							callOnScripts('onLoad', ['blackScreen', black], true);
 
 							FlxTween.tween(black, {alpha: 1}, 1, {
 								onComplete: function(twn:FlxTween)
@@ -603,41 +614,43 @@ class TitleState extends ScriptedState
 
 		if (!closedState && sickBeats <= beat) {
 			for (b in sickBeats ... beat + 1) {
-				switch (b) {
-					case 0:
-						//FlxG.sound.music.stop();
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-						FlxG.sound.music.fadeIn(4, 0, 0.7);
-					case 1:
-						createCoolText(['Psych Engine by'], 40);
-					case 3:
-						addMoreText('Shadow Mario', 40);
-						addMoreText('Riveren', 40);
-					case 4:
-						deleteCoolText();
-					case 5:
-						createCoolText(['Not associated', 'with'], -40);
-					case 7:
-						addMoreText('newgrounds', -40);
-						ngSpr.visible = true;
-					case 8:
-						deleteCoolText();
-						ngSpr.visible = false;
-					case 9:
-						createCoolText([curWacky[0]]);
-					case 11:
-						addMoreText(curWacky[1]);
-					case 12:
-						deleteCoolText();
-					case 13:
-						addMoreText('Friday');
-					case 14:
-						addMoreText('Night');
-					case 15:
-						addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
+				if (cancelLoad == false) {
+					switch (b) {
+						case 0:
+							//FlxG.sound.music.stop();
+							FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+							FlxG.sound.music.fadeIn(4, 0, 0.7);
+						case 1:
+							createCoolText(['Psych Engine by'], 40);
+						case 3:
+							addMoreText('Shadow Mario', 40);
+							addMoreText('Riveren', 40);
+						case 4:
+							deleteCoolText();
+						case 5:
+							createCoolText(['Not associated', 'with'], -40);
+						case 7:
+							addMoreText('newgrounds', -40);
+							ngSpr.visible = true;
+						case 8:
+							deleteCoolText();
+							ngSpr.visible = false;
+						case 9:
+							createCoolText([curWacky[0]]);
+						case 11:
+							addMoreText(curWacky[1]);
+						case 12:
+							deleteCoolText();
+						case 13:
+							addMoreText('Friday');
+						case 14:
+							addMoreText('Night');
+						case 15:
+							addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
 
-					case 16:
-						skipIntro();
+						case 16:
+							skipIntro();
+					}
 				}
 			}
 			

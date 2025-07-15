@@ -1,10 +1,10 @@
 {
 	"songRating": 3,
 	"albumId": "volume1",
-	"freeplayCharacter": "",
+	"freeplayCharacter": "bf",
 	"freeplaySongLength": 105.664989,
 	"freeplayPrevEnd": 20,
-	"altInstrumentalSongs": "high (Pico Mix)",
+	"altInstrumentalSongs": "high erect",
 	"allowErectVariants": true,
 	"freeplayPrevStart": 0
 }

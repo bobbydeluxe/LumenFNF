@@ -16,6 +16,7 @@ enum abstract MainMenuColumn(String) to String {
 
 class MainMenuState extends ScriptedState
 {
+	public static var lumenEngineVersion:String = '1.0.0';
 	public static var psychEngineVersion:String = '1.0.4';
 	public static var pSliceVersion:String = '2.3.1';
 	public static var emiForkVersion:String = '0.0.4h';
@@ -82,9 +83,11 @@ class MainMenuState extends ScriptedState
 		bg.updateHitbox();
 		bg.screenCenter();
 		add(bg);
+		callOnScripts('onLoad', ['bg', bg], true);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
+		callOnScripts('onLoad', ['camFollow', camFollow], true);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.antialiasing = ClientPrefs.data.antialiasing;
@@ -94,6 +97,7 @@ class MainMenuState extends ScriptedState
 		magenta.visible = false;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
+		callOnScripts('onLoad', ['magenta', magenta], true);
 
 		menuItems = new FlxTypedSpriteGroup();
 		menuFunctions['story_mode'] ??= (item:MenuItem) -> {
@@ -147,8 +151,10 @@ class MainMenuState extends ScriptedState
 		};
 		#end
 		
-		for (option in optionShit)
+		for (option in optionShit) {
 			addMenuItem(option);
+			callOnScripts('onOptionAdd', [option], true);
+		}
 
 		#if ACHIEVEMENTS_ALLOWED
 		// Unlocks "Freaky on a Friday Night" achievement if it's a Friday and between 18:00 PM and 23:59 PM
@@ -177,26 +183,31 @@ class MainMenuState extends ScriptedState
 			rightItem = addMenuItem(rightOption, null, RIGHT);
 			rightItem.setPosition(FlxG.width - rightItem.width - 50, 490);
 			add(rightItem);
+			callOnScripts('onLoad', ['rightItem', rightItem], true);
 		}
 		if (leftOption != null) {
 			leftItem = addMenuItem(leftOption, null, LEFT);
 			leftItem.setPosition(50, 490);
 			add(leftItem);
+			callOnScripts('onLoad', ['leftItem', leftItem], true);
 		}
 		
 		positionMenuItems();
 		updateYScroll();
 		add(menuItems);
+		callOnScripts('onLoad', ['menuItems', menuItems], true);
 
-		lumenVer = new FlxText(12, FlxG.height - 44, 0, 'Lumen Engine [${Version.lumenVersion}]', 12);
+		lumenVer = new FlxText(12, FlxG.height - 44, 0, 'Lumen Engine $lumenEngineVersion', 12);
 		lumenVer.scrollFactor.set();
 		lumenVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(lumenVer);
+		callOnScripts('onLoad', ['lumenVer', lumenVer], true);
 
 		basesVer = new FlxText(12, FlxG.height - 24, 0, 'P-Slice $pSliceVersion | emiPsych $emiForkVersion | Psych Engine $psychEngineVersion');
 		basesVer.scrollFactor.set();
 		basesVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(basesVer);
+		callOnScripts('onLoad', ['basesVer', basesVer], true);
 		
 		super.create();
 	}

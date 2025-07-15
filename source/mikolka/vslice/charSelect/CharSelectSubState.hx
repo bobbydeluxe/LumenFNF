@@ -130,6 +130,8 @@ class CharSelectSubState extends MusicBeatSubState
 
   override public function create():Void
   {
+    preCreate();
+
     super.create();
 
     bopInfo = FramesJSFLParser.parse("images/charSelect/iconBopInfo/iconBopInfo.txt");
@@ -752,6 +754,8 @@ class CharSelectSubState extends MusicBeatSubState
 
   override public function update(elapsed:Float):Void
   {
+    preUpdate(elapsed);
+
     controls.isInSubstate = true;
 
     super.update(elapsed);
@@ -956,6 +960,8 @@ class CharSelectSubState extends MusicBeatSubState
     //! buggy code
     cursorDarkBlue.x = MathUtil.coolLerp(cursorDarkBlue.x, cursorLocIntended.x, lerpAmnt * 0.2,false);
     cursorDarkBlue.y = MathUtil.coolLerp(cursorDarkBlue.y, cursorLocIntended.y, lerpAmnt * 0.2,false);
+
+    postUpdate(elapsed);
   }
 
   var bopTimer:Float = 0;

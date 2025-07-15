@@ -154,7 +154,7 @@ function setUpDeathProperties(characterName)
 end
 
 function getPropertyFromGameOver(property)
-    getPropertyFromClass('substates.GameOverSubstate', 'instance.'..property)
+    return getPropertyFromClass('substates.GameOverSubstate', 'instance.'..property)
 end
 
 function setPropertyFromGameOver(property, value)

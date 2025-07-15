@@ -11,16 +11,25 @@ function onCreate()
 end
 
 function onCreatePost()
+	shaderApply()
+end
+
+function shaderApply()
 	runHaxeCode([[
 		import flixel.math.FlxAngle;
 		import flixel.addons.effects.FlxTrail;
 
-		// Adds the trail behind the opponent.
-		var dadTrail:FlxTrail = new FlxTrail(dad, null, 4, 24, 0.3, 0.069);
+		if (game.dadTrail != null) {
+			game.dadTrail.destroy(); // Cleanly destroy the old trail
+			game.remove(game.dadTrail); // Optional: also remove from scene graph
+			game.dadTrail = null;
+		}
+
+		// Add new trail
+		var newTrail:FlxTrail = new FlxTrail(dad, null, 4, 24, 0.3, 0.069);
+		game.dadTrail = newTrail;
 		game.addBehindDad(dadTrail);
 
-		// SHADER STUFF BELOW
-		
 		var maskRemaps:Map<String, String> = [
 			"senpai-angry" => "senpai"
 		];
@@ -120,6 +129,7 @@ function onEvent(eventName, value1, value2, strumTime)
 	end
 	if eventName == 'Change Character' then
 		setCharScrollFactor()
+		shaderApply()
 	end
 end
 

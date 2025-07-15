@@ -218,6 +218,16 @@ class FreeplayState extends ScriptedSubState
 
 	var fromCharSelect:Null<Bool> = null;
 
+	public static var additiveSparkColors:Array<Int> = [
+		0xFF6044FF,
+		0xFFEF8764,
+		0xFFFEAF6F,
+		0xFFFDCB42,
+		0xFFFF58B4,
+		0xFFFFB619
+	];
+
+
 	public function new(?params:FreeplayStateParams, ?stickers:StickerSubState)
 	{
 		controls.isInSubstate = true;
@@ -725,6 +735,7 @@ class FreeplayState extends ScriptedSubState
 
 			bgDad.visible = true;
 			backingCard?.introDone();
+			callOnScripts('onIntroDone');
 
 			if (prepForNewRank && fromResultsParams != null)
 			{
@@ -1037,17 +1048,17 @@ class FreeplayState extends ScriptedSubState
 			switch (fromResults.oldRank)
 			{
 				case SHIT:
-					sparksADD.color = 0xFF6044FF;
+					sparksADD.color = additiveSparkColors[0];
 				case GOOD:
-					sparksADD.color = 0xFFEF8764;
+					sparksADD.color = additiveSparkColors[1];
 				case GREAT:
-					sparksADD.color = 0xFFEAF6FF;
+					sparksADD.color = additiveSparkColors[2];
 				case EXCELLENT:
-					sparksADD.color = 0xFFFDCB42;
+					sparksADD.color = additiveSparkColors[3];
 				case PERFECT:
-					sparksADD.color = 0xFFFF58B4;
+					sparksADD.color = additiveSparkColors[4];
 				case PERFECT_GOLD:
-					sparksADD.color = 0xFFFFB619;
+					sparksADD.color = additiveSparkColors[5];
 			}
 			// sparksADD.color = sparks.color;
 		}
@@ -1399,6 +1410,7 @@ class FreeplayState extends ScriptedSubState
 		FlxTween.tween(touchPad, {alpha: 0}, 0.6, {ease: FlxEase.backIn});
 		#end
 		backingCard?.enterCharSel();
+		callOnScripts('onEnterCharSel');
 	}
 
 	function enterFromCharSel():Void
@@ -1798,6 +1810,7 @@ class FreeplayState extends ScriptedSubState
 			// FlxTween.color(pinkBack, 0.25, pinkBack.color, 0xFFFFD0D5, {ease: FlxEase.quadOut});
 			// FlxTween.color(bgDad, 0.33, 0xFFFFFFFF, 0xFF555555, {ease: FlxEase.quadOut});
 			backingCard?.disappear();
+			callOnScripts('onDisappear');
 
 			#if TOUCH_CONTROLS_ALLOWED
 			touchPad.forEachAlive(function(button:TouchButton)
@@ -2156,6 +2169,7 @@ class FreeplayState extends ScriptedSubState
 		grpCapsules.members[curSelected].confirm();
 
 		backingCard?.confirm();
+		callOnScripts('onConfirm');
 		// FlxTween.color(bgDad, 0.33, 0xFFFFFFFF, 0xFF555555, {ease: FlxEase.quadOut});
 		// FlxTween.color(pinkBack, 0.33, 0xFFFFD0D5, 0xFF171831, {ease: FlxEase.quadOut});
 

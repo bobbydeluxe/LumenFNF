@@ -134,7 +134,7 @@ class ResultState extends EpicSubState
 
     var sngMeta = FreeplayMeta.getMeta(params.songId);
     
-    if(sngMeta.freeplayCharacter != '' ){
+    if (sngMeta.freeplayCharacter != '') {
       playerCharacterId = sngMeta.freeplayCharacter;
     }
     else{

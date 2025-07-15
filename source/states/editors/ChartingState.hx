@@ -1398,7 +1398,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		}
 		else if(!ignoreClickForThisFrame)
 		{
-			if(FlxG.mouse.justPressed)
+			if (FlxG.mouse.justPressed && !FlxG.keys.pressed.SHIFT)
 				resetSelectedNotes();
 
 			dummyArrow.visible = false;
@@ -4908,6 +4908,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		setSongPlaying(false);
 		updateChartData();
 		StageData.loadDirectory(PlayState.SONG);
+		if (FlxG.keys.pressed.SHIFT) PlayState.startOnTime = FlxG.sound.music.time;
 		LoadingState.loadAndSwitchState(new PlayState());
 		ClientPrefs.toggleVolumeKeys(true);
 	}

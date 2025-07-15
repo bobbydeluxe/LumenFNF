@@ -6,7 +6,7 @@ import backend.Highscore;
 import flixel.FlxSubState;
 import objects.HealthIcon;
 
-class ResetScoreSubState extends MusicBeatSubstate
+class ResetScoreSubState extends ScriptedSubState
 {
 	var bg:FlxSprite;
 	var optionsCam:FlxCamera = new FlxCamera();
@@ -24,6 +24,8 @@ class ResetScoreSubState extends MusicBeatSubstate
 	// Week -1 = Freeplay
 	public function new(song:String, difficulty:Int, character:String, week:Int = -1,onScoreReset:() -> Void = null)
 	{
+		preCreate();
+
 		controls.isInSubstate = true;
 		onReset = onScoreReset;
 		this.song = song;
@@ -92,6 +94,8 @@ class ResetScoreSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
+		preUpdate(elapsed);
+
 		bg.alpha += elapsed * 1.5;
 		if(bg.alpha > 0.6) bg.alpha = 0.6;
 
@@ -118,6 +122,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 				} else {
 					Highscore.resetWeek(WeekData.weeksList[week], difficulty);
 				}
+				callOnScripts('onScoreReset', [song, difficulty, week], true);
 				if(onReset != null) onReset();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
@@ -126,6 +131,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 			close();
 		}
 		super.update(elapsed);
+		postUpdate(elapsed);
 	}
 
 	function updateOptions() {

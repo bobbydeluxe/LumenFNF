@@ -108,14 +108,17 @@ class StoryMenuState extends ScriptedState
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
+		callOnScripts('onLoad', ['grpWeekText', grpWeekText], true);
 
 		blackBar = new FlxSprite().makeGraphic(FlxG.width, 56, FlxColor.BLACK);
 		add(blackBar);
+		callOnScripts('onLoad', ['blackBar', blackBar], true);
 
 		grpWeekCharacters = new FlxTypedGroup<MenuCharacter>();
 
 		grpLocks = new FlxTypedGroup<FlxSprite>();
 		add(grpLocks);
+		callOnScripts('onLoad', ['grpLocks', grpLocks], true);
 
 		var num:Int = 0;
 		var itemTargetY:Float = 0;
@@ -133,6 +136,7 @@ class StoryMenuState extends ScriptedState
 				weekThing.targetY = itemTargetY;
 				itemTargetY += Math.max(weekThing.height, 110) + 10;
 				grpWeekText.add(weekThing);
+				callOnScripts('onCreateItem', [weekThing, i], true);
 
 				weekThing.screenCenter(X);
 				// weekThing.updateHitbox();
@@ -147,6 +151,7 @@ class StoryMenuState extends ScriptedState
 					lock.animation.play('lock');
 					lock.ID = i;
 					grpLocks.add(lock);
+					callOnScripts('onCreateLock', [lock], true);
 				}
 				num++;
 			}
@@ -159,10 +164,12 @@ class StoryMenuState extends ScriptedState
 			var weekCharacterThing:MenuCharacter = new MenuCharacter((FlxG.width * 0.25) * (1 + char) - 150, charArray[char]);
 			weekCharacterThing.y += 70;
 			grpWeekCharacters.add(weekCharacterThing);
+			callOnScripts('onCreateCharacter', [weekCharacterThing, char], true);
 		}
 
 		difficultySelectors = new FlxGroup();
 		add(difficultySelectors);
+		callOnScripts('onLoad', ['difficultySelectors', difficultySelectors], true);
 
 		leftArrow = new FlxSprite(850, grpWeekText.members[0].y + 10);
 		leftArrow.antialiasing = ClientPrefs.data.antialiasing;
@@ -190,21 +197,28 @@ class StoryMenuState extends ScriptedState
 		difficultySelectors.add(rightArrow);
 
 		add(bgYellow);
+		callOnScripts('onLoad', ['bgYellow', bgYellow], true);
 		add(bgSprite);
+		callOnScripts('onLoad', ['bgSprite', bgSprite], true);
 		add(grpWeekCharacters);
+		callOnScripts('onLoad', ['grpWeekCharacters', grpWeekCharacters], true);
 
 		var tracksSprite:FlxSprite = new FlxSprite(FlxG.width * 0.07 + 100, bgSprite.y + 425).loadGraphic(Paths.image('Menu_Tracks'));
 		tracksSprite.antialiasing = ClientPrefs.data.antialiasing;
 		tracksSprite.x -= tracksSprite.width/2;
 		add(tracksSprite);
+		callOnScripts('onLoad', ['tracksSprite', tracksSprite], true);
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, tracksSprite.y + 60, 0, "", 32);
 		txtTracklist.alignment = CENTER;
 		txtTracklist.font = Paths.font("vcr.ttf");
 		txtTracklist.color = 0xFFe55777;
 		add(txtTracklist);
+		callOnScripts('onLoad', ['txtTracklist', txtTracklist], true);
 		add(scoreText);
+		callOnScripts('onLoad', ['scoreText', scoreText], true);
 		add(txtWeekTitle);
+		callOnScripts('onLoad', ['txtWeekTitle', txtWeekTitle], true);
 
 		changeWeek();
 		changeDifficulty();
@@ -519,13 +533,29 @@ class StoryMenuState extends ScriptedState
 		for (i in 0...grpWeekCharacters.length) {
 			grpWeekCharacters.members[i].changeCharacter(weekArray[i]);
 			grpWeekCharacters.members[i].color = bgYellow.color;
+			callOnScripts('onChangeCharacter', [grpWeekCharacters.members[i], i], true);
 		}
 
 		var leWeek:WeekData = loadedWeeks[curWeek];
 		var stringThing:Array<String> = [];
-		for (i in 0...leWeek.songs.length) {
-			stringThing.push(leWeek.songs[i][0]);
+
+		var customTracks = callOnScripts('overrideTrackList', [loadedWeeks[curWeek].fileName, curWeek], true);
+		if (customTracks != null && Std.isOfType(customTracks, Array)) {
+			var dynamicArray:Array<Dynamic> = cast(customTracks, Array<Dynamic>);
+			for (track in dynamicArray) {
+				if (Std.isOfType(track, String)) {
+					stringThing.push(track);
+				}
+			}
+			trace('[Script] Tracklist overridden successfully: ' + stringThing);
+		} else {
+			// Fallback: build default track list
+			for (i in 0...leWeek.songs.length) {
+				stringThing.push(leWeek.songs[i][0]);
+				callOnScripts('onChangeTrack', [leWeek.songs[i][0], i, leWeek.fileName, curWeek], true);
+			}
 		}
+
 
 		txtTracklist.text = '';
 		for (i in 0...stringThing.length)

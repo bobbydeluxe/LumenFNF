@@ -58,6 +58,8 @@ import psychlua.LuaUtils;
 import psychlua.HScript;
 #end
 
+import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;
+
 /**
  * This is where all the Gameplay stuff happens and is managed
  *
@@ -1888,7 +1890,8 @@ class PlayState extends ScriptedState
 	// Health icon updaters
 	public dynamic function updateIconsScale(elapsed:Float)
 	{
-		var decay:Float = Math.exp(-elapsed * 9 * playbackRate);
+		var easeParams:Float = elapsed * 9 * playbackRate;
+		var decay:Float = Math.max(0, Math.min(1, 1 - easeParams));
 
 		for (icon in [iconP1, iconP2]) {
 			var mult:Float = FlxMath.lerp(1, icon.scale.x, decay);
@@ -2221,9 +2224,12 @@ class PlayState extends ScriptedState
 							}
 
 							var lastAlpha:Float = boyfriend.alpha;
+							var lastShader = boyfriend.shader;
 							boyfriend.alpha = 0.00001;
+							boyfriend.shader = null;
 							boyfriend = boyfriendMap.get(value2);
 							boyfriend.alpha = lastAlpha;
+							boyfriend.shader = lastShader;
 							iconP1.changeIcon(boyfriend.healthIcon);
 						}
 						setOnScripts('boyfriendName', boyfriend.curCharacter);
@@ -2236,7 +2242,9 @@ class PlayState extends ScriptedState
 
 							var wasGf:Bool = dad.curCharacter.startsWith('gf-') || dad.curCharacter == 'gf';
 							var lastAlpha:Float = dad.alpha;
+							var lastShader = dad.shader;
 							dad.alpha = 0.00001;
+							dad.shader = null;
 							dad = dadMap.get(value2);
 							if(!dad.curCharacter.startsWith('gf-') && dad.curCharacter != 'gf') {
 								if(wasGf && gf != null) {
@@ -2246,6 +2254,7 @@ class PlayState extends ScriptedState
 								gf.visible = false;
 							}
 							dad.alpha = lastAlpha;
+							dad.shader = lastShader;
 							iconP2.changeIcon(dad.healthIcon);
 						}
 						setOnScripts('dadName', dad.curCharacter);
@@ -2260,9 +2269,12 @@ class PlayState extends ScriptedState
 								}
 
 								var lastAlpha:Float = gf.alpha;
+								var lastShader = gf.shader;
 								gf.alpha = 0.00001;
+								gf.shader = null;
 								gf = gfMap.get(value2);
 								gf.alpha = lastAlpha;
+								gf.shader = lastShader;
 							}
 							setOnScripts('gfName', gf.curCharacter);
 						}
@@ -2862,7 +2874,7 @@ class PlayState extends ScriptedState
 			comboSpr.screenCenter();
 			comboSpr.x = placement;
 			comboSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
-			comboSpr.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
+			comboSpr.velocity.y -= 150 * playbackRate;
 			comboSpr.visible = (!ClientPrefs.data.hideHud && showCombo);
 			comboSpr.x += ClientPrefs.data.comboOffset[0];
 			comboSpr.y -= ClientPrefs.data.comboOffset[1];
@@ -2884,6 +2896,11 @@ class PlayState extends ScriptedState
 
 			comboSpr.updateHitbox();
 			rating.updateHitbox();
+
+			if (!isPixelStage) {
+				rating.scale.set(0.785, 0.785);	
+				FlxTween.tween(rating.scale, {x: 0.7, y: 0.7}, 0.5 * playbackRate, {ease: FlxEase.expoOut});	
+			}
 
 			var daLoop:Int = 0;
 			var xThing:Float = 0;

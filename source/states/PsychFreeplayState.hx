@@ -135,10 +135,12 @@ class PsychFreeplayState extends ScriptedState
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
+		callOnScripts('onLoad', ['bg', bg], true);
 		bg.screenCenter();
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
+		callOnScripts('onLoad', ['grpSongs', grpSongs], true);
 
 		for (i in 0...songs.length)
 		{
@@ -161,6 +163,7 @@ class PsychFreeplayState extends ScriptedState
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
 			add(icon);
+			callOnScripts('onLoad', ['icon', icon], true);
 
 			// songText.x += 40;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
@@ -174,24 +177,29 @@ class PsychFreeplayState extends ScriptedState
 		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
+		callOnScripts('onLoad', ['scoreBG', scoreBG], true);
 
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		diffText.font = scoreText.font;
 		add(diffText);
+		callOnScripts('onLoad', ['diffText', diffText], true);
 
 		add(scoreText);
+		callOnScripts('onLoad', ['scoreText', scoreText], true);
 
 
 		missingTextBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		missingTextBG.alpha = 0.6;
 		missingTextBG.visible = false;
 		add(missingTextBG);
+		callOnScripts('onLoad', ['missingTextBG', missingTextBG], true);
 		
 		missingText = new FlxText(50, 0, FlxG.width - 100, '', 24);
 		missingText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		missingText.scrollFactor.set();
 		missingText.visible = false;
 		add(missingText);
+		callOnScripts('onLoad', ['missingText', missingText], true);
 
 		if(curSelected >= songs.length) curSelected = 0;
 		bg.color = songs[curSelected].color;
@@ -203,6 +211,7 @@ class PsychFreeplayState extends ScriptedState
 		bottomBG = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 		bottomBG.alpha = 0.6;
 		add(bottomBG);
+		callOnScripts('onLoad', ['bottomBG', bottomBG], true);
 
 		var leText:String = Language.getPhrase("freeplay_tip", "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.");
 		bottomString = leText;
@@ -211,9 +220,11 @@ class PsychFreeplayState extends ScriptedState
 		bottomText.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, CENTER);
 		bottomText.scrollFactor.set();
 		add(bottomText);
+		callOnScripts('onLoad', ['bottomText', bottomText], true);
 		
 		player = new MusicPlayer(this);
 		add(player);
+		callOnScripts('onLoad', ['player', player], true);
 		
 		changeSelection();
 		updateTexts();

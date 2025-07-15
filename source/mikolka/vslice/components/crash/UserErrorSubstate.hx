@@ -170,7 +170,7 @@ class UserErrorSubstate extends MusicBeatSubstate
                 printToTrace('RUNTIME INFORMATION');
                 var date_split = error.date.split(" ");
                 printToTrace('TIME:${date_split[1].rpad(" ",9)} DATE:${date_split[0]}');
-                printToTrace('MOD:${error.activeMod.rpad(" ",10)} PE:${MainMenuState.psychEngineVersion.rpad(" ", 5)} SYS:${error.systemName}');
+                printToTrace('MOD:${error.activeMod.rpad(" ",10)} VER:${MainMenuState.lumenEngineVersion.rpad(" ", 5)} SYS:${error.systemName}');
                 printSpaceToTrace();
                 if(isCritical) printToTrace('REPORT TO GITHUB.COM/MIKOLKA9144/P-SLICE');
                 else printToTrace('');

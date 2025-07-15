@@ -44,6 +44,10 @@ function onCreate()
 end
 
 function onCreatePost()
+	shaderApply()
+end
+
+function shaderApply()
 	runHaxeCode([[
 		var maskRemaps:Map<String, String> = [
 			"senpai-angry" => "senpai"
@@ -107,5 +111,6 @@ end
 function onEvent(e, v1, v2)
 	if e == 'Change Character' then
 		setCharScrollFactor()
+		shaderApply();
 	end
 end
