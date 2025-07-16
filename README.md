@@ -4,7 +4,7 @@ a fork of p-slice engine (specifically version 2.3.1) that aims to be more modul
 
 why did i make this? i just thought p-slice was a bit too hardcoding-oriented. i also wanted scripting capabilities similar to emi3's psych fork that let you script outside of songs, plus a more modular structure so you can add features without editing the engine itself.
 
-basically a crossover of psych forks.
+basically a crossover between a bunch of psych forks.
 
 ## credits
 
