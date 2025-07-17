@@ -199,13 +199,13 @@ class MainMenuState extends ScriptedState
 
 		lumenVer = new FlxText(12, FlxG.height - 44, 0, 'Lumen Engine $lumenEngineVersion', 12);
 		lumenVer.scrollFactor.set();
-		lumenVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		lumenVer.setFormat(Paths.font("phantommuff.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(lumenVer);
 		callOnScripts('onLoad', ['lumenVer', lumenVer], true);
 
 		basesVer = new FlxText(12, FlxG.height - 24, 0, 'P-Slice $pSliceVersion | emiPsych $emiForkVersion | Psych Engine $psychEngineVersion');
 		basesVer.scrollFactor.set();
-		basesVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		basesVer.setFormat(Paths.font("phantommuff.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(basesVer);
 		callOnScripts('onLoad', ['basesVer', basesVer], true);
 		
