@@ -564,8 +564,8 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		var centerX:Float = gridBg.x * .5;
 		
 		bfToy = createToy('bf', centerX + 110, FlxG.height - 50);
-		gfToy = createToy('gf', centerX, FlxG.height - 50);
-		dadToy = createToy('bf-opponent', centerX - 110, FlxG.height - 50);
+		gfToy = createToy('gf-nospeak', centerX, FlxG.height - 50);
+		dadToy = createToy('bf-pixel-opponent', centerX - 110, FlxG.height - 50);
 		
 		bfToy.flipX = !bfToy.flipX;
 		
@@ -1179,7 +1179,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 			updateSelectionBox();
 		}
 		
-		if(FlxG.mouse.justPressed && (draggingToy != null || FlxG.mouse.overlaps(mainBox.bg) || FlxG.mouse.overlaps(infoBox.bg)))
+		if(FlxG.mouse.justPressed && (draggingToy != null || FlxG.mouse.overlaps(mainBox.bg, camUI) || FlxG.mouse.overlaps(infoBox.bg, camUI)))
 			ignoreClickForThisFrame = true;
 
 		var minX:Float = gridBg.x;
@@ -1398,7 +1398,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		}
 		else if(!ignoreClickForThisFrame)
 		{
-			if (FlxG.mouse.justPressed && !FlxG.keys.pressed.SHIFT)
+			if(FlxG.mouse.justPressed)
 				resetSelectedNotes();
 
 			dummyArrow.visible = false;
@@ -1672,7 +1672,6 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 
 	function resetSelectedNotes()
 	{
-		trace('deselected');
 		for (note in selectedNotes)
 		{
 			if(note == null || !note.exists) continue;
@@ -2213,7 +2212,8 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		var maxTime:Float = getMaxNoteTime(curSec);
 		function curSecFilter(note:MetaNote)
 		{
-			return (note.strumTime >= minTime && note.strumTime + 1.7 < maxTime);
+			var timeAdjusted:Float = (note.strumTime + 3);
+			return (timeAdjusted >= minTime && timeAdjusted < maxTime);
 		}
 
 		var firstNote:Bool = false;
@@ -2256,8 +2256,9 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 				var nextMaxTime:Float = getMaxNoteTime(curSec+1);
 				function otherSecFilter(note:MetaNote)
 				{
-					return (prevGridBg.visible && (note.strumTime >= prevMinTime && note.strumTime < prevMaxTime)) ||
-						(nextGridBg.visible && (note.strumTime >= nextMinTime && note.strumTime < nextMaxTime));
+					var timeAdjusted:Float = (note.strumTime + 3);
+					return (prevGridBg.visible && (timeAdjusted >= prevMinTime && timeAdjusted < prevMaxTime)) ||
+						(nextGridBg.visible && (timeAdjusted >= nextMinTime && timeAdjusted < nextMaxTime));
 				}
 	
 				for(note in notes.filter(otherSecFilter))
@@ -2529,23 +2530,31 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 
 			if(changed)
 			{
-				var textureLoad:String = 'images/${noteTextureInputText.text}.png';
-				if(Paths.fileExists(textureLoad, IMAGE) || noteTextureInputText.text.trim() == '')
-				{
-					for (note in notes)
-					{
-						if(note == null) continue;
-						note.reloadNote(note.texture);
-						
-						if(note.width > note.height)
-							note.setGraphicSize(GRID_SIZE);
-						else
-							note.setGraphicSize(0, GRID_SIZE);
-						
-						note.updateHitbox();
-						positionNoteXByData(note);
+				var textureLoad:String = noteTextureInputText.text;
+				var changedTexture:Bool = false;
+				
+				for (note in notes) {
+					if (note == null) continue;
+					
+					var oldTexture:String = note.graphic?.key;
+					note.texture = textureLoad;
+					if (note.graphic?.key == oldTexture) {
+						break;
+					} else {
+						changedTexture = true;
 					}
 					
+					if (note.width > note.height) {
+						note.setGraphicSize(GRID_SIZE);
+					} else {
+						note.setGraphicSize(0, GRID_SIZE);
+					}
+					
+					note.updateHitbox();
+					positionNoteXByData(note);
+				}
+				
+				if (changedTexture) {	
 					var startX:Float = gridBg.x;
 					var startY:Float = (FlxG.height - GRID_SIZE) / 2;
 					
@@ -4151,7 +4160,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		var btn:PsychUIButton = new PsychUIButton(btnX, btnY, '  Exit', function()
 		{
 			PlayState.chartingMode = false;
-			MusicBeatState.switchState(new states.MainMenuState(false, true));
+			MusicBeatState.switchState(new states.MainMenuState(true));
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			FlxG.mouse.visible = false;
 		}, btnWid);
@@ -4908,7 +4917,6 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		setSongPlaying(false);
 		updateChartData();
 		StageData.loadDirectory(PlayState.SONG);
-		if (FlxG.keys.pressed.SHIFT) PlayState.startOnTime = FlxG.sound.music.time;
 		LoadingState.loadAndSwitchState(new PlayState());
 		ClientPrefs.toggleVolumeKeys(true);
 	}
@@ -5185,7 +5193,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 	}
 	
 	inline function focusedOnEditor():Bool {
-		return (PsychUIInputText.focusOn == null && lastFocus == null);
+		return (PsychUIInputText.focusOn == null && lastFocus == null && (persistentUpdate || subState == null));
 	}
 	
 	function updateVortexHolds() {

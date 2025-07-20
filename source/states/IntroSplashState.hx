@@ -26,6 +26,8 @@ class IntroSplashState extends ScriptedState
 
 	override function create()
 	{
+		preCreate();
+
 		FlxG.autoPause = ClientPrefs.data.autoPause;
 
 		if (Paths.fileExists('${Constants.introVideo}.${Paths.VIDEO_EXT}', BINARY, false, 'videos')) {
@@ -114,6 +116,8 @@ class IntroSplashState extends ScriptedState
 
 	override public function update(elapsed:Float):Void
 	{
+		preUpdate(elapsed);
+
 		super.update(elapsed);
 
 		if (!skipCooldown && FlxG.keys.justPressed.ANY)
@@ -134,6 +138,8 @@ class IntroSplashState extends ScriptedState
 				finish();
 			}
 		}
+
+		postUpdate(elapsed);
 	}
 
 

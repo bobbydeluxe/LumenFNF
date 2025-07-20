@@ -66,7 +66,7 @@ class Main extends Sprite
 		backend.CrashHandler.init();
 
 		#if (cpp && windows)
-		backend.Native.fixScaling();
+		backend.macro.Native.fixScaling();
 		#end
 
 		if (stage != null)

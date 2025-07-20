@@ -57,12 +57,8 @@ function onEvent(eventName, value1, value2, strumTime)
             if tweenData[2] == nil then
                 tweenData[2] = 'linear'
             end
-            if version >= '1.0' then
-                tweenNameAdd = 'tween_' -- Shadow Mario fucked it up.
-            else
-                tweenNameAdd = ''
-            end
-            startTween(tweenNameAdd..'camZoom', 'this', {defaultCamZoom = targetZoom}, duration, {ease = tweenData[2]})
+
+            startTween('camZoom', 'this', {defaultCamZoom = targetZoom}, duration, {ease = tweenData[2]})
         end
     end
 

@@ -1,72 +1,16 @@
 package psychlua;
 
-#if macro
-
-import haxe.macro.Expr;
-import haxe.macro.Type;
-import haxe.macro.Context;
-
-class ExtraDataMacro {
-	static macro function build():Array<Field> {
-		var pos:Position = Context.currentPos();
-		var fields:Array<Field> = Context.getBuildFields();
-		
-		fields = fields.concat([{
-			pos: pos,
-			name: 'extraData',
-			access: [APublic],
-			kind: FieldType.FProp('default', 'null', macro:Map<String, Dynamic>, macro $v{[]})
-		}, {
-			pos: pos,
-			name: 'getVar',
-			access: [APublic],
-			kind: FieldType.FFun({
-				ret: macro:Dynamic,
-				args: [{type: macro:String, name: 'id'}],
-				expr: macro { return extraData.get(id); }
-			})
-		}, {
-			pos: pos,
-			name: 'setVar',
-			access: [APublic],
-			kind: FieldType.FFun({
-				ret: macro:Dynamic,
-				args: [{type: macro:String, name: 'id'}, {type: macro:Dynamic, name: 'value'}],
-				expr: macro { extraData.set(id, value); return value; }
-			})
-		}, {
-			pos: pos,
-			name: 'removeVar',
-			access: [APublic],
-			kind: FieldType.FFun({
-				args: [{type: macro:String, name: 'id'}],
-				expr: macro { extraData.remove(id); }
-			})
-		}, {
-			pos: pos,
-			name: 'hasVar',
-			access: [APublic],
-			kind: FieldType.FFun({
-				ret: macro:Bool,
-				args: [{type: macro:String, name: 'id'}],
-				expr: macro { return extraData.exists(id); }
-			})
-		}]);
-		
-		return fields;
-	}
-}
-
-#else
-
 import backend.WeekData;
 import objects.Character;
 import backend.StageData;
 
 import openfl.display.BlendMode;
+import flixel.util.FlxSave;
 import Type.ValueType;
 
 import substates.GameOverSubstate;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 
 typedef LuaTweenOptions = {
 	type:FlxTweenType,
@@ -513,6 +457,56 @@ class LuaUtils
 		#end
 	}
 
+	// savedata
+	public static function initSaveData(name:String, folder:String = 'psychenginemods'):Void {
+		var variables = MusicBeatState.getVariables();
+		if (!variables.exists('save_$name')) {
+			var save:FlxSave = new FlxSave();
+			// folder goes unused for flixel 5 users. @BeastlyGhost
+			save.bind(name, CoolUtil.getSavePath() + '/' + folder);
+			variables.set('save_$name', save);
+			return;
+		}
+		FunkinLua.luaTrace('initSaveData: Save file already initialized: ' + name, WARN);
+	}
+	public static function flushSaveData(name:String):Void {
+		var variables = MusicBeatState.getVariables();
+		if (variables.exists('save_$name')) {
+			variables.get('save_$name').flush();
+			return;
+		}
+		FunkinLua.luaTrace('flushSaveData: Save file not initialized: ' + name, false, false, ERROR);
+	}
+	public static function getDataFromSave(name:String, field:String, ?defaultValue:Dynamic):Dynamic {
+		var variables = MusicBeatState.getVariables();
+		if (variables.exists('save_$name')) {
+			var saveData = variables.get('save_$name').data;
+			if (Reflect.hasField(saveData, field)) {
+				return Reflect.field(saveData, field);
+			} else {
+				return defaultValue;
+			}
+		}
+		FunkinLua.luaTrace('getDataFromSave: Save file not initialized: ' + name, false, false, ERROR);
+		return defaultValue;
+	}
+	public static function setDataFromSave(name:String, field:String, value:Dynamic):Void {
+		var variables = MusicBeatState.getVariables();
+		if (variables.exists('save_$name')) {
+			Reflect.setField(variables.get('save_$name').data, field, value);
+			return;
+		}
+		FunkinLua.luaTrace('setDataFromSave: Save file not initialized: ' + name, false, false, ERROR);
+	}
+	public static function eraseSaveData(name:String):Void {
+		var variables = MusicBeatState.getVariables();
+		if (variables.exists('save_$name')) {
+			variables.get('save_$name').erase();
+			return;
+		}
+		FunkinLua.luaTrace('eraseSaveData: Save file not initialized: ' + name, false, false, ERROR);
+	}
+
 	//buncho string stuffs
 	public static function getTweenTypeByString(?type:String = '') {
 		switch(type.toLowerCase().trim())
@@ -639,4 +633,3 @@ class LuaUtils
 		return 'camGame';
 	}
 }
-#end

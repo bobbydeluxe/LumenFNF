@@ -24,6 +24,8 @@ class HScriptMacro {
 import flixel.FlxState;
 import flixel.FlxSubState;
 
+import states.MainMenuState;
+
 #if LUA_ALLOWED
 import psychlua.FunkinLua;
 #end
@@ -216,6 +218,9 @@ class HScript extends Iris {
 	var varsToBring(default, set):Any = null;
 	override function preset() {
 		super.preset();
+
+		for (define => value in backend.macro.Scripting.Defines.list)
+			parser.preprocesorValues.set(define, value);
 		
 		// Some very commonly used classes
 		set('Type', Type);
@@ -258,6 +263,7 @@ class HScript extends Iris {
 		#if flxanimate
 		set('FlxAnimate', FlxAnimate);
 		#end
+		set('controls', Controls.instance);
 
 		// Functions & Variables
 		var variableMap:Map<String, Dynamic> = getVariables();
@@ -305,6 +311,8 @@ class HScript extends Iris {
 			}
 			return LuaUtils.getModSetting(saveTag, modName);
 		});
+		set('luaDeprecatedWarnings', true);
+		set('luaDebugMode', true);
 
 		// Keyboard & Gamepads
 		set('keyboardJustPressed', function(name:String) return Reflect.getProperty(FlxG.keys.justPressed, name));
@@ -427,7 +435,9 @@ class HScript extends Iris {
 		#end
 		
 		set('this', this);
-		set('controls', Controls.instance);
+
+		set('version', MainMenuState.lumenEngineVersion.trim());
+		set('modFolder', this.modFolder);
 
 		set('buildTarget', LuaUtils.getBuildTarget());
 		set('customSubstate', CustomSubstate.instance);
@@ -523,15 +533,19 @@ class HScript extends Iris {
 			Iris.error('No function named: $funcToRun', this.interp.posInfos());
 			return null;
 		}
+
+		FunkinLua.lastCalledHScript = this;
 		
 		try {
 			var func:Dynamic = interp.variables.get(funcToRun); // function signature
 			final ret = Reflect.callMethod(null, func, args ?? []);
 			
+			FunkinLua.lastCalledHScript = null;
 			return {funName: funcToRun, signature: func, returnValue: ret};
 		} catch(e:Dynamic) {
 			catchError(this, e, funcToRun);
 		}
+		FunkinLua.lastCalledHScript = null;
 		return null;
 	}
 	
