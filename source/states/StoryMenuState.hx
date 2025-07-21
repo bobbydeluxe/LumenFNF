@@ -211,7 +211,7 @@ class StoryMenuState extends ScriptedState
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, tracksSprite.y + 60, 0, "", 32);
 		txtTracklist.alignment = CENTER;
-		txtTracklist.font = Paths.font("phantommuff.ttf");
+		txtTracklist.font = Paths.font("vcr.ttf");
 		txtTracklist.color = 0xFFe55777;
 		add(txtTracklist);
 		callOnScripts('onLoad', ['txtTracklist', txtTracklist], true);

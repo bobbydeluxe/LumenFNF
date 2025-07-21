@@ -39,9 +39,6 @@ import crowplexus.iris.ErrorSeverity;
 import crowplexus.hscript.Expr.Error as IrisError;
 import crowplexus.hscript.Printer;
 
-// don't wanna wipe out this
-import psychlua.ScriptMemBank;
-
 typedef HScriptInfos = {
 	> haxe.PosInfos,
 	var ?funcName:String;

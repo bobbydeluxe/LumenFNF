@@ -126,6 +126,7 @@ class PlayState extends ScriptedState
 	public static var isPixelStage(get, never):Bool;
 
 	public static var skipResults:Bool = false;
+	public static var iconBopSpeed:Float;
 
 	@:noCompletion
 	static function set_stageUI(value:String):String
@@ -443,6 +444,8 @@ class PlayState extends ScriptedState
 		}
 
 		set_stageUI(stageUI); // so that custom stageUIs load - bobbyDX
+
+		iconBopSpeed = 9;
 
 		preCreate();
 		
@@ -1889,7 +1892,7 @@ class PlayState extends ScriptedState
 	// Health icon updaters
 	public dynamic function updateIconsScale(elapsed:Float)
 	{
-		var easeParams:Float = elapsed * 9 * playbackRate;
+		var easeParams:Float = elapsed * iconBopSpeed * playbackRate;
 		var decay:Float = Math.max(0, Math.min(1, 1 - easeParams));
 
 		for (icon in [iconP1, iconP2]) {

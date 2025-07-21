@@ -367,7 +367,7 @@ class SongMenuItem extends FlxSpriteGroup
         favIcon.visible = false;
         favIconBlurred.visible = false;
         newText.visible = false;
-        capsule.frames = Paths.getSparrowAtlas('freeplay/freeplayCapsule/capsule/freeplayCapsule_gold');
+        capsule.frames = Paths.getSparrowAtlas('freeplay/freeplayCapsule/capsule/randomCapsule');
         capsule.animation.addByPrefix('selected', 'mp3 capsule gold w backing0', 24);
         capsule.animation.addByPrefix('unselected', 'mp3 capsule gold w backing NOT SELECTED', 24);
       }

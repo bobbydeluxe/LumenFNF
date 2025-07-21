@@ -141,7 +141,7 @@ class FreeplayState extends ScriptedSubState
 
 	var diffIdsCurrent:Array<String> = [];
 	// List of available difficulties for the total song list, without `-variation` at the end (no duplicates or nulls).
-	var diffIdsTotal:Array<String> = ['easy', "normal", "hard"]; // ? forcing this diff order
+	public static var diffIdsTotal:Array<String> = ['easy', "normal", "hard"]; // ? forcing this diff order
 
 	var curSelected:Int = 0;
 	var currentDifficulty:String = Constants.DEFAULT_DIFFICULTY;
