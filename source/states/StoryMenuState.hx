@@ -96,10 +96,10 @@ class StoryMenuState extends ScriptedState
 		preCreate();
 
 		scoreText = new FlxText(10, 10, 0, Language.getPhrase('week_score', 'WEEK SCORE: {1}', [lerpScore]), 36);
-		scoreText.setFormat(Paths.font("vcr.ttf"), 32);
+		scoreText.setFormat(Paths.font("phantommuff.ttf"), 32);
 
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
-		txtWeekTitle.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
+		txtWeekTitle.setFormat(Paths.font("phantommuff.ttf"), 32, FlxColor.WHITE, RIGHT);
 		txtWeekTitle.alpha = 0.7;
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
@@ -211,7 +211,7 @@ class StoryMenuState extends ScriptedState
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, tracksSprite.y + 60, 0, "", 32);
 		txtTracklist.alignment = CENTER;
-		txtTracklist.font = Paths.font("vcr.ttf");
+		txtTracklist.font = Paths.font("phantommuff.ttf");
 		txtTracklist.color = 0xFFe55777;
 		add(txtTracklist);
 		callOnScripts('onLoad', ['txtTracklist', txtTracklist], true);
@@ -342,6 +342,8 @@ class StoryMenuState extends ScriptedState
 					}
 					
 					FlxG.sound.play(Paths.sound('confirmMenu'));
+                                        FlxTween.tween(FlxG.sound.music, {pitch: 0.1}, 1, {ease: FlxEase.quadInOut});
+                                        FlxTween.tween(FlxG.sound.music, {volume: 0.0}, 1.5, {ease: FlxEase.quadInOut});
 				}
 			} else {
 				FlxG.sound.play(Paths.sound('cancelMenu'));

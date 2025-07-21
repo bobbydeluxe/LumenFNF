@@ -462,7 +462,7 @@ class FreeplayState extends ScriptedSubState
 		callOnScripts('onLoad', ['grpCapsules', grpCapsules]);
 
 		grpFallbackDifficulty = new FlxText(70, 90, 250, "AAAAAAAAAAAAAA");
-		grpFallbackDifficulty.setFormat("VCR OSD Mono", 60, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		grpFallbackDifficulty.setFormat("phantommuff.ttf", 60, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 		grpFallbackDifficulty.borderSize = 2;
 		add(grpFallbackDifficulty);
 		callOnScripts('onLoad', ['grpFallbackDifficulty', grpFallbackDifficulty]);
@@ -529,10 +529,10 @@ class FreeplayState extends ScriptedSubState
 		}
 
 		var fnfFreeplay:FlxText = new FlxText(8, 8, 0, 'FREEPLAY', 48);
-		fnfFreeplay.font = 'VCR OSD Mono';
+		fnfFreeplay.font = 'phantommuff.ttf';
 		fnfFreeplay.visible = false;
 
-		ostName.font = 'VCR OSD Mono';
+		ostName.font = 'phantommuff.ttf';
 		ostName.alignment = RIGHT;
 		ostName.visible = false;
 
@@ -2162,6 +2162,8 @@ class FreeplayState extends ScriptedSubState
 
 		// Visual and audio effects.
 		FunkinSound.playOnce(Paths.sound('confirmMenu'));
+                FlxTween.tween(FlxG.sound.music, {pitch: 0.1}, 1, {ease: FlxEase.quadInOut});
+                FlxTween.tween(FlxG.sound.music, {volume: 0.0}, 1.5, {ease: FlxEase.quadInOut});
 		if (dj != null)
 			dj.confirm();
 
