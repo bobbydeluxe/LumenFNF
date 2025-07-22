@@ -150,15 +150,21 @@ function createSpeaker(attachedCharacter, offsetX, offsetY)
         function shaderCheck(object:String, character:String) return getLuaObject(object).shader == getAttachedCharacter(character).shader;
         function shaderAtlasCheck(object:String, character:String) return game.variables.get(object).shader == getAttachedCharacter(character).shader;
         
-        function applyShader(object:String, character:String, atlas:Bool) {
+        function applyShader(object:String, character:String, atlas:Bool, alternate:Bool) {
             var baseShader = getAttachedCharacter(character).shader;
             if (Std.isOfType(baseShader, AdjustColorScreenspace)) {
                 var colorShader = new shaders.AdjustColorScreenspace();
+                var divisor:Int = 1;
+                if (alternate == true) {
+                    divisor = 2;
+                } else {
+                    divisor = 1;
+                }
                 colorShader.setAdjustColor(
                     baseShader.hue.value[0],
                     baseShader.saturation.value[0],
-                    baseShader.brightness.value[0],
-                    baseShader.contrast.value[0]
+                    (baseShader.brightness.value[0] / divisor),
+                    (baseShader.contrast.value[0] / divisor)
                 );
                 colorShader.threshold = 1;
                 if (atlas) {
@@ -372,17 +378,17 @@ function onUpdatePost(elapsed)
     if getVar('trackShader') == true then
         for _, object in ipairs({'AbotSpeaker', 'AbotPupils'}) do
             if runHaxeFunction('shaderAtlasCheck', {object, characterType}) == false then
-                runHaxeFunction('applyShader', {object, characterType, true})
+                runHaxeFunction('applyShader', {object, characterType, true, false})
             end
         end
         for bar = 1, 7 do
             if runHaxeFunction('shaderCheck', {'AbotSpeakerVisualizer'..bar, characterType}) == false then
-                runHaxeFunction('applyShader', {'AbotSpeakerVisualizer'..bar, characterType, false})
+                runHaxeFunction('applyShader', {'AbotSpeakerVisualizer'..bar, characterType, false, true})
             end
         end
         for _, object in ipairs({'AbotSpeakerBG', 'AbotEyes'}) do
             if runHaxeFunction('shaderCheck', {object, characterType}) == false then
-                runHaxeFunction('applyShader', {object, characterType, false})
+                runHaxeFunction('applyShader', {object, characterType, false, false})
             end
         end
     end

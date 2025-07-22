@@ -161,15 +161,21 @@ function createSpeaker(attachedCharacter, offsetX, offsetY)
         // Shader Tracking Code
         function shaderCheck(object:String, character:String) return getLuaObject(object).shader == getAttachedCharacter(character).shader;
         
-        function applyShader(object:String, character:String) {
+        function applyShader(object:String, character:String, alternate:Bool) {
             var baseShader = getAttachedCharacter(character).shader;
             if (Std.isOfType(baseShader, AdjustColorScreenspace)) {
                 var colorShader = new shaders.AdjustColorScreenspace();
+                var divisor:Int = 1;
+                if (alternate == true) {
+                    divisor = 2;
+                } else {
+                    divisor = 1;
+                }
                 colorShader.setAdjustColor(
                     baseShader.hue.value[0],
                     baseShader.saturation.value[0],
-                    baseShader.brightness.value[0],
-                    baseShader.contrast.value[0]
+                    (baseShader.brightness.value[0] / divisor),
+                    (baseShader.contrast.value[0] / divisor)
                 );
                 colorShader.threshold = 1;
                 getLuaObject(object).shader = colorShader;
@@ -379,12 +385,12 @@ function onUpdatePost(elapsed)
     if getVar('trackShader') == true then
         for _, object in ipairs({'AbotSpeakerPixel', 'AbotPixelSpeakers', 'AbotHeadPixel', 'AbotSpeakerBGPixel'}) do
             if runHaxeFunction('shaderCheck', {object, characterType}) == false then
-                runHaxeFunction('applyShader', {object, characterType})
+                runHaxeFunction('applyShader', {object, characterType, false})
             end
         end
         for bar = 1, 7 do
             if runHaxeFunction('shaderCheck', {'AbotSpeakerVisualizerPixel'..bar, characterType}) == false then
-                runHaxeFunction('applyShader', {'AbotSpeakerVisualizerPixel'..bar, characterType})
+                runHaxeFunction('applyShader', {'AbotSpeakerVisualizerPixel'..bar, characterType, true})
             end
         end
     end

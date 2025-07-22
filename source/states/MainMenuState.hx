@@ -203,7 +203,8 @@ class MainMenuState extends ScriptedState
 		add(lumenVer);
 		callOnScripts('onLoad', ['lumenVer', lumenVer], true);
 
-		basesVer = new FlxText(12, FlxG.height - 24, 0, 'P-Slice $pSliceVersion | emiPsych $emiForkVersion | Psych Engine $psychEngineVersion');
+		// basesVer = new FlxText(12, FlxG.height - 24, 0, 'P-Slice $pSliceVersion | emiPsych $emiForkVersion | Psych Engine $psychEngineVersion');
+		basesVer = new FlxText(12, FlxG.height - 24, 0, 'basically the worst code rewrite of the hit game "friday night funkin" ever');
 		basesVer.scrollFactor.set();
 		basesVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(basesVer);

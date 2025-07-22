@@ -25,6 +25,8 @@ import mobile.backend.MobileScaleMode;
 import psychlua.Constants;
 import states.IntroSplashState;
 
+import backend.Preserve;
+
 #if (linux && !debug)
 import lime.graphics.Image;
 @:cppInclude('./external/gamemode_client.h')

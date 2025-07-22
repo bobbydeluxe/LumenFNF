@@ -19,6 +19,8 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.addons.effects.FlxTrail;
 import flixel.util.FlxColor;
+import mikolka.compatibility.VsliceOptions;
+import openfl.utils.AssetType;
 
 //? Documented
 // changed FunkinSprite to FlxSprite
@@ -356,6 +358,7 @@ class SongMenuItem extends FlxSpriteGroup
   {
     return evilTrail.color;
   }
+  
   public function refreshDisplay():Void
     {
       if (songData == null)
@@ -367,9 +370,11 @@ class SongMenuItem extends FlxSpriteGroup
         favIcon.visible = false;
         favIconBlurred.visible = false;
         newText.visible = false;
-        capsule.frames = Paths.getSparrowAtlas('freeplay/freeplayCapsule/capsule/randomCapsule');
-        capsule.animation.addByPrefix('selected', 'mp3 capsule gold w backing0', 24);
-        capsule.animation.addByPrefix('unselected', 'mp3 capsule gold w backing NOT SELECTED', 24);
+        var key = 'freeplay/freeplayCapsule/capsule/random/randomCapsule_' + VsliceOptions.LAST_MOD.char_name;
+        if (Paths.fileExists(key, AssetType.IMAGE))
+          capsule.frames = Paths.getSparrowAtlas(key);
+        else
+          capsule.frames = Paths.getSparrowAtlas('freeplay/freeplayCapsule/capsule/randomCapsule');
       }
       else
       {

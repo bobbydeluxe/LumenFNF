@@ -8,11 +8,12 @@ basically a crossover between a bunch of psych forks.
 
 ## credits
 
-- **bobbydx** (me) - creator of this fork  
-- **ledonic** - contributed a lot to the base game content modpack  
-- **ashley / emi3 / victoria** - creator of the [psych fork](https://github.com/inky03/PsychEngineMod) that the scripting system is based on  
-- **mikolka9144** - creator of the [p-slice engine](https://github.com/Psych-Slice/P-Slice/) that this engine is based on  
-- **shadowmario** - creator of the original [psych engine](https://github.com/ShadowMario/FNF-PsychEngine)  
+- **bobbydx** (me) - creator of this fork
+- **ledonic** - contributed a lot to the base game content modpack
+- **phoenixpunk** - helped with some tweaks
+- **ashley / emi3 / victoria** - creator of the [psych fork](https://github.com/inky03/PsychEngineMod) that the scripting system is based on
+- **mikolka9144** - creator of the [p-slice engine](https://github.com/Psych-Slice/P-Slice/) that this engine is based on 
+- **shadowmario** - creator of the original [psych engine](https://github.com/ShadowMario/FNF-PsychEngine)
 - **the funkin' crew inc.** - original creators of friday night funkin'
 
 ## important notice

@@ -154,10 +154,13 @@ class IntroSplashState extends ScriptedState
 		}
 		complete();
 	}
+
+	var customComplete = callOnScripts('onComplete', [], true);
 	
 	function complete()
 	{
-		FlxG.switchState(new states.TitleState());
+		if (customComplete == null)
+			FlxG.switchState(new states.TitleState());
 	}
 }
 
