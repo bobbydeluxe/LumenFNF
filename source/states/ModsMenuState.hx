@@ -846,10 +846,10 @@ class ModItem extends FlxSpriteGroup
 		add(text);
 
 		var isPixel = false;
-		var file:String = Paths.mods('$folder/pack.png');
+		var file:String = Paths.mods('$folder/icon.png');
 		if (!FileSystem.exists(file))
 		{
-			file = Paths.mods('$folder/pack-pixel.png');
+			file = Paths.mods('$folder/icon-pixel.png');
 			isPixel = true;
 		}
 		

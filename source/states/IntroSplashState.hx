@@ -23,6 +23,7 @@ class IntroSplashState extends ScriptedState
 	var logoPlaying:Bool = false;
 
 	public static var doLogo:Bool = true;
+	public static var customTrans:Bool = false;
 
 	override function create()
 	{
@@ -154,13 +155,13 @@ class IntroSplashState extends ScriptedState
 		}
 		complete();
 	}
-
-	var customComplete = callOnScripts('onComplete', [], true);
 	
 	function complete()
 	{
-		if (customComplete == null)
+		if (!customTrans)
 			FlxG.switchState(new states.TitleState());
+
+		callOnScripts('onComplete');
 	}
 }
 
