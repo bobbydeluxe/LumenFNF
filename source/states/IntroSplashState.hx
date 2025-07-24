@@ -4,6 +4,7 @@ import hxvlc.flixel.FlxVideoSprite;
 
 import psychlua.Constants;
 import shaders.BlueFade;
+import backend.QuickMemBank;
 
 // this creates the lumen engine splash screen
 // code based off of the nightmarevision engine splash screen by DuskieWhy
@@ -28,6 +29,8 @@ class IntroSplashState extends ScriptedState
 	override function create()
 	{
 		preCreate();
+
+		QuickMemBank.clear();
 
 		FlxG.autoPause = ClientPrefs.data.autoPause;
 
