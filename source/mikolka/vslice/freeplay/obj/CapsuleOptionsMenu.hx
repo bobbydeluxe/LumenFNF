@@ -175,13 +175,13 @@ class InstrumentalSelector extends FunkinSprite
 		if (!press)
 		{
 			scale.x = scale.y = 1 * baseScale;
-			whiteShader.colorSet = false;
+			whiteShader.active = false;
 			updateHitbox();
 		}
 		else
 		{
 			offset.y -= 5;
-			whiteShader.colorSet = true;
+			whiteShader.active = true;
 			scale.x = scale.y = 0.5 * baseScale;
 		}
 	}
@@ -190,13 +190,13 @@ class InstrumentalSelector extends FunkinSprite
   {
     offset.y -= 5;
 
-    whiteShader.colorSet = true;
+    whiteShader.active = true;
 
     scale.x = scale.y = 0.5 * baseScale;
 
     new FlxTimer().start(2 / 24, function(tmr) {
       scale.x = scale.y = 1 * baseScale;
-      whiteShader.colorSet = false;
+      whiteShader.active = false;
       updateHitbox();
     });
   }

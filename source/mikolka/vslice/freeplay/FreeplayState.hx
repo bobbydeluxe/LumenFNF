@@ -283,7 +283,7 @@ class FreeplayState extends ScriptedSubState
 		switch (currentCharacterId)
 		{
 			case (VsliceOptions.LOW_QUALITY) => true:
-				backingCard = null;
+				backingCard = new BackingCard(currentCharacter);
 			#if HSCRIPT_ALLOWED
 			case (ScriptedCard.hasCustomCard(currentCharacterId)) => true:
 				backingCard = new ScriptedCard(currentCharacter, currentCharacterId, stickerSubState == null);
@@ -2370,13 +2370,13 @@ class DifficultySelector extends FlxSprite
 		if (!press)
 		{
 			scale.x = scale.y = 1;
-			whiteShader.colorSet = false;
+			whiteShader.active = false;
 			updateHitbox();
 		}
 		else
 		{
 			offset.y -= 5;
-			whiteShader.colorSet = true;
+			whiteShader.active = true;
 			scale.x = scale.y = 0.5;
 		}
 	}
@@ -2385,14 +2385,14 @@ class DifficultySelector extends FlxSprite
 	{
 		offset.y -= 5;
 
-		whiteShader.colorSet = true;
+		whiteShader.active = true;
 
 		scale.x = scale.y = 0.5;
 
 		new FlxTimer().start(2 / 24, function(tmr)
 		{
 			scale.x = scale.y = 1;
-			whiteShader.colorSet = false;
+			whiteShader.active = false;
 			updateHitbox();
 		});
 	}

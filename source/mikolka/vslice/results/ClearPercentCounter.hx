@@ -34,7 +34,7 @@ class ClearPercentCounter extends FlxTypedSpriteGroup<FlxSprite>
     super(x, y);
 
     flashShader = new PureColor(FlxColor.WHITE);
-    flashShader.colorSet = false;
+    flashShader.active = false;
 
     curNumber = startingNumber;
 
@@ -53,7 +53,7 @@ class ClearPercentCounter extends FlxTypedSpriteGroup<FlxSprite>
    */
   public function flash(enabled:Bool):Void
   {
-    flashShader.colorSet = enabled;
+    flashShader.active = enabled;
   }
 
   var tmr:Float = 0;

@@ -89,6 +89,7 @@ class ResultState extends EpicSubState
     this.params = params;
 
     rank = Scoring.calculateRank(params.scoreData) ?? SHIT;
+    callOnScripts('onLoad', ['playerRank', rank]);
 
     cameraBG = new FunkinCamera('resultsBG', 0, 0, FlxG.width, FlxG.height);
     cameraScroll = new FunkinCamera('resultsScroll', 0, 0, FlxG.width, FlxG.height);

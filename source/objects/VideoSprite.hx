@@ -68,7 +68,12 @@ class VideoSprite extends FlxSpriteGroup {
 		});
 
 		// start video and adjust resolution to screen size
-		videoSprite.load(videoName, shouldLoop ? ['input-repeat=65545'] : null);
+		// start video and adjust resolution to screen size
+videoSprite.load(videoName,
+    shouldLoop
+        ? ['input-repeat=65545', 'clock-master=audio', 'drop-late-frames', 'skip-frames', 'clock-jitter=0']
+        : ['clock-master=audio', 'drop-late-frames', 'skip-frames', 'clock-jitter=0']);
+
 	}
 
 	var alreadyDestroyed:Bool = false;
@@ -134,20 +139,6 @@ class VideoSprite extends FlxSpriteGroup {
 		}
 		
 		super.update(elapsed);
-
-		#if hxCodec
-		if (videoSprite != null && videoSprite.bitmap != null)
-		{
-			final expectedTime = videoSprite.bitmap.getPosition(); // get expected position
-			final actualFrameTime = videoSprite.bitmap.currentTime; // current playback time (if available)
-
-			if (Math.abs(expectedTime - actualFrameTime) > 0.1) // 100ms threshold
-			{
-				trace('Video out of sync, correcting...');
-				videoSprite.bitmap.seek(expectedTime); // force seek to correct spot
-			}
-		}
-		#end
 	}
 
 	function set_canSkip(newValue:Bool)

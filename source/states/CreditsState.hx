@@ -33,7 +33,7 @@ class CreditsState extends ScriptedState
 		["P-Slice Engine Team"],
 		['Mikolka9144',			'mikolka',			'The lead for P-Slice',								 'https://gamebanana.com/members/3329541',					'2ebcfa'],
 		[""],
-		["Victoria's Psych Fork"],
+		["emi3's Psych Fork"],
 		["victoria",			"vi",				"Main Programmer [for her psych fork], Additional Art",							"https://x.com/fnfin3d",					"82CDE3"],
 		["Moonlight_Catalyst",	"moonlightcatalyst","Chart Editor \"Toys\" Assistance",							"https://gamebanana.com/members/1960226",	"9898CB"],
 		[""],
