@@ -38,7 +38,7 @@ import crowplexus.iris.IrisConfig;
 import crowplexus.iris.ErrorSeverity;
 import crowplexus.hscript.Expr.Error as IrisError;
 import crowplexus.hscript.Printer;
-import psychlua.CustomFlxColor
+import psychlua.CustomFlxColor;
 
 typedef HScriptInfos = {
 	> haxe.PosInfos,
