@@ -3,7 +3,7 @@ Português (Brasil)
 // Story Mode
 storyname_week5: "Nevasca Vermelha"
 storyname_week6: "Simulador de Confronto (ft. moawling)"
-storyname_weekend1: "Dívidas Fora do Prazo"
+storyname_wknd1: "Dívidas Fora do Prazo"
 
 // Achievements
 achievement_friday_night_play: "Sextou"
@@ -24,5 +24,5 @@ achievement_week6_nomiss: "Uma Novela Visual"
 description_week6_nomiss: "Complete a Week 6 no Modo Difícil e sem errar."
 achievement_week7_nomiss: "Puta Merda, Que Droga!"
 description_week7_nomiss: "Complete a Week 7 no Modo Difícil e sem errar."
-achievement_weekend1_nomiss: "Ei, Cê Acha Isso Mesmo?"
-description_weekend1_nomiss: "Complete a Weekend 1 no Modo Difícil e sem errar."
+achievement_wknd1_nomiss: "Ei, Cê Acha Isso Mesmo?"
+description_wknd1_nomiss: "Complete a Weekend 1 no Modo Difícil e sem errar."

@@ -1020,8 +1020,8 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 							if (note.isEvent) { copiedEvents.push(copied); }
 							else { copiedNotes.push(copied); }
 							
-							/*
-							TODO: FIX COPY & PASTE :SOB:
+							
+							// TODO: FIX COPY & PASTE :SOB:
 							var noteStep:Float = Conductor.getStep(note.strumTime);
 							copied[0] = noteStep - sectionStep;
 							
@@ -1032,7 +1032,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 								copied[2] = Conductor.getStep(note.strumTime + note.sustainLength) - noteStep;
 								copiedNotes.push(copied);
 							}
-							*/
+							
 						}
 						pushedNotes.sort((a:Array<Dynamic>, b:Array<Dynamic>) -> FlxSort.byValues(FlxSort.ASCENDING, a[0], b[0]));
 						
