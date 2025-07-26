@@ -1021,9 +1021,8 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 							else { copiedNotes.push(copied); }
 							
 							
-							// TODO: FIX COPY & PASTE :SOB:
 							var noteStep:Float = Conductor.getStep(note.strumTime);
-							copied[0] = noteStep - sectionStep;
+							copied[0] = noteStep - Conductor.getStep(cachedSectionTimes[curSec]); // heyy victoria i fixed your copy[paste] error - bobby
 							
 							pushedNotes.push(copied);
 							if (note.isEvent) {

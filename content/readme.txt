@@ -15,3 +15,4 @@ said edited files *must* be put in mods/images, the engine will handle the rest.
 
 ABOUT BASEFNF:
 That's the mod folder with all the vanilla funkin' content, making it easier to tweak things and add expansions. Idea taken from P-Slice 1.0.
+It will be redone eventually.

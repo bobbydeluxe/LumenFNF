@@ -6,6 +6,8 @@ why did i make this? i just thought p-slice was a bit too hardcoding-oriented. i
 
 basically a crossover between a bunch of psych forks. not trying to reinvent the wheel, just trying to make it easier to attach new wheels. a fork of a fork of a fork, if i say so myself.
 
+if you really want to have your hands on the latest updates as soon as i make progress, use github actions [must have a github account]. otherwise, use the releases tab versions.
+
 ## features (so far)
 
 - script stuff outside of songs (titlescreen, freeplay, etc.) [see [here](https://github.com/inky03/PsychEngineMod/blob/mod/docs/CHANGELOG.md)]
