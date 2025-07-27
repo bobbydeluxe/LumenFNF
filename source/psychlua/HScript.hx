@@ -263,6 +263,9 @@ class HScript extends Iris {
 		#end
 		set('controls', Controls.instance);
 
+		if (parentState != null && !(parentState is ScriptedSubState))
+			set(ScriptedSubState.getStateName(parentState), Type.getClass(parentState));
+
 		// Functions & Variables
 		var variableMap:Map<String, Dynamic> = getVariables();
 		

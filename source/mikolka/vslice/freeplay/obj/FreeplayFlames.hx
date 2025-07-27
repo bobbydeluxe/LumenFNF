@@ -81,7 +81,7 @@ class FreeplayFlames extends FlxSpriteGroup
             }
             timers.remove(currentTimer);
             flame.animation.play("flame", true);
-            FlxG.sound.play(Paths.sound('starIgnite'), 0.8);
+            FlxG.sound.play(Paths.sound('starIgnite'), 0.5);
             flame.visible = true;
           });
           timers.push(nextTimer);

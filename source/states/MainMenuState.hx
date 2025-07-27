@@ -85,8 +85,8 @@ class MainMenuState extends ScriptedState
 		add(bg);
 		callOnScripts('onLoad', ['bg', bg], true);
 
-		camFollow = new FlxObject(0, 0, 1, 1);
-		add(camFollow);
+		add(camFollow = new FlxObject(0, 0, 1, 1));
+		FlxG.camera.follow(camFollow, null, .2);
 		callOnScripts('onLoad', ['camFollow', camFollow], true);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
@@ -176,24 +176,15 @@ class MainMenuState extends ScriptedState
 			openSubState(new MasterEditorMenu(true));
 			FlxTransitionableState.skipNextTransOut = true;
 		}
-
-		FlxG.camera.follow(camFollow, null, .2);
 		
-		if (rightOption != null) {
+		if (rightOption != null)
 			rightItem = addMenuItem(rightOption, null, RIGHT);
-			rightItem.setPosition(FlxG.width - rightItem.width - 50, 490);
-			add(rightItem);
-			callOnScripts('onLoad', ['rightItem', rightItem], true);
-		}
-		if (leftOption != null) {
+		if (leftOption != null)
 			leftItem = addMenuItem(leftOption, null, LEFT);
-			leftItem.setPosition(50, 490);
-			add(leftItem);
-			callOnScripts('onLoad', ['leftItem', leftItem], true);
-		}
 		
 		positionMenuItems();
 		updateYScroll();
+		changeItem(true);
 		add(menuItems);
 		callOnScripts('onLoad', ['menuItems', menuItems], true);
 
@@ -225,8 +216,36 @@ class MainMenuState extends ScriptedState
 		var item:MenuItem = new MenuItem(0, 0, name, onAccept ?? menuFunctions[name]);
 		item.column = column;
 		
-		if (column == CENTER)
-			menuItems.add(item);
+		switch (column) {
+			case CENTER:
+				menuItems.add(item);
+				callOnScripts('onLoadMenuItem', [name, item]);
+				positionMenuItems();
+				
+			case LEFT:
+				if (leftItem != null) {
+					trace('left slot already occupied by ${leftItem.name}!');
+					return item;
+				}
+				
+				item.setPosition(50, FlxG.height - item.height - 50);
+				leftItem = item;
+				add(item);
+				callOnScripts('onLoadMenuItem', [name, item]);
+				updateYScroll();
+				
+			case RIGHT:
+				if (rightItem != null) {
+					trace('right slot already occupied by ${rightItem.name}!');
+					return item;
+				}
+				
+				item.setPosition(FlxG.width - item.width - 50, FlxG.height - item.height - 50);
+				rightItem = item;
+				add(item);
+				callOnScripts('onLoadMenuItem', [name, item]);
+				updateYScroll();
+		}
 		
 		return item;
 	}
@@ -251,17 +270,15 @@ class MainMenuState extends ScriptedState
 	}
 	
 	function updateYScroll():Void {
-		var yScroll:Float = .7 / menuItems.length;
 		var itemYScroll:Float = Math.min(1, Math.max(menuItems.height - FlxG.height + itemYPadding, 0) / FlxG.height * .35 + .25);
-		menuItems.scrollFactor.set(.04, itemYScroll);
+		menuItems?.scrollFactor.set(.04, itemYScroll);
+		
+		var yScroll:Float = (.7 / menuItems.length);
+		leftItem?.scrollFactor.set(0, yScroll * .25);
+		rightItem?.scrollFactor.set(0, yScroll * .25);
+		
 		bg.scrollFactor.set(0, yScroll * .75);
 		magenta.scrollFactor.copyFrom(bg.scrollFactor);
-		
-		leftItem?.scrollFactor.set(0, yScroll * .5);
-		rightItem?.scrollFactor.set(0, yScroll * .5);
-		
-		changeItem(true);
-		FlxG.camera.snapToTarget();
 	}
 
 	var selectedSomethin:Bool = false;
@@ -300,16 +317,12 @@ class MainMenuState extends ScriptedState
 
 				if (rightItem != null && FlxG.mouse.overlaps(rightItem)) {
 					allowMouse = true;
-					if (selectedItem != rightItem) {
-						curColumn = RIGHT;
-						changeItem();
-					}
+					if (selectedItem != rightItem)
+						changeItem(RIGHT);
 				} else if (leftItem != null && FlxG.mouse.overlaps(leftItem)) {
 					allowMouse = true;
-					if (selectedItem != leftItem) {
-						curColumn = LEFT;
-						changeItem();
-					}
+					if (selectedItem != leftItem)
+						changeItem(LEFT);
 				} else {
 					var dist:Float = -1;
 					var distItem:Int = -1;
@@ -341,9 +354,9 @@ class MainMenuState extends ScriptedState
 						changeItem(CENTER);
 					
 				case CENTER:
-					if (controls.UI_RIGHT_P && rightOption != null) {
+					if (controls.UI_RIGHT_P && rightItem != null) {
 						changeItem(RIGHT);
-					} else if (controls.UI_LEFT_P && leftOption != null) {
+					} else if (controls.UI_LEFT_P && leftItem != null) {
 						changeItem(LEFT);
 					}
 
@@ -421,7 +434,7 @@ class MainMenuState extends ScriptedState
 		if (column == CENTER)
 			curSelected = FlxMath.wrap(curSelected + change, 0, menuItems.length - 1);
 		
-		if (change != 0) {
+		if (change != 0 || curColumn != oldColumn) {
 			curColumn = CENTER;
 		} else {
 			curColumn = column;

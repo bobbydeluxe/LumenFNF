@@ -1020,7 +1020,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 							if (note.isEvent) { copiedEvents.push(copied); }
 							else { copiedNotes.push(copied); }
 							
-							
+							/*
 							var noteStep:Float = Conductor.getStep(note.strumTime);
 							copied[0] = noteStep - Conductor.getStep(cachedSectionTimes[curSec]); // heyy victoria i fixed your copy[paste] error - bobby
 							
@@ -1031,13 +1031,14 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 								copied[2] = Conductor.getStep(note.strumTime + note.sustainLength) - noteStep;
 								copiedNotes.push(copied);
 							}
+							*/
 							
 						}
 						pushedNotes.sort((a:Array<Dynamic>, b:Array<Dynamic>) -> FlxSort.byValues(FlxSort.ASCENDING, a[0], b[0]));
 						
-						var minTime:Float = pushedNotes[0][0];
+						var minTime:Float = Conductor.getStep(pushedNotes[0][0]);
 						for (note in pushedNotes)
-							note[0] -= minTime;
+							note[0] = Conductor.getStep(note[0]);
 					}
 				}
 				else if(FlxG.keys.justPressed.V) // Paste (Ctrl + V)
@@ -1050,16 +1051,14 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 						selectedNotes = pasteCopiedNotesToSection();
 						selectedNotes.sort(PlayState.sortByTime);
 
-						var didFind:Bool = false;
-						var minNoteData:Float = Math.POSITIVE_INFINITY;
+						var minNoteData:Null<Int> = null;
 						for (note in selectedNotes)
 						{
 							if(note == null || note.isEvent) continue;
 
-							if(minNoteData > note.songData[1]) minNoteData = note.songData[1];
-							didFind = true;
+							if(minNoteData == null || minNoteData > note.songData[1]) minNoteData = note.songData[1];
 						}
-						if(!didFind) minNoteData = 0;
+						minNoteData ??= 0;
 						
 						var pushedNotes:Array<MetaNote> = [];
 						var pushedEvents:Array<EventMetaNote> = [];
@@ -1075,7 +1074,8 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 							else pushedEvents.push(cast (note, EventMetaNote));
 						}
 						addUndoAction(ADD_NOTE, {notes: pushedNotes, events: pushedEvents});
-						moveSelectedNotes(Std.int(minNoteData), selectedNotes[0].y);
+
+						if (selectedNotes.length > 0) moveSelectedNotes(minNoteData, selectedNotes[0].y);
 					}
 				}
 				else if(FlxG.keys.justPressed.A) // Select All (Ctrl + A)
