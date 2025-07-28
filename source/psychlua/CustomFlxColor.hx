@@ -8,6 +8,7 @@ class CustomFlxColor
 {
     // credits to TheLeerName for the flxcolor rewrite
     static var instance:CustomFlxColor = new CustomFlxColor();
+	function new() {}
 
     // haxeflixel stock colors
     static inline var TRANSPARENT:FlxColor = 0x00000000;
