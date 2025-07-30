@@ -35,7 +35,7 @@
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/gameover/BF_dead",
+	"image": "characters/gameover/bf_dead",
 	"position": [
 		0,
 		350

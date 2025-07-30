@@ -1,6 +1,5 @@
 package states;
 
-import mikolka.stages.standard.StageWeek1;
 import substates.StickerSubState;
 import mikolka.vslice.freeplay.FreeplayState;
 import states.PsychFreeplayState;
@@ -409,11 +408,7 @@ class PlayState extends ScriptedState
 		boyfriendGroup = new FlxSpriteGroup(BF_X, BF_Y);
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
 		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
-
-		switch (curStage)
-		{
-			case 'stage': new StageWeek1();
-		}
+		
 		if(isPixelStage) introSoundsSuffix = '-pixel';
 
 		if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; //Fix for the Chart Editor
@@ -2549,7 +2544,7 @@ class PlayState extends ScriptedState
 					var prevAcc = Highscore.getWeekAccuracy(WeekData.weeksList[storyWeek],storyDifficulty);
 
 					var prevRank = Scoring.calculateRankFromData(prevScore,prevAcc,wasFC);
-					//FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					//FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
 					#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
 
 					canResync = false;
@@ -2632,7 +2627,7 @@ class PlayState extends ScriptedState
 				
 				camOther.fade(FlxColor.BLACK, 0.6,false,() -> {
 					FlxTransitionableState.skipNextTransOut = true;
-				if (psychlua.Constants.legacyFreeplay == true)
+				if (psychlua.EpicConstants.legacyFreeplay == true)
 					FlxG.switchState(() -> new PsychFreeplayState());
 				else
 					FlxG.switchState(() -> FreeplayState.build(
@@ -2651,7 +2646,7 @@ class PlayState extends ScriptedState
 				});
 			}
 			else if (!isStoryMode){
-					if (psychlua.Constants.legacyFreeplay == true)
+					if (psychlua.EpicConstants.legacyFreeplay == true)
 						openSubState(new StickerSubState(null, (sticker) -> new PsychFreeplayState(sticker)));
 					else {
 						openSubState(new StickerSubState(null, (sticker) -> FreeplayState.build(

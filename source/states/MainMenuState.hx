@@ -105,7 +105,7 @@ class MainMenuState extends ScriptedState
 			MusicBeatState.switchState(new StoryMenuState());
 		}
 		menuFunctions['freeplay'] ??= (item:MenuItem) -> {
-			if (psychlua.Constants.legacyFreeplay == true) {
+			if (psychlua.EpicConstants.legacyFreeplay == true) {
 				skipTransitionFades(false);
 				MusicBeatState.switchState(new PsychFreeplayState());
 			} else {

@@ -15,6 +15,9 @@ import objects.Bar;
 import states.editors.content.Prompt;
 import states.editors.content.PsychJsonPrinter;
 
+import flixel.addons.display.FlxBackdrop;
+import flixel.addons.display.FlxGridOverlay;
+
 @:bitmap("assets/images/debugger/cursorCross.png")
 class GraphicCursorCross extends openfl.display.BitmapData {}
 
@@ -412,7 +415,7 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 				no_antialiasing: false,
 				flip_x: false,
 				healthicon: 'face',
-				image: 'characters/BOYFRIEND',
+				image: 'characters/boyfriend',
 				sing_duration: 4,
 				scale: 1,
 				healthbar_colors: [161, 161, 161],
@@ -1061,7 +1064,7 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 				if(!unsavedProgress)
 				{
 					MusicBeatState.switchState(new states.MainMenuState(false, true));
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
 				}
 				else openSubState(new ExitConfirmationPrompt());
 			}
@@ -1087,13 +1090,21 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 		/////////////
 		camEditor.bgColor = FlxColor.BLACK;
 		
-		var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
-		add(bg);
+		if (Paths.fileExists('stage/stagefront.png', IMAGE)) {
+			var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
+			add(bg);
 
-		var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
-		stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-		stageFront.updateHitbox();
-		add(stageFront);
+			var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
+			stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+			stageFront.updateHitbox();
+			add(stageFront);
+		} else {
+			var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFF939DCA, 0xFF52526D));
+			grid.velocity.set(40, 40);
+			grid.alpha = 0;
+			FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+			add(grid);
+		}
 
 		dadPosition.set(100, 100);
 		bfPosition.set(770, 100);

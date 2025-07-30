@@ -2,7 +2,7 @@ package states;
 
 import hxvlc.flixel.FlxVideoSprite;
 
-import psychlua.Constants;
+import psychlua.EpicConstants;
 import shaders.BlueFade;
 import backend.QuickMemBank;
 
@@ -15,7 +15,7 @@ class IntroSplashState extends ScriptedState
 {
 	var videoCutscene:FlxVideoSprite;
 
-	var introSoundNum:Int = Constants.introSoundCount;
+	var introSoundNum:Int = EpicConstants.introSoundCount;
 
 	var spriteEvents:FlxTimer;
 	var logo:FlxSprite;
@@ -34,8 +34,8 @@ class IntroSplashState extends ScriptedState
 
 		FlxG.autoPause = ClientPrefs.data.autoPause;
 
-		if (Paths.fileExists('${Constants.introVideo}.${Paths.VIDEO_EXT}', BINARY, false, 'videos')) {
-			startVideo(Constants.introVideo);
+		if (Paths.fileExists('${EpicConstants.introVideo}.${Paths.VIDEO_EXT}', BINARY, false, 'videos')) {
+			startVideo(EpicConstants.introVideo);
 		} else {
 			if (doLogo) {
 				logoFunc();
@@ -76,7 +76,7 @@ class IntroSplashState extends ScriptedState
 	{
 		var fadeShader = new BlueFade();
 
-		logo = new FlxSprite().loadGraphic(Paths.image('opening/intro_${Constants.introLogo}'));
+		logo = new FlxSprite().loadGraphic(Paths.image('opening/intro_${EpicConstants.introLogo}'));
 		logo.antialiasing = ClientPrefs.data.antialiasing;
 		logo.screenCenter();
 		logo.shader = fadeShader;
@@ -86,8 +86,8 @@ class IntroSplashState extends ScriptedState
 		spriteEvents = new FlxTimer().start(1, (t0:FlxTimer) -> {
 			new FlxTimer().start(0.25, (t1:FlxTimer) -> {
 				FlxG.sound.volume = 1;
-				introSoundNum = Math.floor(Math.random() * Constants.introSoundCount) + 1;
-				FlxG.sound.play(Paths.sound('opening/${Constants.introSoundPrefix}${introSoundNum}'));
+				introSoundNum = Math.floor(Math.random() * EpicConstants.introSoundCount) + 1;
+				FlxG.sound.play(Paths.sound('opening/${EpicConstants.introSoundPrefix}${introSoundNum}'));
 				logo.visible = true;
 				logoPlaying = true;
 				logo.scale.set(0.2, 1.25);

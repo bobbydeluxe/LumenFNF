@@ -35,7 +35,7 @@ class CustomState extends ScriptedState implements PsychUIEventHandler.PsychUIEv
 			  openSubState(stickerSubState);
 			  ModsHelper.clearStoredWithoutStickers();
 			  stickerSubState.degenStickers();
-			  //FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			  //FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
 			}
 		
 		preCreate();

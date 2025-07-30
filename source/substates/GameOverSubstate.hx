@@ -141,7 +141,7 @@ class GameOverSubstate extends ScriptedSubState
 					}
 					else
 					{
-						if (psychlua.Constants.legacyFreeplay == true) {
+						if (psychlua.EpicConstants.legacyFreeplay == true) {
 								openSubState(new StickerSubState(null, (sticker) -> new PsychFreeplayState(sticker)));
 							} else {
 								openSubState(new StickerSubState(null, (sticker) -> FreeplayState.build(null, sticker)));

@@ -1,6 +1,6 @@
 package backend;
 
-import psychlua.Constants;
+import psychlua.EpicConstants;
 
 // PsychCamera handles followLerp based on elapsed
 // and stops camera from snapping at higher framerates

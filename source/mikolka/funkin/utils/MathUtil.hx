@@ -6,12 +6,6 @@ package mikolka.funkin.utils;
 class MathUtil
 {
   /**
-   * Euler's constant and the base of the natural logarithm.
-   * Math.E is not a constant in Haxe, so we'll just define it ourselves.
-   */
-  public static final E:Float = Math.exp(1);
-
-  /**
    * Perform linear interpolation between the base and the target, based on the current framerate.
    * @param base The starting value, when `progress <= 0`.
    * @param target The ending value, when `progress >= 1`.
@@ -39,17 +33,6 @@ class MathUtil
   public static function cameraLerp(lerp:Float):Float
   {
     return lerp * (FlxG.elapsed / (1 / 60));
-  }
-
-  /**
-   * Get the logarithm of a value with a given base.
-   * @param base The base of the logarithm.
-   * @param value The value to get the logarithm of.
-   * @return `log_base(value)`
-   */
-  public static function logBase(base:Float, value:Float):Float
-  {
-    return Math.log(value) / Math.log(base);
   }
 
   public static function easeInOutCirc(x:Float):Float

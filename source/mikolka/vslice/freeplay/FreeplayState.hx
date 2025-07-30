@@ -1865,7 +1865,7 @@ class FreeplayState extends ScriptedSubState
 				FlxTransitionableState.skipNextTransOut = true;
 				if (Type.getClass(_parentState) == MainMenuState)
 				{
-					FunkinSound.playMusic('freakyMenu', {
+					FunkinSound.playMusic('${psychlua.EpicConstants.mainMenuMusic}', {
 						overrideExisting: true,
 						restartTrack: false
 					});

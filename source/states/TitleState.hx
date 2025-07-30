@@ -150,7 +150,7 @@ class TitleState extends ScriptedState
 	{
 		persistentUpdate = true;
 		if (!initialized && FlxG.sound.music == null)
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+			FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'), 0);
 
 		loadJsonData();
 		#if TITLE_SCREEN_EASTER_EGG easterEggData(); #end
@@ -456,7 +456,7 @@ class TitleState extends ScriptedState
 				enterTimer = new FlxTimer().start(1, (_) -> {
 					if (cheatActive)
 					{
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 					}
 					FlxTransitionableState.skipNextTransIn = true;
@@ -618,7 +618,7 @@ class TitleState extends ScriptedState
 					switch (b) {
 						case 0:
 							//FlxG.sound.music.stop();
-							FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+							FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'), 0);
 							FlxG.sound.music.fadeIn(4, 0, 0.7);
 						case 1:
 							createCoolText(['Funkin Crew Inc', 'Shadow Mario', 'mikolka9144', 'bobbyDX']);
@@ -704,7 +704,7 @@ class TitleState extends ScriptedState
 						FlxG.camera.flash(FlxColor.WHITE, 2);
 						skippedIntro = true;
 
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
 				}
@@ -727,7 +727,7 @@ class TitleState extends ScriptedState
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function()
 					{
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
 						#if ACHIEVEMENTS_ALLOWED

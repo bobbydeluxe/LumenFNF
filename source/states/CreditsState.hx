@@ -24,7 +24,7 @@ class CreditsState extends ScriptedState
 		['PhoenixPunk',			'phoenixpunk', 			'added the random and new pico freeplay capsules and some little tweaks',						'https://gamebanana.com/members/3957045',				'E3345D'],
 		[''],
 		["Lumen Contributors"],
-		['unholywanderer04', 'unholy', 			'epic rating graphic and pico speaker idle anim [taken from unholy engine]', 			 			'https://github.com/Unholywanderer', '		7a83ff'],
+		['unholywanderer04', 'unholy', 			'epic rating graphic and many character animation sheets [taken from unholy engine]', 			 			'https://github.com/Unholywanderer', '		7a83ff'],
 		['SunkyDev31',			'sunky',			'Translated the Week 6 (Pico Mix) dialogues for Português (Brasil)', 'https://bsky.app/profile/sunkydunky31.bsky.social', 'FFCC33'],
 		['falkimore', 			'falkimore',		'made the gradient map shader', 		'', 		'F5A742'],
 		['DuskieWhy',		'duskie',		'programmer of nightmarevision, the source of the intro sequence and the rating ui scale tweens',		'https://twitter.com/DuskieWhy',		'6D32A8'],

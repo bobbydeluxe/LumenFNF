@@ -69,7 +69,7 @@ class CustomSubstate extends ScriptedSubState implements PsychUIEventHandler.Psy
 			  openSubState(stickerSubState);
 			  ModsHelper.clearStoredWithoutStickers();
 			  stickerSubState.degenStickers();
-			  //FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			  //FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
 			}
 		
 		if (Std.isOfType(_parentState, ScriptedSubState)) {

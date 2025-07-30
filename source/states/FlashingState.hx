@@ -31,7 +31,8 @@ class FlashingState extends ScriptedState
 		var warnText:FlxText = new FlxText(0, 0, FlxG.width,
 			"Hey, watch out!\n
 			This Mod contains some flashing lights!\n
-			Do you wish to disable them?");
+			Do you wish to disable them?\n
+			You can always change your mind in the options menu.");
 		warnText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		texts.add(warnText);

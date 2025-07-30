@@ -5,12 +5,8 @@ import objects.Character;
 import objects.Bar;
 import flixel.addons.display.shapes.FlxShapeCircle;
 
-import mikolka.stages.standard.StageWeek1 as BackgroundStage;
-
 class NoteOffsetState extends ScriptedState
 {
-	var stageDirectory:String = 'week1';
-	var createStage:Bool = true;
 	var boyfriend:Character;
 	var gf:Character;
 
@@ -51,12 +47,6 @@ class NoteOffsetState extends ScriptedState
 
 		persistentUpdate = true;
 		FlxG.sound.pause();
-
-		// Stage
-		if (createStage) {
-			Paths.setCurrentLevel(stageDirectory);
-			new BackgroundStage();
-		}
 
 		preCreate();
 
@@ -414,7 +404,7 @@ class NoteOffsetState extends ScriptedState
 				else
 					FlxG.sound.music.volume = 0;
 			}
-			else FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			else FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
 			FlxG.mouse.visible = false;
 		}
 

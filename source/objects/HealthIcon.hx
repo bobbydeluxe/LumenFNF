@@ -40,9 +40,7 @@ class HealthIcon extends FlxSprite
 			animation.play(char);
 			this.char = char;
 
-			if(char.endsWith('-pixel'))
-				antialiasing = false;
-			else if (pixil)
+			if(char.endsWith('-pixel') || pixil)
 				antialiasing = false;
 				// in case i wanna do that effect from fnf sonic jam
 				// the intro in the fresh sonic mix showcase thing - bobbyDX

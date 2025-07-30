@@ -70,7 +70,7 @@ class StoryMenuState extends ScriptedState
 			  openSubState(stickerSubState);
 			  ModsHelper.clearStoredWithoutStickers();
 			  stickerSubState.degenStickers();
-			  FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			  FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
 			}
 		else Paths.clearStoredMemory();
 

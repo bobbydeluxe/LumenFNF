@@ -79,7 +79,7 @@ class StickerTest extends MusicBeatState {
                 FunkinControls.enableVolume();
 
                 if(#if TOUCH_CONTROLS_ALLOWED touchPad.buttonB.justPressed || #end controls.BACK){
-                    FlxG.sound.playMusic(Paths.music('freakyMenu'));
+                    FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
                     FlxG.mouse.visible = false;
                     MusicBeatState.switchState(new states.MainMenuState(false, true));
                 }

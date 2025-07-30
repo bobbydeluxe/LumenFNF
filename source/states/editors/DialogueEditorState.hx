@@ -319,7 +319,7 @@ class DialogueEditorState extends MusicBeatState implements PsychUIEventHandler.
 				if(!unsavedProgress)
 				{
 					MusicBeatState.switchState(new states.MainMenuState(false, true));
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
 					transitioning = true;
 				}
 				else openSubState(new ExitConfirmationPrompt(function() transitioning = true));

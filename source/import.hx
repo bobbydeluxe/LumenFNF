@@ -14,7 +14,7 @@ import llua.Lua;
 import backend.Achievements;
 #end
 
-// Mobile Controls [so p-slice don't break]
+// Deprecated Mobile Controls [so p-slice don't break]
 import mobile.input.MobileInputID;
 import mobile.backend.SwipeUtil;
 import mobile.backend.TouchUtil;

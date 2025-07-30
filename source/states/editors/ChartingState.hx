@@ -4160,7 +4160,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		{
 			PlayState.chartingMode = false;
 			MusicBeatState.switchState(new states.MainMenuState(true));
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
 			FlxG.mouse.visible = false;
 		}, btnWid);
 		btn.text.alignment = LEFT;

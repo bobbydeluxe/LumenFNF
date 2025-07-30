@@ -1486,7 +1486,7 @@ class FunkinLua {
 				}
 				else
 				{
-					if (psychlua.Constants.legacyFreeplay == true) {
+					if (psychlua.EpicConstants.legacyFreeplay == true) {
 						if(skipTransition) FlxG.switchState(() -> new PsychFreeplayState())
 					else target.openSubState(new substates.StickerSubState(null, (sticker) -> new PsychFreeplayState(sticker)));
 					} else {

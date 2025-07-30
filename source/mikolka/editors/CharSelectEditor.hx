@@ -134,7 +134,7 @@ class CharSelectEditor extends MusicBeatState
 
 			if (controls.BACK)
 			{
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'));
 				FlxG.mouse.visible = false;
 				persistentUpdate = false;
 				MusicBeatState.switchState(new states.MainMenuState(false, true));

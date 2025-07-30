@@ -91,7 +91,7 @@
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
-	"image": "characters/GF_assets",
+	"image": "characters/gf_assets",
 	"position": [200, 0],
 	"healthicon": "gf",
 	"flip_x": false,

@@ -7,6 +7,7 @@ import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.text.FlxText.FlxTextAlign;
+import bobbydx.MathUtil as BMath;
 
 //? Native
 /**
@@ -48,7 +49,7 @@ class TallyCounter extends FlxTypedSpriteGroup<FlxSprite>
     var seperatedScore:Array<Int> = [];
     var tempCombo:Int = Math.round(curNumber);
 
-    var fullNumberDigits:Int = Std.int(Math.max(1, Math.ceil(MathUtil.logBase(10, neededNumber))));
+    var fullNumberDigits:Int = Std.int(Math.max(1, Math.ceil(BMath.log(neededNumber, 10))));
 
     while (tempCombo != 0)
     {

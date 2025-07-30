@@ -19,6 +19,10 @@ if you really want to have your hands on the latest updates as soon as i make pr
 
 (still being expanded. this project is a wip. chill.)
 
+## base fnf content
+
+the vanilla funkin' assets and songs are now being hosted [here](https://github.com/ledonic852/FNF-LumenPort). Clone or download the repo in the core engine's mod folder. The modpack is still a heavy work-in-progress, and it will be included with the engine when it's done.
+
 ## how to compile
 
 you'll need:

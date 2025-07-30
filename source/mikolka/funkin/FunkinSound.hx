@@ -120,7 +120,7 @@ class FunkinSound extends FlxSound
 		}
 		else{
 			var targetPath = key+"/"+key;
-			if(key == "freakyMenu") targetPath = "freakyMenu";
+			if(key == '${psychlua.EpicConstants.mainMenuMusic}') targetPath = '${psychlua.EpicConstants.mainMenuMusic}';
 			FlxG.sound.playMusic(Paths.music(targetPath),params.startingVolume,params.loop);
 			if(params.onLoad!= null)params.onLoad();
 			return true;
