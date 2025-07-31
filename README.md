@@ -59,6 +59,7 @@ also feel free to fork this for your own mod or use code from here or whatever, 
 - no mobile support (and not planned)
 - only works on windows (maybe just use wine on linux/mac)
 - some leftovers might still be lurking, beware
+- without the base fnf content modpack your game will crash if you zoom out too much on the character editor
 
 ## license
 
