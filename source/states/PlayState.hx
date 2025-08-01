@@ -2082,30 +2082,34 @@ class PlayState extends ScriptedState
 		if(Math.isNaN(flValue1)) flValue1 = null;
 		if(Math.isNaN(flValue2)) flValue2 = null;
 
-		switch(eventName) {
+		switch (eventName) {
 			case 'Hey!':
 				var value:Int = 2;
-				switch(value1.toLowerCase().trim()) {
+				switch (value1.toLowerCase().trim()) {
 					case 'bf' | 'boyfriend' | '0':
 						value = 0;
-					case 'gf' | 'girlfriend' | '1':
+					case 'gf' | 'girlfriend' | '2':
+						value = 2;
+					case 'dad' | 'opponent' | '1':
 						value = 1;
 				}
 
-				if(flValue2 == null || flValue2 <= 0) flValue2 = 0.6;
+				if (flValue2 == null || flValue2 <= 0) flValue2 = 0.6;
 
-				if(value != 0) {
-					if(dad.curCharacter.startsWith('gf')) { //Tutorial GF is actually Dad! The GF is an imposter!! ding ding ding ding ding ding ding, dindinding, end my suffering
-						dad.playAnim('cheer', true);
-						dad.specialAnim = true;
-						dad.heyTimer = flValue2;
-					} else if (gf != null) {
+				if (value != 0) {
+					if (gf != null && value == 2) {
 						gf.playAnim('cheer', true);
 						gf.specialAnim = true;
 						gf.heyTimer = flValue2;
 					}
+					if (dad != null && value == 1) {
+						dad.playAnim('hey', true);
+						dad.specialAnim = true;
+						dad.heyTimer = flValue2;
+					}
 				}
-				if(value != 1) {
+
+				if (value == 0) {
 					boyfriend.playAnim('hey', true);
 					boyfriend.specialAnim = true;
 					boyfriend.heyTimer = flValue2;

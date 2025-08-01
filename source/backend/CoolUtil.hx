@@ -11,7 +11,7 @@ class CoolUtil
 	public static function checkForUpdates(url:String = null):String {
 		if (url == null || url.length == 0)
 			url = "https://raw.githubusercontent.com/bobbydeluxe/LumenFNF/mod/gitVersion.txt";
-		var version:String = states.MainMenuState.modVersion.trim();
+		var version:String = states.MainMenuState.lumenEngineVersion.trim();
 		if(ClientPrefs.data.checkForUpdates) {
 			trace('checking for updates...');
 			var http = new haxe.Http(url);

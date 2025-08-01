@@ -1,7 +1,5 @@
 package substates;
 
-package substates;
-
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 
@@ -32,7 +30,7 @@ class OutdatedSubState extends MusicBeatSubstate
 			You can disable this warning by unchecking the
 			"Check for Updates" setting in the Options Menu\n
 			-----------------------------------------------\n
-			Thank you for using the Engine!',
+			Thank you for using the fork!',
 			32);
 		warnText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
 		warnText.scrollFactor.set();
