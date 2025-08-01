@@ -8,6 +8,33 @@ import lime.utils.Assets as LimeAssets;
 #end
 class CoolUtil
 {
+	public static function checkForUpdates(url:String = null):String {
+		if (url == null || url.length == 0)
+			url = "https://raw.githubusercontent.com/bobbydeluxe/LumenFNF/mod/gitVersion.txt";
+		var version:String = states.MainMenuState.modVersion.trim();
+		if(ClientPrefs.data.checkForUpdates) {
+			trace('checking for updates...');
+			var http = new haxe.Http(url);
+			http.onData = function (data:String)
+			{
+				var newVersion:String = data.split('\n')[0].trim();
+				trace('version online: $newVersion, your version: $version');
+				if (newVersion > version) {
+					trace('using an outdated version! please update');
+					version = newVersion;
+					http.onError = null;
+					http.onData = null;
+					http = null;
+				}
+			}
+			http.onError = function (error) {
+				trace('error: $error');
+			}
+			http.request();
+		}
+		return version;
+	}
+
 	inline public static function quantize(f:Float, snap:Float){
 		// changed so this actually works lol
 		var m:Float = Math.fround(f * snap);

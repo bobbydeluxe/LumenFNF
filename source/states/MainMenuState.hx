@@ -176,6 +176,14 @@ class MainMenuState extends ScriptedState
 			openSubState(new MasterEditorMenu(true));
 			FlxTransitionableState.skipNextTransOut = true;
 		}
+
+		#if CHECK_FOR_UPDATES
+		if (showOutdatedWarning && ClientPrefs.data.checkForUpdates && substates.OutdatedSubState.updateVersion > lumenEngineVersion) {
+			persistentUpdate = false;
+			showOutdatedWarning = false;
+			openSubState(new substates.OutdatedSubState());
+		}
+		#end
 		
 		if (rightOption != null)
 			rightItem = addMenuItem(rightOption, null, RIGHT);

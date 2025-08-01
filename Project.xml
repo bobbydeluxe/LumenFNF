@@ -36,7 +36,7 @@ xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/
 	<!-- Adds support for touchscreen devices (like mobiles)-->
 	<define name="TOUCH_CONTROLS_ALLOWED" if="mobile || web || debug" />
 
-	<!-- Do you want to check for P-Slice updates?-->
+	<!-- Do you want to check for updates?-->
 	<define name="CHECK_FOR_UPDATES" unless="web"/>
 
 	<!-- Do you want to support playing videos in your build?-->

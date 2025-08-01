@@ -1,5 +1,5 @@
 name: Feature Request
-description: Request something to be added to P-Slice
+description: Request something to be added to Lumen
 labels: [enhancement]
 body:
   - type: textarea
