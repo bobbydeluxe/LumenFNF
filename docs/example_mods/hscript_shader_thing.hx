@@ -1,5 +1,5 @@
 // gradient map hscript example
-// thanks falkimore
+// thanks falkimore for the shader
 
 var tintShader:FlxRuntimeShader;
 
