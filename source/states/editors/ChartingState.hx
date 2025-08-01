@@ -4916,6 +4916,7 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		setSongPlaying(false);
 		updateChartData();
 		StageData.loadDirectory(PlayState.SONG);
+		if (FlxG.keys.pressed.SHIFT) PlayState.startOnTime = FlxG.sound.music.time;
 		LoadingState.loadAndSwitchState(new PlayState());
 		ClientPrefs.toggleVolumeKeys(true);
 	}

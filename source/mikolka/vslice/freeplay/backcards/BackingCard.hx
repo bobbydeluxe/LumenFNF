@@ -19,7 +19,7 @@ import openfl.display.BlendMode;
 import flixel.group.FlxSpriteGroup;
 import mikolka.compatibility.FunkinPath as Paths;
 
-import mikolka.vslice.freeplay.BGScrollingText; // DCE PREVENTION
+import mikolka.vslice.freeplay.BGScrollingText; // DCE "PREVENTION"
 
 /**
  * A class for the backing cards so they dont have to be part of freeplayState......

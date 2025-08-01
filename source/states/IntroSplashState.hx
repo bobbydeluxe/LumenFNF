@@ -26,6 +26,8 @@ class IntroSplashState extends ScriptedState
 	public static var doLogo:Bool = true;
 	public static var customTrans:Bool = false;
 
+	var fadeColors = [0.0, 0.0, 1.0];
+
 	override function create()
 	{
 		preCreate();
@@ -75,6 +77,7 @@ class IntroSplashState extends ScriptedState
 	function logoFunc()
 	{
 		var fadeShader = new BlueFade();
+		fadeShader.fadeRGB = fadeColors;
 
 		logo = new FlxSprite().loadGraphic(Paths.image('opening/intro_${EpicConstants.introLogo}'));
 		logo.antialiasing = ClientPrefs.data.antialiasing;

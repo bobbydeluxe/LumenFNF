@@ -895,14 +895,26 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 		if (FlxG.keys.pressed.I) FlxG.camera.scroll.y -= elapsed * 500 * shiftMult * ctrlMult;
 
 		var lastZoom = FlxG.camera.zoom;
-		if(FlxG.keys.justPressed.R && !FlxG.keys.pressed.CONTROL) FlxG.camera.zoom = 1;
-		else if (FlxG.keys.pressed.E && FlxG.camera.zoom < 3) {
-			FlxG.camera.zoom += elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
-			if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
-		}
-		else if (FlxG.keys.pressed.Q && FlxG.camera.zoom > 0.1) {
-			FlxG.camera.zoom -= elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
-			if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
+		if (Paths.fileExists('stage/stagefront.png', IMAGE)) {
+			if(FlxG.keys.justPressed.R && !FlxG.keys.pressed.CONTROL) FlxG.camera.zoom = 1;
+			else if (FlxG.keys.pressed.E && FlxG.camera.zoom < 3) {
+				FlxG.camera.zoom += elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
+				if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
+			}
+			else if (FlxG.keys.pressed.Q && FlxG.camera.zoom > 0.1) {
+				FlxG.camera.zoom -= elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
+				if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
+			}
+		} else {
+			if(FlxG.keys.justPressed.R && !FlxG.keys.pressed.CONTROL) FlxG.camera.zoom = 1;
+			else if (FlxG.keys.pressed.E && FlxG.camera.zoom < 3) {
+				FlxG.camera.zoom += elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
+				if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
+			}
+			else if (FlxG.keys.pressed.Q && FlxG.camera.zoom > 0.3) {
+				FlxG.camera.zoom -= elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
+				if(FlxG.camera.zoom < 0.3) FlxG.camera.zoom = 0.3;
+			}
 		}
 
 		if(lastZoom != FlxG.camera.zoom) cameraZoomText.text = 'Zoom: ' + FlxMath.roundDecimal(FlxG.camera.zoom, 2) + 'x';
