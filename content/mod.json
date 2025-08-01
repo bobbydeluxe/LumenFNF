@@ -1,7 +1,0 @@
-{
-    "name": "Name",
-    "description": "Description",
-    "restart": false,
-    "global": false,
-    "color": [170, 0, 255]
-}

@@ -1,92 +1,83 @@
- __                 /                                  
-/ _   _ |_ |_ .  _                                     
-\__) (- |_ |_ | | )                                    
-                                                       
- __                                                    
-|_   _  _  _  |                                        
-|   |  (- (_| |( \/                                    
-                 /                                     
-                                                       
- _   _     _                                           
-(_) | )   (_|                                          
-                                                       
- __                                                    
-|_   _ .  _|  _        _  .  _  |_  |_       _  _  |_  
-|   |  | (_| (_| \/   | ) | (_) | ) |_   \/ (- (_| | ) 
-                 /          _/           /             
+LUMEN ENGINE - QUICK START GUIDE
+--------------------------------
 
-HEY
-Thanks for downloadin Friday Night FUNKIN'
-If you downloaded this from any other place than ninja-muffin24.itch.io/FUNKIN
-You might be in DANGER!!! 
+this file covers the basics of setting up mods for lumen engine and how it differs from psych.
 
-The Itch.io release is the only official source for the desktop (PC, Mac, Linux) versions of the game!
-As of right now, the game is FREE! If you paid for it, you got SCAMMED!
+first you gotta create your damn mods folder
 
-Now that that's out of the way....
-THANKS FOR DOWNLOADIN. 
+after that let's begin
 
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-    PERMISSIONS XDDDD
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+---
 
-Little info, you have FULL PERMISSION to stream, letsplay, meme, shitpost, do WHATEVER you want with the game.
-Use the music in videos you do, use art, ANYTHING. GO CRAZY BRO.
+1. MOD STRUCTURE
+----------------
 
-If you do make any sort of video, it would be a bro move if you linked the game and spread the word
+lumen uses the same overall mod structure as psych engine with one key difference:
+your modpack metadata file goes in:
 
-Play On Newgrounds - https://www.newgrounds.com/portal/view/770371
-Support on Itch.io - https://ninja-muffin24.itch.io/funkin
+    urMod/data/metadata.json
 
-If not no biggie we don't fully hate you only kinda no biggie.
+instead of psych's:
 
+    urMod/pack.json
 
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-    INFO AND LINKS
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+the icon for your modpack also lives in:
 
-If you wanna dig around, the game is fully open source on Github
-https://github.com/ninjamuffin99/Funkin
+    urMod/data/icon.png
 
-It's made in Haxe / HaxeFlixel
+instead of psych's:
 
-MUSIC IS ON SPOTIFY AND BANDCAMP AND EVERYWHERE ELSE PROB TOO
-https://kawaisprite.bandcamp.com/album/friday-night-funkin-ost-vol-1
+    urMod/pack.png
 
+everything else (assets, scripts, charts, etc.) can be dragged straight from a psych mod and will work without changes.
 
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-    FINAL WORDS / CREDITS
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+---
 
-Friday Night Funkin' is made by ninjamuffin99 (programmer), PhantomArcade (animator), kawaisprite (musician), and evilsk8r (artist)
+2. METADATA.JSON FORMAT
+-----------------------
 
-https://twitter.com/ninja_muffin99
-https://twitter.com/phantomarcade3k
-https://twitter.com/kawaisprite
-https://twitter.com/evilsk8r
+your metadata.json needs to be strict JSON. here's an example:
 
-Pico is created by Tom Fulp
-Skid and Pump are created by SrPelo
-BassetFilms did music for lemon monster songs
+{
+    "name": "Name",           // name shown in the mods menu
+    "description": "Description", // description for the modpack
+    "restart": false,         // if the game should restart when enabling/disabling/moving
+    "global": true,           // if scripts/assets run globally or only in this mod's songs
+    "color": [0, 170, 255]    // background color (R,G,B) for the mods menu
+}
 
+*note: remove the comments if you copy this into an actual file – json does not allow comments.*
 
-Final important thing, this is made with the support and love to and from Newgrounds.com.
-Go to newgrounds, we love newgrounds. newgrounds good. How many times do I gotta damn say it. Newgrounds newgrounds newgrounds newgrounds
-I love Tom Fulp.
+---
 
-- Cameron ♪(´▽｀)
+3. COMPATIBILITY
+----------------
 
-##################################################################################
-                                                                                  
- _   _   _____   _      _    ____   ____     ___    _   _   _   _   ____    ____  
-| \ | | | ____| | |    | |  / ___| |  _ \   / _ \  | | | | | \ | | |  _ \  / ___| 
-|  \| | |  _|   | | /\ | | | |  _  | |_) | | | | | | | | | |  \| | | | | | \___ \ 
-| |\  | | |___   \ V  V /  | |_| | |  _ <  | |_| | | |_| | | |\  | | |_| |  ___) |
-|_| \_| |_____|   \_/\_/    \____| |_| \_\  \___/   \___/  |_| \_| |____/  |____/ 
- _       _  _     ___    ___       __              _       _  _       _        _  
-|_ |  | |_ |_) \_/ | |_|  |  |\ | /__     |_      |_ |  | |_ |_) \_/ / \ |\ | |_  
-|_  \/  |_ | \  |  | | | _|_ | \| \_| o   |_)\/   |_  \/  |_ | \  |  \_/ | \| |_ o
-                                      /      /                                    
-                                                                                  
-##################################################################################
-i stole this from stamper.
+- almost all psych/p-slice mods are compatible out of the box. just adjust the metadata file/icon path.
+- scripts (lua/hscript) work exactly like psych.
+- lumen adds extra support for scripting outside of songs (menus, states, etc.), courtesy of another psych fork [thanks emi3].
+
+---
+
+4. BASE GAME CONTENT
+--------------------
+
+lumen no longer bundles vanilla fnf content by default.  
+to get the base game:
+
+    https://github.com/ledonic852/FNF-LumenPort
+
+clone or download that repo into your mods folder.
+
+---
+
+5. TIPS
+-------
+
+- keep your metadata.json valid JSON or the mod won't load.
+- use "global": true in metadata.json if you want your scripts to run everywhere.
+- if you get crashes, check the console log in the "logs" folder.
+
+---
+
+happy modding!
