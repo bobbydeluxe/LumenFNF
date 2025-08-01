@@ -17,7 +17,7 @@ class EpicConstants {
     // determines how many intro sounds are there
     public static var introSoundCount:Int = 3;
 
-    // main menu music
+    // main menu music i guess
     public static var mainMenuMusic:String = "freakyMenu";
 
     public static function resetConstants():Void {
