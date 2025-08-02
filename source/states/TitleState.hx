@@ -60,9 +60,10 @@ class TitleState extends ScriptedState
 	var wackyImage:FlxSprite;
 
 	var cancelLoad:Bool = false;
+	var gfJingle:Bool = false;
 
 	#if TITLE_SCREEN_EASTER_EGG
-	final easterEggKeys:Array<String> = [
+	var easterEggKeys:Array<String> = [
 		'SHADOW', 'RIVEREN', 'BBPANZU', 'PESSY'
 	];
 	final allowedKeys:String = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -687,6 +688,7 @@ class TitleState extends ScriptedState
 				easteregg = easteregg.toUpperCase();
 
 				var sound:FlxSound = null;
+				callOnScripts('onEggJingle', [sound], true);
 				switch (easteregg)
 				{
 					case 'RIVEREN':
@@ -710,30 +712,38 @@ class TitleState extends ScriptedState
 				}
 
 				transitioning = true;
-				if (easteregg == 'SHADOW')
-				{
-					new FlxTimer().start(3.2, function(tmr:FlxTimer)
+				// Allow scripts to handle easter egg transition endings
+				var handled:Bool = false;
+				var handleCheck = callOnScripts('onEggTransition', [easteregg, sound], true);
+				if (handleCheck != null && cast(handleCheck, Bool) == true)
+					handled == true;
+
+				if (!handled) {
+					if (easteregg == 'SHADOW')
+					{
+						new FlxTimer().start(3.2, function(tmr:FlxTimer)
+						{
+							remove(ngSpr);
+							remove(credGroup);
+							FlxG.camera.flash(FlxColor.WHITE, 0.6);
+							transitioning = false;
+						});
+					}
+					else
 					{
 						remove(ngSpr);
 						remove(credGroup);
-						FlxG.camera.flash(FlxColor.WHITE, 0.6);
-						transitioning = false;
-					});
-				}
-				else
-				{
-					remove(ngSpr);
-					remove(credGroup);
-					FlxG.camera.flash(FlxColor.WHITE, 3);
-					sound.onComplete = function()
-					{
-						FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'), 0);
-						FlxG.sound.music.fadeIn(4, 0, 0.7);
-						transitioning = false;
-						#if ACHIEVEMENTS_ALLOWED
-						if(easteregg == 'PESSY') Achievements.unlock('pessy_easter_egg');
-						#end
-					};
+						FlxG.camera.flash(FlxColor.WHITE, 3);
+						sound.onComplete = function()
+						{
+							FlxG.sound.playMusic(Paths.music('${psychlua.EpicConstants.mainMenuMusic}'), 0);
+							FlxG.sound.music.fadeIn(4, 0, 0.7);
+							transitioning = false;
+							#if ACHIEVEMENTS_ALLOWED
+							if(easteregg == 'PESSY') Achievements.unlock('pessy_easter_egg');
+							#end
+						};
+					}
 				}
 			}
 			else
@@ -748,6 +758,7 @@ class TitleState extends ScriptedState
 					easteregg = '';
 				easteregg = easteregg.toUpperCase();
 				#if TITLE_SCREEN_EASTER_EGG
+				callOnScripts('onDefaultSkipIntro', [easteregg], true);
 				if (easteregg == 'SHADOW')
 				{
 					FlxG.sound.music.fadeOut();
@@ -784,7 +795,8 @@ class TitleState extends ScriptedState
 		{
 			curCheatPos += 1;
 			if (curCheatPos >= cheatArray.length)
-				startCheat();
+				if (gfJingle)
+					startCheat();
 		}
 		else
 			curCheatPos = 0;
