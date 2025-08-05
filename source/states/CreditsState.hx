@@ -27,7 +27,7 @@ class CreditsState extends ScriptedState
 		['unholywanderer04', 'unholy', 			'epic rating graphic and many character animation sheets [taken from unholy engine]', 			 			'https://github.com/Unholywanderer', '		7a83ff'],
 		['SunkyDev31',			'sunky',			'Translated the Week 6 (Pico Mix) dialogues for Português (Brasil)', 'https://bsky.app/profile/sunkydunky31.bsky.social', 'FFCC33'],
 		['falkimore', 			'falkimore',		'made the gradient map shader', 		'', 		'F5A742'],
-		['DuskieWhy',		'duskie',		'programmer of nightmarevision, the source of the intro sequence and the rating ui scale tweens',		'https://twitter.com/DuskieWhy',		'6D32A8'],
+		['DuskieWhy',		'duskie',		'programmer of nightmarevision, the source engine of the intro sequence and the rating ui scale tweens as well as their note splashes',		'https://twitter.com/DuskieWhy',		'6D32A8'],
 		['Blantados',			'blantad',			'Daddy Dearest losing icon',			 'https://twitter.com/Blantados',		'64b3fe'],
 		[""],
 		["P-Slice Engine Team"],

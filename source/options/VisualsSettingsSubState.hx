@@ -109,17 +109,6 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 			BOOL,
 			'score_text_grow_on_hit');
 		addOption(option);
-
-		var option:Option = new Option('Health Bar Opacity',
-			'Changes the transparency of the health bar and icons.',
-			'healthBarAlpha',
-			PERCENT);
-		option.scrollSpeed = 1.6;
-		option.minValue = 0.0;
-		option.maxValue = 1;
-		option.changeValue = 0.1;
-		option.decimals = 1;
-		addOption(option);
 		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',

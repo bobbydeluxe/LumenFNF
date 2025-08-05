@@ -61,6 +61,7 @@ class TitleState extends ScriptedState
 
 	var cancelLoad:Bool = false;
 	var gfJingle:Bool = false;
+	var exitClose:Bool = true;
 
 	#if TITLE_SCREEN_EASTER_EGG
 	var easterEggKeys:Array<String> = [
@@ -543,7 +544,7 @@ class TitleState extends ScriptedState
 		if (controls.UI_DOWN) FlxG.sound.music.pitch -= 0.5 * elapsed;
 		#end
 		#if desktop
-		if (controls.BACK) openfl.Lib.application.window.close();
+		if (controls.BACK && exitClose) openfl.Lib.application.window.close();
 		#end
 
 		super.update(elapsed);

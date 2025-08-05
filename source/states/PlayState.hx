@@ -125,7 +125,7 @@ class PlayState extends ScriptedState
 	public static var isPixelStage(get, never):Bool;
 
 	public static var skipResults:Bool = false;
-	public static var iconBopSpeed:Float;
+	public static var iconBopSpeed:Float = 9;
 
 	@:noCompletion
 	static function set_stageUI(value:String):String
@@ -440,8 +440,6 @@ class PlayState extends ScriptedState
 
 		set_stageUI(stageUI); // so that custom stageUIs load - bobbyDX
 
-		iconBopSpeed = 9;
-
 		preCreate();
 		
 		#if (SCRIPTS_ALLOWED)
@@ -470,12 +468,6 @@ class PlayState extends ScriptedState
 		{
 			camPos.x += gf.getGraphicMidpoint().x + gf.cameraPosition[0];
 			camPos.y += gf.getGraphicMidpoint().y + gf.cameraPosition[1];
-		}
-
-		if(dad.curCharacter.startsWith('gf')) {
-			dad.setPosition(GF_X, GF_Y);
-			if(gf != null)
-				gf.visible = false;
 		}
 		
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
@@ -560,21 +552,18 @@ class PlayState extends ScriptedState
 		healthBar.leftToRight = false;
 		healthBar.scrollFactor.set();
 		healthBar.visible = !ClientPrefs.data.hideHud;
-		healthBar.alpha = ClientPrefs.data.healthBarAlpha;
 		reloadHealthBarColors();
 		uiGroup.add(healthBar);
-
-		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconP1.y = healthBar.y - 75;
-		iconP1.visible = !ClientPrefs.data.hideHud;
-		iconP1.alpha = ClientPrefs.data.healthBarAlpha;
-		uiGroup.add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.data.hideHud;
-		iconP2.alpha = ClientPrefs.data.healthBarAlpha;
 		uiGroup.add(iconP2);
+
+		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
+		iconP1.y = healthBar.y - 75;
+		iconP1.visible = !ClientPrefs.data.hideHud;
+		uiGroup.add(iconP1);
 
 		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -831,10 +820,6 @@ class PlayState extends ScriptedState
 		return variables.get(tag);
 
 	function startCharacterPos(char:Character, ?gfCheck:Bool = false) {
-		if(gfCheck && char.curCharacter.startsWith('gf')) { //IF DAD IS GIRLFRIEND, HE GOES TO HER POSITION
-			char.setPosition(GF_X, GF_Y);
-			char.danceEveryNumBeats = 2;
-		}
 		char.x += char.positionArray[0];
 		char.y += char.positionArray[1];
 	}
@@ -2241,19 +2226,11 @@ class PlayState extends ScriptedState
 								addCharacterToList(value2, charType);
 							}
 
-							var wasGf:Bool = dad.curCharacter.startsWith('gf-') || dad.curCharacter == 'gf';
 							var lastAlpha:Float = dad.alpha;
 							var lastShader = dad.shader;
 							dad.alpha = 0.00001;
 							dad.shader = null;
 							dad = dadMap.get(value2);
-							if(!dad.curCharacter.startsWith('gf-') && dad.curCharacter != 'gf') {
-								if(wasGf && gf != null) {
-									gf.visible = true;
-								}
-							} else if(gf != null) {
-								gf.visible = false;
-							}
 							dad.alpha = lastAlpha;
 							dad.shader = lastShader;
 							iconP2.changeIcon(dad.healthIcon);
