@@ -25,7 +25,7 @@ import mobile.backend.MobileScaleMode;
 import psychlua.EpicConstants;
 import states.IntroSplashState;
 
-import backend.Preserve;
+import backend.ShaderPreserve;
 
 #if (linux && !debug)
 import lime.graphics.Image;

@@ -1,0 +1,64 @@
+{
+	"animations": {
+		"purple": {
+			"prefix": "hitsinglereal splash purple 1",
+			"offsets": [
+				-38,
+				-38
+			],
+			"indices": [],
+			"fps": [
+				22,
+				26
+			],
+			"name": "purple",
+			"noteData": 0
+		},
+		"blue": {
+			"prefix": "hitsinglereal splash blue 1",
+			"offsets": [
+				-36,
+				-43
+			],
+			"indices": [],
+			"fps": [
+				22,
+				26
+			],
+			"name": "blue",
+			"noteData": 1
+		},
+		"green": {
+			"prefix": "hitsinglereal splash green 1",
+			"offsets": [
+				-38,
+				-36
+			],
+			"indices": [],
+			"fps": [
+				22,
+				26
+			],
+			"name": "green",
+			"noteData": 2
+		},
+		"red": {
+			"prefix": "hitsinglereal splash red 1",
+			"offsets": [
+				-40,
+				-40
+			],
+			"indices": [],
+			"fps": [
+				22,
+				26
+			],
+			"name": "red",
+			"noteData": 3
+		}
+	},
+	"allowRGB": true,
+	"allowPixel": true,
+	"rgb": null,
+	"scale": 1
+}

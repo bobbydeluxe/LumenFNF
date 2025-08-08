@@ -1069,6 +1069,7 @@ class PlayState extends ScriptedState
 		spr.screenCenter();
 		spr.antialiasing = antialias;
 		insert(members.indexOf(noteGroup), spr);
+		callOnScripts('onCountdownSpriteCreate' [spr], true);
 		FlxTween.tween(spr, {/*y: spr.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
 			ease: FlxEase.circInOut,
 			onComplete: function(twn:FlxTween)
@@ -2600,6 +2601,7 @@ class PlayState extends ScriptedState
    */
    function zoomIntoResultsScreen(isNewHighscore:Bool,scoreData:SaveScoreData,prevScoreRank:ScoringRank):Void
 	{
+		callOnScripts('onResultsTransition', [isNewHighscore, scoreData, prevScoreRank], true);
 		var botplay = ClientPrefs.getGameplaySetting('botplay');
 		if(skipResults || botplay){
 			var resultingAccuracy = Math.min(1,scoreData.accPoints/scoreData.totalNotesHit); 

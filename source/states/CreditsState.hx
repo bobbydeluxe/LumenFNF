@@ -63,8 +63,10 @@ class CreditsState extends ScriptedState
 		["evilsk8r",			"evilsk8r",			"Artist of Friday Night Funkin'",							"https://x.com/evilsk8r",			"5ABD4B"],
 		["kawaisprite",			"kawaisprite",		"Composer of Friday Night Funkin'",							"https://x.com/kawaisprite",		"378FC7"],
 		[""],
-		["Psych Engine Discord"],
-		["Join the Psych Ward!", "discord", "", "https://discord.gg/2ka77eMXDv", "5165F6"]
+		["Discord Servers"],
+		["Join the Psych Ward!", "discord", "", "https://discord.gg/2ka77eMXDv", "5165F6"],
+		["Join the P-Slice Server!", "discord", "", "https://discord.gg/9FCyCqEvRf", "5165F6"],
+		["Join Bobby's Hangout Server!", "discord", "", "https://discord.gg/QCKzW8Nbvy", "5165F6"]
 	];
 
 	override function create() {

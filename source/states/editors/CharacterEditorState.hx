@@ -895,26 +895,14 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 		if (FlxG.keys.pressed.I) FlxG.camera.scroll.y -= elapsed * 500 * shiftMult * ctrlMult;
 
 		var lastZoom = FlxG.camera.zoom;
-		if (Paths.fileExists('stage/stagefront.png', IMAGE)) {
-			if(FlxG.keys.justPressed.R && !FlxG.keys.pressed.CONTROL) FlxG.camera.zoom = 1;
-			else if (FlxG.keys.pressed.E && FlxG.camera.zoom < 3) {
-				FlxG.camera.zoom += elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
-				if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
-			}
-			else if (FlxG.keys.pressed.Q && FlxG.camera.zoom > 0.1) {
-				FlxG.camera.zoom -= elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
-				if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
-			}
-		} else {
-			if(FlxG.keys.justPressed.R && !FlxG.keys.pressed.CONTROL) FlxG.camera.zoom = 1;
-			else if (FlxG.keys.pressed.E && FlxG.camera.zoom < 3) {
-				FlxG.camera.zoom += elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
-				if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
-			}
-			else if (FlxG.keys.pressed.Q && FlxG.camera.zoom > 0.3) {
-				FlxG.camera.zoom -= elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
-				if(FlxG.camera.zoom < 0.3) FlxG.camera.zoom = 0.3;
-			}
+		if(FlxG.keys.justPressed.R && !FlxG.keys.pressed.CONTROL) FlxG.camera.zoom = 1;
+		else if (FlxG.keys.pressed.E && FlxG.camera.zoom < 3) {
+			FlxG.camera.zoom += elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
+			if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
+		}
+		else if (FlxG.keys.pressed.Q && FlxG.camera.zoom > 0.3) {
+			FlxG.camera.zoom -= elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
+			if(FlxG.camera.zoom < 0.3) FlxG.camera.zoom = 0.3;
 		}
 
 		if(lastZoom != FlxG.camera.zoom) cameraZoomText.text = 'Zoom: ' + FlxMath.roundDecimal(FlxG.camera.zoom, 2) + 'x';
@@ -1101,22 +1089,12 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 		// bg data //
 		/////////////
 		camEditor.bgColor = FlxColor.BLACK;
-		
-		if (Paths.fileExists('stage/stagefront.png', IMAGE)) {
-			var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
-			add(bg);
 
-			var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
-			stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-			stageFront.updateHitbox();
-			add(stageFront);
-		} else {
-			var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFF939DCA, 0xFF52526D));
-			grid.velocity.set(40, 40);
-			grid.alpha = 0;
-			FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
-			add(grid);
-		}
+		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFF939DCA, 0xFF52526D));
+		grid.velocity.set(40, 40);
+		grid.alpha = 0;
+		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(grid);
 
 		dadPosition.set(100, 100);
 		bfPosition.set(770, 100);
