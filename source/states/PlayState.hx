@@ -1069,7 +1069,8 @@ class PlayState extends ScriptedState
 		spr.screenCenter();
 		spr.antialiasing = antialias;
 		insert(members.indexOf(noteGroup), spr);
-		callOnScripts('onCountdownSpriteCreate' [spr], true);
+		spr.scale.set(1.25, 1.25);	
+		FlxTween.tween(spr.scale, {x: 1, y: 1}, 0.5 / playbackRate, {ease: FlxEase.expoOut});
 		FlxTween.tween(spr, {/*y: spr.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
 			ease: FlxEase.circInOut,
 			onComplete: function(twn:FlxTween)
@@ -2877,7 +2878,7 @@ class PlayState extends ScriptedState
 
 			if (!isPixelStage) {
 				rating.scale.set(0.785, 0.785);	
-				FlxTween.tween(rating.scale, {x: 0.7, y: 0.7}, 0.5 * playbackRate, {ease: FlxEase.expoOut});	
+				FlxTween.tween(rating.scale, {x: 0.7, y: 0.7}, 0.5 / playbackRate, {ease: FlxEase.expoOut});	
 			}
 
 			var daLoop:Int = 0;
