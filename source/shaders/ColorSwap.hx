@@ -24,10 +24,16 @@ class ColorSwap {
 		return brightness;
 	}
 
-	public function new()
-	{
+	public function new(
+		hue:Float = 0,
+		saturation:Float = 0,
+		brightness:Float = 0
+	) {
 		shader.uTime.value = [0, 0, 0];
 		shader.awesomeOutline.value = [false];
+		set_hue(hue);
+		set_saturation(saturation);
+		set_brightness(brightness);
 	}
 }
 

@@ -16,7 +16,7 @@ import openfl.display.BitmapData;
 
   Also has an Adjust Color shader in here so they can work together when needed.
  */
-class AdjustColorShader extends FlxShader
+class AdjustColor extends FlxShader
 {
   /*
     The color of the drop shadow.
@@ -106,6 +106,11 @@ class AdjustColorShader extends FlxShader
     The contrast component of the Adjust Color part of the shader.
    */
   public var baseContrast(default, set):Float;
+
+  /*
+    The current zoom of the camera. Needed to figure out how much to multiply the drop shadow size.
+   */
+  public var curZoom(default, set):Float;
 
   /*
     Sets all 4 adjust color values.
@@ -253,6 +258,13 @@ class AdjustColorShader extends FlxShader
     return val;
   }
 
+  function set_curZoom(val:Float):Float
+  {
+    curZoom = val;
+    zoom.value = [val];
+    return val;
+  }
+
   @:glFragmentSource('
       #pragma header
 
@@ -284,6 +296,8 @@ class AdjustColorShader extends FlxShader
       uniform float saturation;
       uniform float brightness;
       uniform float contrast;
+
+      uniform float zoom;
 
       uniform float AA_STAGES;
 
@@ -359,7 +373,7 @@ class AdjustColorShader extends FlxShader
         return intensity;
       }
 
-      // essentially just stole this from the AngleMask shader but repurposed it to smooth
+       // essentially just stole this from the AngleMask shader but repurposed it to smooth
       // the threshold because without any sort of smoothing it produces horrible edges
       float antialias(vec2 fragCoord, float curThreshold, bool useMask) {
 
@@ -390,26 +404,24 @@ class AdjustColorShader extends FlxShader
         return color / AA_TOTAL_PASSES;
       }
 
-      vec3 createDropShadow(vec3 col, float curThreshold, bool useMask) {
+      vec3 createAdjustColor(vec3 col, float curThreshold, bool useMask) {
 
         // essentially a mask so that areas under the threshold dont show the rimlight (mainly the outlines)
         float intensity = antialias(openfl_TextureCoordv, curThreshold, useMask);
 
-        // the distance the dropshadow moves needs to be correctly scaled based on the texture size
+        // the distance the AdjustColor moves needs to be correctly scaled based on the texture size
         vec2 imageRatio = vec2(1.0/openfl_TextureSize.x, 1.0/openfl_TextureSize.y);
 
         // check the pixel in the direction and distance specified
-        vec2 checkedPixel = vec2(openfl_TextureCoordv.x + (dist * cos(ang + angOffset) * imageRatio.x), openfl_TextureCoordv.y - (dist * sin(ang + angOffset) * imageRatio.y));
+        vec2 checkedPixel = vec2(openfl_TextureCoordv.x + ((dist*zoom) * cos(ang + angOffset) * imageRatio.x), openfl_TextureCoordv.y - ((dist*zoom) * sin(ang + angOffset) * imageRatio.y));
 
         // multiplier for the intensity of the drop shadow
-        float dropShadowAmount = 0.0;
+        float AdjustColorAmount = 0.0;
 
-			  if(checkedPixel.x > uFrameBounds.x && checkedPixel.y > uFrameBounds.y && checkedPixel.x < uFrameBounds.z && checkedPixel.y < uFrameBounds.w){
-          dropShadowAmount = texture2D(bitmap, checkedPixel).a;
-			  }
+        AdjustColorAmount = texture2D(bitmap, checkedPixel).a;
 
-        // add the dropshadow color  based on the amount, strength, and intensity
-        col.rgb += dropColor.rgb * ((1.0 - (dropShadowAmount * str))*intensity);
+        // add the AdjustColor color  based on the amount, strength, and intensity
+        col.rgb += dropColor.rgb * ((1.0 - (AdjustColorAmount * str))*intensity);
 
         return col;
       }
@@ -422,30 +434,41 @@ class AdjustColorShader extends FlxShader
 
         vec3 outColor = applyHSBCEffect(unpremultipliedColor);
 
-        outColor = createDropShadow(outColor, thr, useMask);
+        outColor = createAdjustColor(outColor, thr, useMask);
 
         gl_FragColor = vec4(outColor.rgb * col.a, col.a);
       }
 
     ')
-  public function new()
-  {
+  public function new(
+    _hue:Float = 0,
+    _saturation:Float = 0,
+    _brightness:Float = 0,
+    _contrast:Float = 0,
+    _threshold:Float = 0.1,
+    _color:FlxColor = 0xFFDFEF3C,
+    _angle:Float = 90,
+    _antialias:Float = 2
+) {
     super();
 
-    angle = 0;
+    baseHue = _hue;
+    baseSaturation = _saturation;
+    baseBrightness = _brightness;
+    baseContrast = _contrast;
+
+    threshold = _threshold;
+    color = _color;
+    angle = _angle;
+
+    antialiasAmt = _antialias;
+
     strength = 1;
     distance = 15;
-    threshold = 0.1;
-
-    baseHue = 0;
-    baseSaturation = 0;
-    baseBrightness = 0;
-    baseContrast = 0;
-
-    antialiasAmt = 2;
-
     useAltMask = false;
-
+    curZoom = 1;
     angOffset.value = [0];
-  }
+}
+
+
 }
