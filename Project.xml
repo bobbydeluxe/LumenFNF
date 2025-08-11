@@ -6,7 +6,7 @@
 
   <!-- ───────────────────────────── app identity ───────────────────────────── -->
   <app
-    title="lumen engine"
+    title="friday night funkin' - lumen engine"
     file="lumen-engine"
     main="Main"
     version="1.0.0"
