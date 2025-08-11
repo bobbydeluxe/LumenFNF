@@ -1483,7 +1483,7 @@ class PlayState extends ScriptedState
 
 			case 'Play Sound':
 				Paths.sound(event.value1); //Precache sound
-		}
+		}*/
 		stagesFunc(function(stage:BaseStage) stage.eventPushedUnique(event));
 	}
 
