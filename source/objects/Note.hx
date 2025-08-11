@@ -205,7 +205,7 @@ class Note extends FlxSprite
 					//reloadNote('HURTNOTE_assets');
 					//this used to change the note texture to HURTNOTE_assets.png,
 					//but i've changed it to something more optimized with the implementation of RGBPalette:
-
+				
 					// note colors
 					rgbShader.r = 0xFF101010;
 					rgbShader.g = 0xFFFF0000;

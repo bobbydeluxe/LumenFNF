@@ -3,7 +3,7 @@ function onCreatePost()
         Needed if you only use this event during a song,
         as the 'Set Camera Zoom' event normally is the one to set up all this.
     ]]
-    if not isRunning('custom_events/Set Camera Zoom') then
+    if not isRunning('events/Set Camera Zoom') then
         camZoomingDecay = getProperty('camZoomingDecay')
         setProperty('camZoomingMult', 0)
         setProperty('camZoomingDecay', 0)
@@ -33,7 +33,7 @@ function onEvent(eventName, value1, value2, strumTime)
     end
 
     -- Compability for this event with the custom zoom behaviour
-    if not isRunning('custom_events/Set Camera Zoom') then
+    if not isRunning('events/Set Camera Zoom') then
         if eventName == 'Add Camera Zoom' then
             if cameraZoomOnBeat == true and getProperty('camGame.zoom') < 1.35 then
                 zoomAdd = tonumber(value1)
@@ -53,7 +53,7 @@ end
 ]]
 
 function onBeatHit()
-    if not isRunning('custom_events/Set Camera Zoom') then
+    if not isRunning('events/Set Camera Zoom') then
         if cameraZoomRate > 0 and cameraZoomOnBeat == true then
             if getProperty('camGame.zoom') < 1.35 and curBeat % cameraZoomRate == 0 then
                 zoomMultiplier = zoomMultiplier + 0.015 * cameraZoomMult
@@ -64,7 +64,7 @@ function onBeatHit()
 end
 
 function onUpdatePost(elapsed)
-    if not isRunning('custom_events/Set Camera Zoom') then
+    if not isRunning('events/Set Camera Zoom') then
         if getProperty('startedCountdown') == true and getProperty('endingSong') == false then 
             if cameraZoomRate > 0 then
                 zoomMultiplier = math.lerp(1, zoomMultiplier, math.exp(-elapsed * 3.125 * camZoomingDecay * playbackRate))

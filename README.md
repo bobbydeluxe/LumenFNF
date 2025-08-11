@@ -1,8 +1,10 @@
-# fnf - lumen engine ✨
+<p align="center">
+    <img src="art/lumenLogo.png">
+</p>
 
 a fork of p-slice (v2.3.1) built to be **modular**, **scriptable outside of songs**, and fully **psych-compatible** without all the hardcoding.
 
-not trying to reinvent the wheel – just making it easier to bolt on new ones. basically a fork of a fork of a fork.
+not trying to reinvent the wheel – just making it easier to bolt on new ones. basically a fork of a fork of a fork. why the fuck did i do this.
 
 ---
 
@@ -11,7 +13,7 @@ not trying to reinvent the wheel – just making it easier to bolt on new ones. 
 - custom intro splash screen  
 - modern psych chart + engine feature support  
 - based on p-slice: freeplay characters, new base game systems  
-- new "epic" rating (thanks duskiewhy)  
+- new "epic" rating (thanks duskiewhy and unholywanderer)  
 - base fnf content is now a separate modpack  
 
 (still a wip, more stuff coming)
@@ -76,3 +78,7 @@ apache 2.0. see [here](/LICENSE)
 - **funkin' crew inc.** – friday night funkin'
 
 ---
+
+<p align="right">
+    <img src="https://raw.githubusercontent.com/bobbydeluxe/bobbydeluxe/refs/heads/main/logo.png" width="175">
+</p>

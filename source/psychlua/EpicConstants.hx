@@ -20,6 +20,9 @@ class EpicConstants {
     // main menu music i guess
     public static var mainMenuMusic:String = "freakyMenu";
 
+    // determines the speed at which the icons bop in the song playstate
+    public static var iconBopSpeed:Float = 9;
+
     public static function resetConstants():Void {
         legacyFreeplay = false;
         introVideo = "intro";
@@ -27,5 +30,6 @@ class EpicConstants {
         introSoundPrefix = "intro";
         introSoundCount = 3;
         mainMenuMusic = "freakyMenu";
+        iconBopSpeed = 9;
     }
 }

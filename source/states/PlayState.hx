@@ -125,7 +125,6 @@ class PlayState extends ScriptedState
 	public static var isPixelStage(get, never):Bool;
 
 	public static var skipResults:Bool = false;
-	public static var iconBopSpeed:Float = 9;
 
 	@:noCompletion
 	static function set_stageUI(value:String):String
@@ -352,6 +351,8 @@ class PlayState extends ScriptedState
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.bpm = SONG.bpm;
+
+		psychlua.EpicConstants.iconBopSpeed = 9;
 
 		#if DISCORD_ALLOWED
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
@@ -590,16 +591,16 @@ class PlayState extends ScriptedState
 
 		#if LUA_ALLOWED
 		for (notetype in noteTypes)
-			startLuasNamed('custom_notetypes/' + notetype + '.lua');
+			startLuasNamed('notetypes/' + notetype + '.lua');
 		for (event in eventsPushed)
-			startLuasNamed('custom_events/' + event + '.lua');
+			startLuasNamed('events/' + event + '.lua');
 		#end
 
 		#if HSCRIPT_ALLOWED
 		for (notetype in noteTypes)
-			startHScriptsNamed('custom_notetypes/' + notetype + '.hx');
+			startHScriptsNamed('notetypes/' + notetype + '.hx');
 		for (event in eventsPushed)
-			startHScriptsNamed('custom_events/' + event + '.hx');
+			startHScriptsNamed('events/' + event + '.hx');
 		#end
 		noteTypes = null;
 		eventsPushed = null;
@@ -1069,8 +1070,13 @@ class PlayState extends ScriptedState
 		spr.screenCenter();
 		spr.antialiasing = antialias;
 		insert(members.indexOf(noteGroup), spr);
-		spr.scale.set(1.25, 1.25);	
-		FlxTween.tween(spr.scale, {x: 1, y: 1}, 0.5 / playbackRate, {ease: FlxEase.expoOut});
+		if (isPixelStage) {
+			spr.scale.set(7, 7);	
+			FlxTween.tween(spr.scale, {x: 6, y: 6}, 0.5 / playbackRate, {ease: FlxEase.expoOut});
+		} else {
+			spr.scale.set(1.25, 1.25);	
+			FlxTween.tween(spr.scale, {x: 1, y: 1}, 0.5 / playbackRate, {ease: FlxEase.expoOut});
+		}
 		FlxTween.tween(spr, {/*y: spr.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
 			ease: FlxEase.circInOut,
 			onComplete: function(twn:FlxTween)
@@ -1081,18 +1087,15 @@ class PlayState extends ScriptedState
 		});
 		return spr;
 	}
-
-	public function addBehindGF(obj:FlxBasic)
-	{
-		insert(members.indexOf(gfGroup), obj);
-	}
-	public function addBehindBF(obj:FlxBasic)
-	{
-		insert(members.indexOf(boyfriendGroup), obj);
-	}
-	public function addBehindDad(obj:FlxBasic)
-	{
-		insert(members.indexOf(dadGroup), obj);
+	
+	public function addBehindChar(char:String, obj:FlxBasic) {
+		switch(char.toLowerCase())
+		{
+			case "gf": insert(members.indexOf(gfGroup), obj);
+			case "bf", "boyfriend": insert(members.indexOf(boyfriendGroup), obj);
+			case "dad": insert(members.indexOf(dadGroup), obj);
+			default: FlxG.state.add(obj);
+		}
 	}
 
 	public function clearNotesBefore(time:Float)
@@ -1483,7 +1486,7 @@ class PlayState extends ScriptedState
 
 			case 'Play Sound':
 				Paths.sound(event.value1); //Precache sound
-		}*/
+		}
 		stagesFunc(function(stage:BaseStage) stage.eventPushedUnique(event));
 	}
 
@@ -1491,11 +1494,6 @@ class PlayState extends ScriptedState
 		var returnedValue:Null<Float> = callOnScripts('eventEarlyTrigger', [event.event, event.value1, event.value2, event.strumTime], true);
 		if(returnedValue != null && returnedValue != 0) {
 			return returnedValue;
-		}
-
-		switch(event.event) {
-			case 'Kill Henchmen': //Better timing so that the kill sound matches the beat intended
-				return 280; //Plays 280ms before the actual position
 		}
 		return 0;
 	}
@@ -1874,7 +1872,7 @@ class PlayState extends ScriptedState
 	// Health icon updaters
 	public dynamic function updateIconsScale(elapsed:Float)
 	{
-		var easeParams:Float = elapsed * iconBopSpeed * playbackRate;
+		var easeParams:Float = elapsed * psychlua.EpicConstants.iconBopSpeed * playbackRate;
 		var decay:Float = Math.max(0, Math.min(1, 1 - easeParams));
 
 		for (icon in [iconP1, iconP2]) {
@@ -2071,7 +2069,7 @@ class PlayState extends ScriptedState
 
 		switch (eventName) {
 			case 'Hey!':
-				var value:Int = 2;
+				var value:Int = 0;
 				switch (value1.toLowerCase().trim()) {
 					case 'bf' | 'boyfriend' | '0':
 						value = 0;

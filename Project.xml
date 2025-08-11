@@ -1,233 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project
-xmlns="http://lime.openfl.org/project/1.0.4"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
-	<!-- _________________________ Application Settings _________________________ -->
+  xmlns="http://lime.openfl.org/project/1.0.4"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 
-	<app title="Friday Night Funkin' - Lumen Engine" file="LumenFNF" packageName="com.bobbydx.lumenfnf" package="com.bobbydx.lumenfnf" main="Main" version="1.0.0" company="BobbyDX" />
+  <!-- ───────────────────────────── app identity ───────────────────────────── -->
+  <app
+    title="lumen engine"
+    file="lumen-engine"
+    main="Main"
+    version="1.0.0"
+    company="BobbyDX" />
 
-	<!--Switch Export with Unique ApplicationID and Icon-->
-	<set name="APP_ID" value="0x0100f6c013bbc000" />
+  <!-- switch id (keep unique if you ever export to switch) -->
+  <set name="APP_ID" value="0x0100f6c013bbc000" />
 
-	<!-- NOTE TO SELF: DISABLE THIS IF ISSUES ARE FOUND -->
-	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/> <!-- stable luas PUT AFTER FIRST LINE WITH APP NAME AND ETC -->
+  <!-- stable lua dll lookup (disable if it causes issues) -->
+  <haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB" />
 
-	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
-		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
-	<!-- <app preloader="Preloader" resizable="true" /> -->
-	<app preloader="mikolka.vslice.FunkinPreloader" />
+  <!-- preloader -->
+  <app preloader="mikolka.vslice.FunkinPreloader" />
 
-	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
-	<set name="SWF_VERSION" value="11.8" />
-	
-	<!-- ______________________ PSYCH ENGINE CUSTOMIZATION ______________________ -->
+  <!-- flash swf version (for html5/legacy) -->
+  <set name="SWF_VERSION" value="11.8" />
 
-	<!-- Compiles mod support for Lumen. Feel free to disable if you're making a source mod -->
-	<define name="MODS_ALLOWED" if="desktop || mobile" />
+  <!-- ─────────────────────────── engine feature flags ─────────────────────── -->
+  <!-- modding -->
+  <define name="MODS_ALLOWED" if="desktop || mobile" />
 
-	<!-- Adds support for Psych's lua/HScript files-->
-	<define name="HSCRIPT_ALLOWED" if="desktop || mobile"/>
-	<define name="LUA_ALLOWED" if="cpp" />
+  <!-- scripts -->
+  <define name="HSCRIPT_ALLOWED" if="desktop || mobile" />
+  <define name="LUA_ALLOWED" if="cpp" />
+  <define name="SCRIPTS_ALLOWED" if="HSCRIPT_ALLOWED || LUA_ALLOWED" />
 
-	<!-- Enables Discord's Rich Presence integration-->
-	<define name="DISCORD_ALLOWED" if="desktop" unless="hl"/>
+  <!-- integrations -->
+  <define name="DISCORD_ALLOWED" if="desktop" unless="hl" />
+  <define name="CHECK_FOR_UPDATES" unless="web" />
+  <define name="VIDEOS_ALLOWED" if="desktop || mobile" unless="32bits" />
+  <define name="TOUCH_CONTROLS_ALLOWED" if="mobile || web || debug" />
+  <define name="TOUCH_HERE_TO_PLAY" if="TOUCH_CONTROLS_ALLOWED" />
 
-	<!-- Adds support for touchscreen devices (like mobiles)-->
-	<define name="TOUCH_CONTROLS_ALLOWED" if="mobile || web || debug" />
+  <!-- misc toggles -->
+  <define name="ACHIEVEMENTS_ALLOWED" />
+  <define name="TRANSLATIONS_ALLOWED" />
+  <define name="SHOW_LOADING_SCREEN" />
+  <!-- faster loads, tiny freeze risk on song load -->
+  <define name="MULTITHREADED_LOADING" if="cpp" />
+  <define name="PSYCH_WATERMARKS" />
+  <define name="TITLE_SCREEN_EASTER_EGG" />
+  <define name="COPYSTATE_ALLOWED" if="MODS_ALLOWED mobile" />
 
-	<!-- Do you want to check for updates?-->
-	<define name="CHECK_FOR_UPDATES" unless="web"/>
+  <!-- ───────────────────────────── window / display ───────────────────────── -->
+  <window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" allow-high-dpi="true"/>
+  <window if="html5"   resizable="true" />
+  <window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
+  <window if="mobile"  orientation="landscape" fullscreen="true"  resizable="false" allow-shaders="true" require-shaders="true" />
+  <window if="switch"  orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
 
-	<!-- Do you want to support playing videos in your build?-->
-	<define name="VIDEOS_ALLOWED" if="desktop || mobile" unless="32bits"/> 
-	
-	<!-- Displays a "Touch here to play" screen-->
-	<define name="TOUCH_HERE_TO_PLAY" if="TOUCH_CONTROLS_ALLOWED"/>
+  <!-- ────────────────────────────── build folders ─────────────────────────── -->
+  <set name="BUILD_DIR" value="export/debug"   if="debug" />
+  <set name="BUILD_DIR" value="export/release" unless="debug" />
+  <set name="BUILD_DIR" value="export/32bit"   if="32bits" />
 
-	<!-- Other stuff -->
-	<define name="ACHIEVEMENTS_ALLOWED" />
-	<define name="TRANSLATIONS_ALLOWED" />
-	<define name="SHOW_LOADING_SCREEN" />
-	<define name="MULTITHREADED_LOADING" if="cpp" /> <!-- UNCOMMENTING THIS LINE WILL ENABLE MULTITHREADED LOADING, WHICH IMPROVES LOADING TIMES, BUT WITH A LOW CHANCE FOR THE GAME FREEZE ON SONG LOAD -->
-	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE THE PSYCH LOGO FROM LOADING SCREEN -->
-	<define name="TITLE_SCREEN_EASTER_EGG"/>
-	<define name="COPYSTATE_ALLOWED" if="MODS_ALLOWED mobile"/>
+  <source path="source" />
 
-	<!-- ____________________________ Window Settings ___________________________ -->
+  <!-- ───────────────────────────── bundled assets ─────────────────────────── -->
+  <!-- OpenAL config -->
+  <section if="desktop">
+    <assets path="alsoft.txt" rename="plugins/alsoft.ini" type="text" if="windows"/>
+    <assets path="alsoft.txt" rename="plugins/alsoft.conf" type="text" unless="windows"/>
+  </section>
 
-	<!--These window settings apply to all targets-->
-	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" allow-high-dpi="true"/>
+  <!-- fonts / shared / embed / videos / songs -->
+  <assets path="assets/fonts" />
+  <assets path="assets/mobile" rename="assets/shared/mobile" if="TOUCH_CONTROLS_ALLOWED" />
+  <assets path="assets/shared" exclude="*.mp3" if="web"/>
+  <assets path="assets/shared" exclude="*.mp3" unless="web"/>
+  <assets path="assets/embed"  exclude="*.mp3" if="web"    embed="true"/>
+  <assets path="assets/embed"  exclude="*.mp3" unless="web" embed="true"/>
+  <assets path="assets/videos" if="VIDEOS_ALLOWED"/>
+  <assets path="assets/songs"  exclude="*.mp3" if="web"/>
+  <assets path="assets/songs"  exclude="*.mp3" unless="web"/>
+  <assets path="assets/week_assets" rename="assets" exclude="*.mp3" if="web"/>
+  <assets path="assets/week_assets" rename="assets" exclude="*.mp3" unless="web"/>
 
-	<!--HTML5-specific-->
-	<window if="html5" resizable="true" />
+  <section if="TITLE_SCREEN_EASTER_EGG">
+    <assets path="assets/secrets" rename="assets/shared" exclude="*.ogg" if="web"/>
+    <assets path="assets/secrets" rename="assets/shared" exclude="*.mp3" unless="web"/>
+  </section>
 
-	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
+  <section if="TRANSLATIONS_ALLOWED">
+    <assets path="assets/translations" rename="assets" exclude="*.ogg" if="web"/>
+    <assets path="assets/translations" rename="assets" exclude="*.mp3" unless="web"/>
+  </section>
 
-	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" />
+  <!-- a tiny surprise :) -->
+  <assets path="art/readme.txt" rename="do NOT readme.txt" unless="mobile" />
 
-	<!--Switch-specific-->
-	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
+  <!-- ───────────────────────── scripting / macro setup ────────────────────── -->
+  <haxeflag name="-dce no" if="SCRIPTS_ALLOWED" />
 
-	<!-- _____________________________ Path Settings ____________________________ -->
+  <!-- victoria macro fixes -->
+  <haxeflag name="--macro" value="addMetadata('@:build(backend.macro.Scripting.ExtraDataMacro.build())', 'flixel.FlxBasic')" if="SCRIPTS_ALLOWED" />
+  <haxeflag name="--macro" value="addMetadata('@:build(psychlua.HScript.HScriptMacro.buildInterp())', 'crowplexus.hscript.Interp')" if="HSCRIPT_ALLOWED" />
+  <haxeflag name="--macro" value="include('flixel', true, ['flixel.addons.nape','flixel.addons.editors.spine','flixel.system.macros'])" if="SCRIPTS_ALLOWED" />
+  <haxeflag name="--macro" value="include('haxe', true, ['haxe.atomic','haxe.macro'])" if="SCRIPTS_ALLOWED" />
+  <haxeflag name="--macro" value="include('sys', true)" if="SCRIPTS_ALLOWED" />
 
-	<set name="BUILD_DIR" value="export/debug" if="debug" />
-	<set name="BUILD_DIR" value="export/release" unless="debug" />
-	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
+  <!-- p-slice macro glue -->
+  <haxeflag name="--macro" value="allowPackage('flash')" />
+  <haxeflag name="--macro" value="include('my.pack')" />
+  <haxeflag name="--macro" value="addMetadata('@:build(mikolka.FlxMacro.buildFlxBasic())', 'flixel.FlxBasic')" />
 
-	<source path="source" />
+  <!-- ───────────────────────────── libraries (pinned) ─────────────────────── -->
+  <haxelib name="lime"   version="8.2.2" />
+  <haxelib name="openfl" version="9.4.1" />
 
-	<!-- __________________________ Game Assets & Etc. __________________________ -->
+  <haxelib name="flixel"        version="6.0.0"/>
+  <haxelib name="flixel-addons" version="3.3.2"/>
+  <haxelib name="tjson"         version="1.4.0"/>
+  <haxelib name="FlxPartialSound" version="git"/>
+  <haxelib name="grig.audio"      version="git" />
+  <haxelib name="funkin.vis"      version="git" />
+  <haxelib name="bmath"           version="git" />
 
-	<!--FNF is changing openAL config, because the default one is broken. lol. -->
-	<section if="desktop">
-		<assets path="alsoft.txt" rename="plugins/alsoft.ini" type="text" if="windows"/>
-		<assets path="alsoft.txt" rename="plugins/alsoft.conf" type="text" unless="windows"/>
-	</section>
+  <!-- scripting backends -->
+  <haxelib name="linc_luajit"   if="LUA_ALLOWED"/>
+  <haxelib name="hscript-iris"  if="HSCRIPT_ALLOWED"/>
 
-	<!-- Assets -->
-	<assets path="assets/fonts" />
-	<assets path="assets/mobile" 		rename="assets/shared/mobile" if="TOUCH_CONTROLS_ALLOWED" />
-	<assets path="assets/shared"        exclude="*.mp3" if="web"/>
-	<assets path="assets/shared"        exclude="*.mp3" unless="web"/>
-	<assets path="assets/embed"         exclude="*.mp3" if="web" embed="true"/>
-	<assets path="assets/embed"         exclude="*.mp3" unless="web" embed="true"/>
-	<assets path="assets/videos"        if="VIDEOS_ALLOWED"/>
-	<assets path="assets/songs"         exclude="*.mp3" if="web"/>
-	<assets path="assets/songs"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week_assets"   rename="assets" exclude="*.mp3" if="web"/>
-	<assets path="assets/week_assets"   rename="assets" exclude="*.mp3" unless="web"/>
-	<section if="TITLE_SCREEN_EASTER_EGG">
-		<assets path="assets/secrets" rename="assets/shared" exclude="*.ogg" if="web"/>
-		<assets path="assets/secrets" rename="assets/shared" exclude="*.mp3"  unless="web"/>
-	</section>
+  <!-- video backends -->
+  <section if="VIDEOS_ALLOWED">
+    <haxelib name="hxCodec" version="git" if="linux"/>
+    <haxelib name="hxvlc"   version="2.2.2" unless="linux"/>
+  </section>
 
-	<section if="TRANSLATIONS_ALLOWED">
-		<assets path="assets/translations" rename="assets" exclude="*.ogg" if="web"/>
-		<assets path="assets/translations" rename="assets" exclude="*.mp3"  unless="web"/>
-	</section>
-	
-	<assets path='art/readme.txt' rename='do NOT readme.txt' unless="mobile" />
+  <!-- integrations -->
+  <haxelib name="hxdiscord_rpc" version="1.3.0" if="DISCORD_ALLOWED"/>
+  <haxelib name="flxanimate"    version="git"/>
 
-	<!-- ___________________________ Scripting Macros ___________________________ -->
+  <!-- android tools (when needed) -->
+  <haxelib name="extension-androidtools" if="android" />
 
-	<define name="SCRIPTS_ALLOWED" if="HSCRIPT_ALLOWED || LUA_ALLOWED" />
+  <!-- discord rpc: disable io thread -->
+  <haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc" />
+  <haxedef name="NO_PRECOMPILED_HEADERS" if="linux" />
 
-	<haxeflag name="-dce no" if="SCRIPTS_ALLOWED" />
+  <!-- dev QoL -->
+  <section if="debug">
+    <haxelib name="hxcpp-debug-server" />
+    <haxelib name="flixel-studio" />
+    <haxedef name="HXVLC_VERBOSE" value="2" />
+    <haxedef name="HXVLC_LOGGING" />
+  </section>
 
-	<!-- victoria's psych fork macro fixes -->
-	<haxeflag name="--macro" value="addMetadata('@:build(backend.macro.Scripting.ExtraDataMacro.build())', 'flixel.FlxBasic')" if="SCRIPTS_ALLOWED" />
-	<haxeflag name="--macro" value="addMetadata('@:build(psychlua.HScript.HScriptMacro.buildInterp())', 'crowplexus.hscript.Interp')" if="HSCRIPT_ALLOWED" />
-	<haxeflag name="--macro" value="include('flixel', true, ['flixel.addons.nape', 'flixel.addons.editors.spine', 'flixel.system.macros'])" if="SCRIPTS_ALLOWED" />
-	<haxeflag name="--macro" value="include('haxe', true, ['haxe.atomic', 'haxe.macro'])" if="SCRIPTS_ALLOWED" />
-	<haxeflag name="--macro" value="include('sys', true)" if="SCRIPTS_ALLOWED" />
+  <!-- 32-bit -->
+  <define name="x86_BUILD" if="32bits" />
 
-	<!-- p-slice macro fixes -->
-	<haxeflag name="--macro" value="allowPackage('flash')" />
-	<haxeflag name="--macro" value="include('my.pack')" />
-	<!-- This macro allows addition of new functionality to existing Flixel. -->
-	<haxeflag name="--macro" value="addMetadata('@:build(mikolka.FlxMacro.buildFlxBasic())', 'flixel.FlxBasic')" />
+  <!-- ───────────────────────── compiler / runtime flags ───────────────────── -->
+  <haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
+  <haxedef name="FLX_NO_DEBUG" unless="debug" />
+  <haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
-	<!-- _______________________________ Libraries ______________________________ -->
+  <!-- cpp crash diagnostics -->
+  <section if="cpp">
+    <haxedef name="HXCPP_CHECK_POINTER" />
+    <haxedef name="HXCPP_STACK_LINE" />
+    <haxedef name="HXCPP_STACK_TRACE" />
+    <haxedef name="HXCPP_CATCH_SEGV" />
+  </section>
 
-	<haxelib name="lime" version="8.2.2" />
-	<haxelib name="openfl" version="9.4.1" />
+  <!-- nicer compiler messages -->
+  <haxedef name="no-deprecation-warnings" />
+  <haxedef name="message.reporting" value="pretty" />
 
-	<haxelib name="flixel" version="6.0.0"/>
-	<haxelib name="flixel-addons" version="3.3.2"/>
-	<haxelib name="tjson" version="1.4.0"/>
-	<haxelib name="FlxPartialSound" version="git"/>
-	<haxelib name="grig.audio" version="git" />
-	<haxelib name="funkin.vis" version="git" />
+  <!-- hscript diagnostics -->
+  <define  name="IRIS_DEBUG" if="debug"/>
+  <haxedef name="hscriptPos" if="HSCRIPT_ALLOWED"/>
 
-	<haxelib name="bmath" version="git" />
+  <!-- ───────────────────────────────── icons ──────────────────────────────── -->
+  <assets path="art/icons/iconOG.png" rename="icon.png" if="linux || mac" />
+  <icon path="art/icons/icon16.png" size="16"/>
+  <icon path="art/icons/iconOG.png" />
 
-	<!--Psych stuff needed-->
-	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
-	<haxelib name="hscript-iris" if="HSCRIPT_ALLOWED"/>
-	<section if="VIDEOS_ALLOWED">
-		<haxelib name="hxCodec" version="git" if="linux"/>
-		<haxelib name="hxvlc" version="2.2.2" unless="linux"/>
-	</section>
-	<haxelib name="hxdiscord_rpc" version="1.3.0" if="DISCORD_ALLOWED"/>
-
-	<haxelib name="flxanimate" version="git"/>
-
-	<!-- Android Specific-->
-	<haxelib name="extension-androidtools" if="android" />
-
-	<!-- Disable Discord IO Thread -->
-	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc" />
-	<haxedef name="NO_PRECOMPILED_HEADERS" if="linux" />
-
-	<section if="debug">
-		<!--These defines are mostly for testing (aren't required to be used)-->
-		<haxelib name="hxcpp-debug-server" />
-		<haxelib name="flixel-studio" />
-		<haxedef name="HXVLC_VERBOSE" value="2" />
-		<haxedef name="HXVLC_LOGGING" />
-	</section>
-	
-	<define name="x86_BUILD" if="32bits" />
-	
-	<!-- ______________________________ Haxedefines _____________________________ -->
-
-	<!--Enable the Flixel core recording system-->
-	<!--<haxedef name="FLX_RECORD" />-->
-
-	<!--Disable the right and middle mouse buttons-->
-	<!-- <haxedef name="FLX_NO_MOUSE_ADVANCED" /> -->
-
-	<!--Disable the native cursor API on Flash-->
-	<!--<haxedef name="FLX_NO_NATIVE_CURSOR" />-->
-
-	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
-	<!-- <haxedef name="FLX_NO_MOUSE" if="mobile" /> -->
-	<!-- <haxedef name="FLX_NO_KEYBOARD" if="mobile" /> -->
-	<!-- <haxedef name="FLX_NO_TOUCH" if="desktop" /> -->
-	<!--<haxedef name="FLX_NO_GAMEPAD" />-->
-
-	<!--Disable the Flixel core sound tray-->
-	<!--<haxedef name="FLX_NO_SOUND_TRAY" />-->
-
-	<!--Disable the Flixel sound management code-->
-	<!--<haxedef name="FLX_NO_SOUND_SYSTEM" />-->
-
-	<!--Disable the Flixel core focus lost screen-->
-	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
-	
-	<!--Disable the Flixel core debugger. Automatically gets set whenever you compile in release mode!-->
-	<haxedef name="FLX_NO_DEBUG" unless="debug" />
-
-	<!--Enable this for Nape release builds for a serious peformance improvement-->
-	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-	
-	<!--Used for crash handler-->
-	<section if="cpp">
-		<haxedef name="HXCPP_CHECK_POINTER" />
-		<haxedef name="HXCPP_STACK_LINE" />
-		<haxedef name="HXCPP_STACK_TRACE" />
-		<haxedef name="HXCPP_CATCH_SEGV" />
-	</section>
-	
-	<!--Disable deprecated warnings-->
-	<haxedef name='no-deprecation-warnings' />
-
-	<!-- Haxe 4.3.0+: Enable pretty syntax errors and stuff. -->
-	<!-- pretty (haxeflixel default), indent, classic (haxe compiler default) -->
-	<haxedef name="message.reporting" value="pretty" />
-
-	<!-- more verbose HScript-->
-	<define name="IRIS_DEBUG" if="debug"/>
-	<haxedef name="hscriptPos" if="HSCRIPT_ALLOWED"/>
-	<define name="SCRIPTS_ALLOWED" if="HSCRIPT_ALLOWED || LUA_ALLOWED" />
-
-	<!-- __________________________________ Icons _______________________________ -->
-
-	<assets path='art/icons/iconOG.png' rename='icon.png' if="linux || mac" />
-	
-	<icon path="art/icons/icon16.png" size='16'/>
-	<icon path="art/icons/iconOG.png" />
 </project>
