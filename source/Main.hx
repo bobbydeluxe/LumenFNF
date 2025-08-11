@@ -47,7 +47,6 @@ class Main extends Sprite
 
 	public static var fpsVar:FPS;
 	public static var traces:ScriptTraceDisplay;
-	public static final platform:String = #if mobile "Phones" #else "PCs" #end;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
