@@ -1081,16 +1081,6 @@ class PlayState extends ScriptedState
 		});
 		return spr;
 	}
-	
-	public function addBehindChar(char:String, obj:FlxBasic) {
-		switch(char.toLowerCase())
-		{
-			case "gf": insert(members.indexOf(gfGroup), obj);
-			case "bf", "boyfriend": insert(members.indexOf(boyfriendGroup), obj);
-			case "dad": insert(members.indexOf(dadGroup), obj);
-			default: FlxG.state.add(obj);
-		}
-	}
 
 	public function clearNotesBefore(time:Float)
 	{
