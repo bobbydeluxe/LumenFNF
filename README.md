@@ -2,9 +2,7 @@
     <img src="art/lumenLogo.png">
 </p>
 
-a fork of p-slice (v2.3.1) built to be **modular**, **scriptable outside of songs**, and fully **psych-compatible** without all the hardcoding.
-
-not trying to reinvent the wheel – just making it easier to bolt on new ones. basically a fork of a fork of a fork. why the fuck did i do this.
+sum goofy ass p-slice fork that i made for fun
 
 ---
 
@@ -69,12 +67,12 @@ apache 2.0. see [here](/LICENSE)
 ---
 
 ## credits
-- **bobbydx** – creator of lumen engine  
-- **ledonic** – base fnf modpack + content  
-- **phoenixpunk** – source tweaks + testing  
-- **ashley / emi3 / victoria** – original custom state scripting fork  
-- **mikolka9144** – p-slice engine  
-- **shadowmario** – psych engine  
+- **bobbydx** – creator and main programmer
+- **ledonic** – base fnf modpack + content
+- **phoenixpunk** – source tweaks + testing
+- **ashley / emi3 / victoria** – original custom state scripting fork
+- **mikolka9144** – p-slice engine
+- **shadowmario** – psych engine
 - **funkin' crew inc.** – friday night funkin'
 
 ---

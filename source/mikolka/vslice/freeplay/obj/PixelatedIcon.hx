@@ -28,8 +28,8 @@ class PixelatedIcon extends FlxFilteredSprite
     //trace(char);
     if(char.startsWith("icon-")) char = char.replace("icon-","");
     type = IconType.LEGACY;
-    if(FunkinPath.exists('images/freeplay/icons/${char}pixel.png')){
-      if(FunkinPath.exists('images/freeplay/icons/${char}pixel.xml')) type = ANIMATED;
+    if(FunkinPath.exists('images/freeplay/icons/${char}.png')){
+      if(FunkinPath.exists('images/freeplay/icons/${char}.xml')) type = ANIMATED;
       else type = PIXEL;
     }
     switch (type){
@@ -56,7 +56,7 @@ class PixelatedIcon extends FlxFilteredSprite
         //animation.play("idle");
       case PIXEL:
         // legacy P-Slice freeplay icons
-        var image = Paths.image('freeplay/icons/${char}pixel');
+        var image = Paths.image('freeplay/icons/${char}');
         this.loadGraphic(image);
         this.scale.x = this.scale.y = 2;
         this.updateHitbox();
@@ -66,7 +66,7 @@ class PixelatedIcon extends FlxFilteredSprite
         if(char == "parents") this.origin.x = 55;
       case ANIMATED:
         // NEW freeplay animated icon
-        frames = FunkinPath.getSparrowAtlas('freeplay/icons/${char}pixel');
+        frames = FunkinPath.getSparrowAtlas('freeplay/icons/${char}');
         this.active = true;
         this.scale.x = this.scale.y = 2;
         this.updateHitbox();

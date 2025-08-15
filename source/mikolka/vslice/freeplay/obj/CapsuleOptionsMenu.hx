@@ -12,6 +12,7 @@ class CapsuleOptionsMenu extends FlxSpriteGroup
   var busy:Bool = false;
 
   var instrumentalIds:Array<String> = [''];
+  var instrumentalIdsDisplay:Array<String> = [''];
   var currentInstrumentalIndex:Int = 0;
 
   var currentInstrumental:FlxText;
@@ -19,12 +20,13 @@ class CapsuleOptionsMenu extends FlxSpriteGroup
   var leftArrow:InstrumentalSelector;
   var rightArrow:InstrumentalSelector;
 
-  public function new(parent:FreeplayState, x:Float = 0, y:Float = 0, instIds:Array<String>):Void
+  public function new(parent:FreeplayState, x:Float = 0, y:Float = 0, instIds:Array<String>, instIdsDisplay:Array<String>):Void
   {
     super(x, y);
 
     this.parent = parent;
     this.instrumentalIds = instIds;
+    this.instrumentalIdsDisplay = instIdsDisplay;
 
     capsuleMenuBG = FunkinSprite.createSparrow(0, 0, 'freeplay/instBox/instBox');
 
@@ -74,13 +76,13 @@ class CapsuleOptionsMenu extends FlxSpriteGroup
     var changedInst = false;
     if (parent.getControls().UI_LEFT_P || (TouchUtil.overlapsComplex(leftArrow) && TouchUtil.justPressed))
     {
-      currentInstrumentalIndex = (currentInstrumentalIndex + 1) % instrumentalIds.length;
+      currentInstrumentalIndex = (currentInstrumentalIndex - 1 + instrumentalIds.length) % instrumentalIds.length; // flipped, it now goes left
       changedInst = true;
       if (leftArrow != null) leftArrow.setPress(true);
     }
     if (parent.getControls().UI_RIGHT_P || (TouchUtil.overlapsComplex(rightArrow) && TouchUtil.justPressed))
     {
-      currentInstrumentalIndex = (currentInstrumentalIndex - 1 + instrumentalIds.length) % instrumentalIds.length;
+      currentInstrumentalIndex = (currentInstrumentalIndex + 1) % instrumentalIds.length; // flipped, it now goes right
       changedInst = true;
       if (rightArrow != null) rightArrow.setPress(true);
     }
@@ -93,13 +95,20 @@ class CapsuleOptionsMenu extends FlxSpriteGroup
 
     if (changedInst)
     {
-        var newText = instrumentalIds[currentInstrumentalIndex] ?? '';
+        var newText = instrumentalIdsDisplay[currentInstrumentalIndex] ?? '';
+        var backupText = instrumentalIds[currentInstrumentalIndex] ?? '';
         var coolTemplate = ~/\((.*)\)/g;
         if(coolTemplate.match(newText)){
             newText = coolTemplate.matched(1);
         }
-        currentInstrumental.text = newText.toTitleCase();
-        if (currentInstrumental.text == '') currentInstrumental.text = 'Default';
+        currentInstrumental.text = newText;
+        if (currentInstrumental.text == '') {
+          if (backupText.toTitleCase() == '') {
+            currentInstrumental.text = 'Default';
+          } else {
+            currentInstrumental.text = backupText.toTitleCase();
+          }
+        }
     }
 
     if (parent.getControls().ACCEPT && !busy)

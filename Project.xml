@@ -5,9 +5,9 @@
   xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 
   <!-- ───────────────────────────── app identity ───────────────────────────── -->
-  <app
-    title="friday night funkin' - lumen engine"
-    file="lumen-engine"
+  <app 
+    title="friday night funkin' | lumen engine"
+    file="fridaynightfunkin"
     main="Main"
     version="1.0.0"
     company="BobbyDX" />
@@ -95,12 +95,12 @@
   </section>
 
   <!-- a tiny surprise :) -->
-  <assets path="art/readme.txt" rename="do NOT readme.txt" unless="mobile" />
+  <assets path="art/readme.txt" rename="modding_guide.txt" unless="mobile" />
 
   <!-- ───────────────────────── scripting / macro setup ────────────────────── -->
   <haxeflag name="-dce no" if="SCRIPTS_ALLOWED" />
 
-  <!-- victoria macro fixes -->
+  <!-- emipsych macro fixes -->
   <haxeflag name="--macro" value="addMetadata('@:build(backend.macro.Scripting.ExtraDataMacro.build())', 'flixel.FlxBasic')" if="SCRIPTS_ALLOWED" />
   <haxeflag name="--macro" value="addMetadata('@:build(psychlua.HScript.HScriptMacro.buildInterp())', 'crowplexus.hscript.Interp')" if="HSCRIPT_ALLOWED" />
   <haxeflag name="--macro" value="include('flixel', true, ['flixel.addons.nape','flixel.addons.editors.spine','flixel.system.macros'])" if="SCRIPTS_ALLOWED" />
@@ -122,7 +122,7 @@
   <haxelib name="FlxPartialSound" version="git"/>
   <haxelib name="grig.audio"      version="git" />
   <haxelib name="funkin.vis"      version="git" />
-  <haxelib name="bmath"           version="git" />
+  <haxelib name="bob-utils"           version="git" />
 
   <!-- scripting backends -->
   <haxelib name="linc_luajit"   if="LUA_ALLOWED"/>
@@ -178,8 +178,8 @@
   <haxedef name="hscriptPos" if="HSCRIPT_ALLOWED"/>
 
   <!-- ───────────────────────────────── icons ──────────────────────────────── -->
-  <assets path="art/icons/iconOG.png" rename="icon.png" if="linux || mac" />
-  <icon path="art/icons/icon16.png" size="16"/>
-  <icon path="art/icons/iconOG.png" />
+  <assets path="art/icons/default.png" rename="icon.png" if="linux || mac" />
+  <icon path="art/icons/16x16.png" size="16"/>
+  <icon path="art/icons/default.png" />
 
 </project>

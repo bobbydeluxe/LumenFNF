@@ -1,6 +1,7 @@
 package backend;
 
 import psychlua.EpicConstants;
+import bobbydx.MathUtil as BMath;
 
 // PsychCamera handles followLerp based on elapsed
 // and stops camera from snapping at higher framerates
@@ -102,7 +103,7 @@ class PsychCamera extends FlxCamera
 				_lastTargetPosition.y = target.y;
 			}
 		}
-		var mult:Float = FlxEase.expoOut(elapsed * followLerp * 15);
+		var mult:Float = -Math.pow((Math.PI + BMath.PHI)/2, -10 * (elapsed * followLerp * 15)) + 1;
 		
 		scroll.x += (_scrollTarget.x - scroll.x) * mult;
 		scroll.y += (_scrollTarget.y - scroll.y) * mult;

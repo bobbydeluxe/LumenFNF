@@ -39,7 +39,9 @@ using mikolka.funkin.utils.ArrayTools;
      public var freeplayPrevEnd(default, null):Float = 0;
      public var currentDifficulty(default, set):String = "normal";
      public var instVariants:Array<String>;
- 
+     public var instVariantsDisplay:Array<String>;
+     public var instId:String;
+
      public var scoringRank:Null<ScoringRank> = null;
  
      function set_currentDifficulty(value:String):String
@@ -66,6 +68,8 @@ using mikolka.funkin.utils.ArrayTools;
          freeplayPrevEnd = meta.freeplayPrevEnd/meta.freeplaySongLength;
          albumId = meta.albumId;
          instVariants = meta.altInstrumentalSongs.split(",");
+         instVariantsDisplay = meta.altInstrumentalDisplay.split(",");
+         instId = meta.instId;
          songPlayer = meta.freeplayCharacter;
  
          updateValues();

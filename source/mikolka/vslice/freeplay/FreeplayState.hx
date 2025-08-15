@@ -2083,7 +2083,11 @@ class FreeplayState extends ScriptedSubState
 		if (cap.songData.instVariants.length > 0 && cap.songData.instVariants[0] != "")
 		{
 			var instrumentalIds = ["default"].concat(cap.songData.instVariants);
-			openInstrumentalList(cap, instrumentalIds);
+			var startingThingy = "Default";
+			if (cap.songData.instId != "" && cap.songData.instId != null) startingThingy = cap.songData.instId;
+			var instrumentalDisplayNames = [startingThingy].concat(cap.songData.instVariantsDisplay); // so that we can display the correct names
+			openInstrumentalList(cap, instrumentalIds, instrumentalDisplayNames);
+			// trace('INSTRUMENTALS: ${instrumentalIds}');
 		}
 		else
 		{
@@ -2097,11 +2101,11 @@ class FreeplayState extends ScriptedSubState
 		return controls;
 	}
 
-	function openInstrumentalList(cap:SongMenuItem, instrumentalIds:Array<String>):Void
+	function openInstrumentalList(cap:SongMenuItem, instrumentalIds:Array<String>, instrumentalDisplayNames:Array<String>):Void
 	{
 		busy = true;
 
-		capsuleOptionsMenu = new CapsuleOptionsMenu(this, cap.x + 175, cap.y + 115, instrumentalIds);
+		capsuleOptionsMenu = new CapsuleOptionsMenu(this, cap.x + 175, cap.y + 115, instrumentalIds, instrumentalDisplayNames);
 		capsuleOptionsMenu.cameras = [funnyCam];
 		capsuleOptionsMenu.zIndex = 10000;
 		add(capsuleOptionsMenu);
@@ -2206,6 +2210,8 @@ class FreeplayState extends ScriptedSubState
 	{
 		var prevSelected:Int = curSelected;
 
+		callOnScripts('onChangeSelection', [prevSelected, curSelected], true);
+
 		curSelected += change;
 
 		if (!prepForNewRank && curSelected != prevSelected)
@@ -2261,10 +2267,12 @@ class FreeplayState extends ScriptedSubState
 			//tweenCurSongColor(daSongCapsule);
 			grpCapsules.members[curSelected].selected = true;
 		}
+		callOnScripts('onChangeSelectionPost', [prevSelected, curSelected], true);
 	}
 
 	public function playCurSongPreview(?daSongCapsule:SongMenuItem):Void
 	{
+		callOnScripts('onSongPreview', [daSongCapsule], true);
 		if (daSongCapsule == null)
 			daSongCapsule = grpCapsules.members[curSelected];
 

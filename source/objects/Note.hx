@@ -113,8 +113,6 @@ class Note extends FlxSprite
 		a: ClientPrefs.data.splashAlpha
 	};
 
-	public var noteHoldSplash:SustainSplash;
-
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
 	public var offsetAngle:Float = 0;
@@ -130,7 +128,7 @@ class Note extends FlxSprite
 	public var hitHealth:Float = 0.025;
 	public var missHealth:Float = 0.05;
 	public var rating:String = 'unknown';
-	public var ratingMod:Float = 0; //9 = unknown, 0.25 = shit, 0.5 = bad, 0.75 = good, 1 = sick
+	public var ratingMod:Float = 0; // 0 = unknown, 0.25 = shit, 0.5 = bad, 0.75 = good, 1 = sick
 	public var ratingDisabled:Bool = false;
 	public var noteSplash:NoteSplash = null;
 	

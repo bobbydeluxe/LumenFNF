@@ -13,6 +13,8 @@ class FreeplayMetaJSON {
     public var freeplayCharacter:String = "";
     public var albumId:String = "";
     public var altInstrumentalSongs:String = "";
+    public var altInstrumentalDisplay:String = "";
+    public var instId:String = "Default";
 }
 
 class FreeplayMeta {

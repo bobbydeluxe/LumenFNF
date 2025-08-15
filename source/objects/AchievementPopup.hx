@@ -15,7 +15,7 @@ class AchievementPopup extends openfl.display.Sprite {
 		super();
 
 		// bg
-		graphics.beginFill(FlxColor.BLACK);
+		graphics.beginFill(0xFF2F2F38);
 		graphics.drawRoundRect(0, 0, 420, 130, 16, 16);
 
 		// achievement icon

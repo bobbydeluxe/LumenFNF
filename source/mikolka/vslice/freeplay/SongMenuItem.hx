@@ -370,11 +370,6 @@ class SongMenuItem extends FlxSpriteGroup
         favIcon.visible = false;
         favIconBlurred.visible = false;
         newText.visible = false;
-        var key = 'freeplay/freeplayCapsule/capsule/random/randomCapsule_' + VsliceOptions.LAST_MOD.char_name;
-        if (Paths.fileExists(key, AssetType.IMAGE))
-          capsule.frames = Paths.getSparrowAtlas(key);
-        else
-          capsule.frames = Paths.getSparrowAtlas('freeplay/freeplayCapsule/capsule/randomCapsule');
       }
       else
       {

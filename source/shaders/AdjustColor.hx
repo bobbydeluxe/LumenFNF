@@ -440,16 +440,7 @@ class AdjustColor extends FlxShader
       }
 
     ')
-  public function new(
-    _hue:Float = 0,
-    _saturation:Float = 0,
-    _brightness:Float = 0,
-    _contrast:Float = 0,
-    _threshold:Float = 0.1,
-    _color:FlxColor = 0xFFDFEF3C,
-    _angle:Float = 90,
-    _antialias:Float = 2
-) {
+  public function new(_hue:Float = 0, _saturation:Float = 0, _brightness:Float = 0, _contrast:Float = 0, _threshold:Float = 1, _color:FlxColor = 0xFFDFEF3C, _angle:Float = 90, _antialias:Float = 2) {
     super();
 
     baseHue = _hue;
@@ -468,7 +459,5 @@ class AdjustColor extends FlxShader
     useAltMask = false;
     curZoom = 1;
     angOffset.value = [0];
-}
-
-
+  }
 }
