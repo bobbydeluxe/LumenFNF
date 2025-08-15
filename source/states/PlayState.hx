@@ -338,12 +338,17 @@ class PlayState extends ScriptedState
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = initPsychCamera();
 		camHUD = new FlxCamera();
-		luaTpadCam = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
-		luaTpadCam.bgColor.alpha = 0;
 
 		FlxG.cameras.add(camHUD, false);
+
+		FlxG.cameras.remove(camOther, false);
+		FlxG.cameras.add(camOther, false); // re-adds it to the top (drawn last)
+
+		luaTpadCam = new FlxCamera(); // deprecated ! ! for pslice mobile ! !
+		luaTpadCam.bgColor.alpha = 0;
 		FlxG.cameras.add(luaTpadCam, false);
+
 
 		persistentUpdate = true;
 		persistentDraw = true;
