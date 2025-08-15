@@ -600,7 +600,7 @@ class LuaUtils
 		var camera:Dynamic;
 		if (game != null) {
 			switch (cam.toLowerCase()) {
-				case 'camother' | 'other': return game.camOther;
+				case 'camother' | 'other': return game.camOther2;
 				case 'camgame' | 'game': return game.camGame;
 				case 'camhud' | 'hud': return game.camHUD;
 				default:
@@ -626,7 +626,7 @@ class LuaUtils
 		switch(cam.toLowerCase()) {
 			case 'camgame' | 'game': return 'camGame';
 			case 'camhud' | 'hud': return 'camHUD';
-			case 'camother' | 'other': return 'camOther';
+			case 'camother' | 'other': return 'camOther2';
 		}
 		var customCamera:FlxCamera = MusicBeatState.getVariables().get(cam);
 		if (customCamera != null && Std.isOfType(customCamera, FlxCamera)) return cam;

@@ -229,7 +229,7 @@ class PlayState extends ScriptedState
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera = ScriptedState.camOther;
-	public var luaTpadCam:FlxCamera;
+	public var camOther2:FlxCamera; // for lua mod consistency
 	public var cameraSpeed:Float = 1;
 
 	public var songScore:Int = 0;
@@ -342,13 +342,9 @@ class PlayState extends ScriptedState
 
 		FlxG.cameras.add(camHUD, false);
 
-		FlxG.cameras.remove(camOther, false);
-		FlxG.cameras.add(camOther, false); // re-adds it to the top (drawn last)
-
-		luaTpadCam = new FlxCamera(); // deprecated ! ! for pslice mobile ! !
-		luaTpadCam.bgColor.alpha = 0;
-		FlxG.cameras.add(luaTpadCam, false);
-
+		camOther2 = new FlxCamera();
+		camOther2.bgColor.alpha = 0;
+		FlxG.cameras.add(camOther2, false);
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -3608,8 +3604,10 @@ class PlayState extends ScriptedState
 	}
 
 	public function addLuaTouchPadCamera() {
-		if(luaTouchPad != null)
-			luaTouchPad.cameras = [luaTpadCam];
+		if(luaTouchPad != null) {
+			// luaTouchPad.cameras = [luaTpadCam];
+			// ts is DEPRECATED ! ! - bobbyDX
+		}
 	}
 
 	public function removeLuaTouchPad() {
