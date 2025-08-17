@@ -3,6 +3,7 @@ package backend;
 // this essentially imports shaders i want to be accessible that are not used anywhere else.
 
 import shaders.AdjustColor;
+import shaders.AdjustColorLegacy;
 import shaders.TwoToneShader;
 import shaders.OverlayShader;
 import shaders.WiggleEffectRuntime;

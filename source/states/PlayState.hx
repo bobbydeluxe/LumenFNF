@@ -542,10 +542,6 @@ class PlayState extends ScriptedState
 		moveCameraSection();
 
 		healthBar = new Bar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.89 : 0.11), 'healthBar', function(){
-			if(ClientPrefs.data.vsliceSmoothBar){
-				healthLerp = FlxMath.lerp(healthLerp, health, 0.15);
-				return healthLerp;
-			}
 			return health;
 		}, 0, 2);
 		healthBar.screenCenter(X);

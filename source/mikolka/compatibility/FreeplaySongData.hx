@@ -157,7 +157,7 @@ using mikolka.funkin.utils.ArrayTools;
                 break;
             }
          }
-         isNew = (( ClientPrefs.data.vsliceForceNewTag || isNew) && !wasCompleted); 
+         isNew = ((isNew) && !wasCompleted); 
      }
      public function loadAndGetDiffId() {
          var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[levelId]);

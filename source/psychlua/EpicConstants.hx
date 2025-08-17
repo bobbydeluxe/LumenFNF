@@ -23,6 +23,12 @@ class EpicConstants {
     // determines the speed at which the icons bop in the song playstate
     public static var iconBopSpeed:Float = 9;
 
+    // the color the story mode menu items flash
+    public static var storyMenuFlashColor = 0xFF33FFFF;
+
+    // how many flashes per second
+    public static var storyMenuFlashCount:Int = 6;
+
     public static function resetConstants():Void {
         legacyFreeplay = false;
         introVideo = "intro";
@@ -31,5 +37,7 @@ class EpicConstants {
         introSoundCount = 3;
         mainMenuMusic = "freakyMenu";
         iconBopSpeed = 9;
+        storyMenuFlashColor = 0xFF33FFFF;
+        storyMenuFlashCount = 6;
     }
 }

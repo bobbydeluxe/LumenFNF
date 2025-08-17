@@ -1,5 +1,7 @@
 package objects;
 
+import psychlua.EpicConstants;
+
 class MenuItem extends FlxSprite
 {
 	public var targetY:Float = 0;
@@ -14,14 +16,12 @@ class MenuItem extends FlxSprite
 
 	public var isFlashing(default, set):Bool = false;
 	private var _flashingElapsed:Float = 0;
-	final _flashColor = 0xFF33FFFF;
-	final flashes_ps:Int = 6;
 
 	public function set_isFlashing(value:Bool = true):Bool
 	{
 		isFlashing = value;
 		_flashingElapsed = 0;
-		color = (isFlashing) ? _flashColor : FlxColor.WHITE;
+		color = (isFlashing) ? EpicConstants.storyMenuFlashColor : FlxColor.WHITE;
 		return isFlashing;
 	}
 
@@ -32,7 +32,7 @@ class MenuItem extends FlxSprite
 		if (isFlashing)
 		{
 			_flashingElapsed += elapsed;
-			color = (Math.floor(_flashingElapsed * FlxG.updateFramerate * flashes_ps) % 2 == 0) ? _flashColor : FlxColor.WHITE;
+			color = (Math.floor(_flashingElapsed * FlxG.updateFramerate * EpicConstants.storyMenuFlashCount) % 2 == 0) ? EpicConstants.storyMenuFlashColor : FlxColor.WHITE;
 		}
 	}
 }

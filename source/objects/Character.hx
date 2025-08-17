@@ -79,9 +79,6 @@ class Character extends FlxSprite
 	public var originalFlipX:Bool = false;
 	public var editorIsPlayer:Null<Bool> = null;
 	
-	public var canPlayComboAnim:Bool = true;
-	public var canPlayDropAnim:Bool = true;
-	
 	public var comboNoteCounts:Array<Int> = [];
 	public var dropNoteCounts:Array<Int> = [];
 
@@ -94,6 +91,15 @@ class Character extends FlxSprite
 		animOffsets = new Map<String, Array<Dynamic>>();
 		this.isPlayer = isPlayer;
 		changeCharacter(character);
+
+		// in case you want to hardcode any specific traits about character logic and animations here
+		/*
+		switch(character) {
+			case 'bf':
+				// example 1
+			case 'otis':
+				// example 2
+		}*/
 	}
 
 	public function changeCharacter(character:String)
@@ -381,40 +387,6 @@ class Character extends FlxSprite
 		
 		counts.sort((a:Int, b:Int) -> a - b);
 		return counts;
-	}
-	
-	public function playComboAnim(combo:Int):Void {
-		if (!canPlayComboAnim || comboNoteCounts.length == 0) return;
-		
-		var animToPlay:String = 'combo$combo';
-		
-		if (hasAnimation(animToPlay)) {
-			playAnim(animToPlay, true);
-			specialAnim = true;
-		}
-	}
-	
-	public function playComboDropAnim(lastCombo:Int):Void {
-		if (!canPlayDropAnim) return;
-		
-		if (dropNoteCounts.length == 0) { // classic mode
-			if (hasAnimation('sad')) {
-				playAnim('sad', true);
-				specialAnim = true;
-			}
-			return;
-		}
-		
-		var dropAnim:Null<String> = null;
-		for (count in dropNoteCounts) {
-			if (count >= lastCombo)
-				dropAnim = 'drop$count';
-		}
-		
-		if (dropAnim != null && hasAnimation(dropAnim)) {
-			playAnim(dropAnim, true);
-			specialAnim = true;
-		}
 	}
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
