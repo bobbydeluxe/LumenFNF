@@ -1,7 +1,7 @@
 package psychlua;
 
 import flixel.FlxObject;
-import substates.StickerSubState;
+import states.substates.StickerSubState;
 import mikolka.compatibility.ModsHelper;
 
 class CustomSubstate extends ScriptedSubState implements PsychUIEventHandler.PsychUIEvent {

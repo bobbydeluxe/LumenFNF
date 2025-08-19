@@ -1,6 +1,6 @@
 package psychlua;
 
-import substates.StickerSubState;
+import states.substates.StickerSubState;
 import mikolka.compatibility.ModsHelper;
 
 class CustomState extends ScriptedState implements PsychUIEventHandler.PsychUIEvent {

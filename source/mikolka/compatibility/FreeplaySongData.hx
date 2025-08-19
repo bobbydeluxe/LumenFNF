@@ -1,12 +1,12 @@
 package mikolka.compatibility;
 
 import mikolka.vslice.freeplay.pslice.BPMCache;
-import mikolka.funkin.Scoring.ScoringRank;
+import mikolka.vslice.bts.Scoring.ScoringRank;
 import backend.Highscore;
 import backend.WeekData;
 
-using mikolka.funkin.custom.FunkinTools;
-using mikolka.funkin.utils.ArrayTools;
+using mikolka.vslice.bts.custom.FunkinTools;
+using mikolka.vslice.bts.utils.ArrayTools;
 
 /**
  * Data about a specific song in the freeplay menu. Very heaviely dependent on exact engine
@@ -34,6 +34,7 @@ using mikolka.funkin.utils.ArrayTools;
      public var difficultyRating(default, null):Int = 0;
      public var albumId(default, null):Null<String> = null;
      public var songPlayer(default, null):String = '';
+     public var songWeekName(default, null):String = '';
  
      public var freeplayPrevStart(default, null):Float = 0;
      public var freeplayPrevEnd(default, null):Float = 0;
@@ -71,6 +72,7 @@ using mikolka.funkin.utils.ArrayTools;
          instVariantsDisplay = meta.altInstrumentalDisplay.split(",");
          instId = meta.instId;
          songPlayer = meta.freeplayCharacter;
+         songWeekName = meta.freeplayWeekName;
  
          updateValues();
  

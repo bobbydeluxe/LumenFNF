@@ -178,10 +178,10 @@ class MainMenuState extends ScriptedState
 		}
 
 		#if CHECK_FOR_UPDATES
-		if (showOutdatedWarning && ClientPrefs.data.checkForUpdates && substates.OutdatedSubState.updateVersion > lumenEngineVersion) {
+		if (showOutdatedWarning && ClientPrefs.data.checkForUpdates && states.substates.OutdatedSubState.updateVersion > lumenEngineVersion) {
 			persistentUpdate = false;
 			showOutdatedWarning = false;
-			openSubState(new substates.OutdatedSubState());
+			openSubState(new states.substates.OutdatedSubState());
 		}
 		#end
 		
@@ -196,15 +196,11 @@ class MainMenuState extends ScriptedState
 		add(menuItems);
 		callOnScripts('onLoad', ['menuItems', menuItems], true);
 
-		lumenVer = new FlxText(12, FlxG.height - 44, 0, 'Lumen Engine $lumenEngineVersion', 12);
-		lumenVer.scrollFactor.set();
-		lumenVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		lumenVer = new FunkinText(12, FlxG.height - 44, 0, 'Lumen Engine $lumenEngineVersion', 16);
 		add(lumenVer);
 		callOnScripts('onLoad', ['lumenVer', lumenVer], true);
 
-		basesVer = new FlxText(12, FlxG.height - 24, 0, 'P-Slice $pSliceVersion | emiPsych $emiForkVersion | Psych Engine $psychEngineVersion');
-		basesVer.scrollFactor.set();
-		basesVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		basesVer = new FunkinText(12, FlxG.height - 24, 0, 'P-Slice $pSliceVersion | emiPsych $emiForkVersion | Psych Engine $psychEngineVersion', 16);
 		add(basesVer);
 		callOnScripts('onLoad', ['basesVer', basesVer], true);
 		

@@ -512,9 +512,8 @@ class ChartingState extends ScriptedState implements PsychUIEventHandler.PsychUI
 		tipBg.visible = tipBg.active = false;
 		tipBg.alpha = 0.6;
 		add(tipBg);
-		
-		fullTipText = new FlxText(0, 0, FlxG.width - 200);
-		fullTipText.setFormat(Paths.font('vcr.ttf'), 24, FlxColor.WHITE, CENTER);
+
+		fullTipText = new FunkinText(0, 0, FlxG.width - 200, '', 24, false, 'center');
 		fullTipText.cameras = [camUI];
 		fullTipText.scrollFactor.set();
 		fullTipText.visible = fullTipText.active = false;

@@ -3,11 +3,7 @@ package objects;
 import flixel.addons.display.FlxPieDial;
 
 #if hxvlc
-import hxvlc.flixel.FlxVideoSprite;
-#end
-
-#if hxCodec
-import hxcodec.flixel.FlxVideoSprite;
+import objects.video.Video4 as FlxVideoSprite;
 #end
 
 class VideoSprite extends FlxSpriteGroup {

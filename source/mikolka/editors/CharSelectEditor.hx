@@ -20,14 +20,14 @@ import mikolka.editors.editorProps.CharIconGrid;
 import mikolka.vslice.charSelect.CharSelectPlayer;
 import mikolka.compatibility.FreeplayHelpers;
 import mikolka.compatibility.ModsHelper;
-import mikolka.funkin.players.PlayerData.PlayerCharSelectGFData;
+import mikolka.vslice.bts.players.PlayerData.PlayerCharSelectGFData;
 import mikolka.compatibility.FunkinPath;
 import mikolka.vslice.charSelect.CharSelectGF;
 import mikolka.vslice.charSelect.Nametag;
 import mikolka.vslice.charSelect.Lock;
 import mikolka.vslice.freeplay.obj.PixelatedIcon;
 
-using mikolka.funkin.custom.FunkinTools;
+using mikolka.vslice.bts.custom.FunkinTools;
 
 class CharSelectEditor extends MusicBeatState
 {

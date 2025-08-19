@@ -5,18 +5,6 @@ class EpicConstants {
     // if false, then it will use the updated FNF 0.3.0+ freeplay system
     public static var legacyFreeplay = false;
 
-    // determines which video should be played in the intro splash state
-    public static var introVideo:String = "intro";
-
-    // determines which logo should be used in the intro splash state
-    public static var introLogo:String = "default";
-
-    // determines the sound prefix for the intro splash state
-    public static var introSoundPrefix:String = "intro";
-
-    // determines how many intro sounds are there
-    public static var introSoundCount:Int = 3;
-
     // main menu music i guess
     public static var mainMenuMusic:String = "freakyMenu";
 
@@ -29,15 +17,15 @@ class EpicConstants {
     // how many flashes per second
     public static var storyMenuFlashCount:Int = 6;
 
+    // intro splash state sound
+    public static var introSound:String = "openSound";
+
     public static function resetConstants():Void {
         legacyFreeplay = false;
-        introVideo = "intro";
-        introLogo = "default";
-        introSoundPrefix = "intro";
-        introSoundCount = 3;
         mainMenuMusic = "freakyMenu";
         iconBopSpeed = 9;
         storyMenuFlashColor = 0xFF33FFFF;
         storyMenuFlashCount = 6;
+        introSound = "openSound";
     }
 }

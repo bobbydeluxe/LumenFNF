@@ -4,9 +4,9 @@ import mikolka.vslice.freeplay.obj.CapsuleOptionsMenu;
 import mikolka.compatibility.FunkinControls;
 import mikolka.vslice.charSelect.CharSelectSubState;
 import openfl.filters.ShaderFilter;
-import mikolka.funkin.freeplay.FreeplayStyleRegistry;
+import mikolka.vslice.bts.freeplay.FreeplayStyleRegistry;
 import shaders.BlueFade;
-import mikolka.funkin.freeplay.FreeplayStyle;
+import mikolka.vslice.bts.freeplay.FreeplayStyle;
 import mikolka.vslice.freeplay.DJBoyfriend.FreeplayDJ;
 import mikolka.compatibility.ModsHelper;
 import mikolka.compatibility.VsliceOptions;
@@ -15,16 +15,16 @@ import mikolka.vslice.freeplay.pslice.BPMCache;
 import mikolka.compatibility.FreeplaySongData;
 import mikolka.compatibility.FreeplayHelpers;
 import mikolka.compatibility.FunkinPath as Paths;
-import mikolka.funkin.custom.VsliceSubState as MusicBeatSubstate;
+import mikolka.vslice.bts.custom.VsliceSubState as MusicBeatSubstate;
 import openfl.utils.AssetCache;
-import mikolka.funkin.AtlasText;
+import mikolka.vslice.bts.AtlasText;
 import shaders.PureColor;
 import shaders.HSVShader;
 import shaders.StrokeShader;
 import shaders.AngleMask;
-import mikolka.funkin.IntervalShake;
-import substates.StickerSubState;
-import mikolka.funkin.Scoring.ScoringRank;
+import mikolka.vslice.bts.IntervalShake;
+import states.substates.StickerSubState;
+import mikolka.vslice.bts.Scoring.ScoringRank;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxCamera;
 import flixel.FlxSprite;
@@ -45,8 +45,8 @@ import flixel.util.FlxTimer;
 import mikolka.vslice.freeplay.backcards.BackingCard;
 import mikolka.vslice.freeplay.backcards.ScriptedCard;
 
-using mikolka.funkin.custom.FunkinTools;
-using mikolka.funkin.utils.ArrayTools;
+using mikolka.vslice.bts.custom.FunkinTools;
+using mikolka.vslice.bts.utils.ArrayTools;
 
 /**
  * Parameters used to initialize the FreeplayState.

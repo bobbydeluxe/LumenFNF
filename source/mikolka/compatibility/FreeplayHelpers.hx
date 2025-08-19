@@ -2,7 +2,7 @@ package mikolka.compatibility;
 
 import backend.StageData;
 import options.GameplayChangersSubstate;
-import substates.ResetScoreSubState;
+import states.substates.ResetScoreSubState;
 import mikolka.vslice.components.crash.UserErrorSubstate;
 import openfl.utils.AssetType;
 import mikolka.vslice.freeplay.pslice.BPMCache;

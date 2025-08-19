@@ -1,12 +1,12 @@
 package mikolka.vslice.charSelect;
 
-import mikolka.funkin.FlxAtlasSprite;
+import mikolka.vslice.bts.FlxAtlasSprite;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.math.FlxMath;
-import mikolka.funkin.FramesJSFLParser;
-import mikolka.funkin.FramesJSFLParser.FramesJSFLInfo;
-import mikolka.funkin.FramesJSFLParser.FramesJSFLFrame;
+import mikolka.vslice.bts.FramesJSFLParser;
+import mikolka.vslice.bts.FramesJSFLParser.FramesJSFLInfo;
+import mikolka.vslice.bts.FramesJSFLParser.FramesJSFLFrame;
 import flixel.math.FlxMath;
 import funkin.vis.dsp.SpectralAnalyzer;
 import mikolka.compatibility.FunkinPath as Paths;

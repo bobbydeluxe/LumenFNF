@@ -12,8 +12,8 @@ import objects.MenuItem;
 import objects.MenuCharacter;
 
 import options.GameplayChangersSubstate;
-import substates.ResetScoreSubState;
-import substates.StickerSubState;
+import states.substates.ResetScoreSubState;
+import states.substates.StickerSubState;
 
 import backend.StageData;
 

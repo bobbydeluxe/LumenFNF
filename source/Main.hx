@@ -20,10 +20,9 @@ import debug.ScriptTraceDisplay;
 import states.CopyState;
 #end
 #if mobile
-import mobile.backend.MobileScaleMode;
+import mikolka.mobile.backend.MobileScaleMode;
 #end
 import psychlua.EpicConstants;
-import states.IntroSplashState;
 
 import backend.ShaderPreserve;
 
@@ -38,7 +37,7 @@ class Main extends Sprite
 	public static final game = {
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
-		initialState: IntroSplashState, // initial game state
+		initialState: InitState, // initial game state
 		zoom: -1.0, // game state bounds
 		framerate: 60, // default framerate
 		skipSplash: true, // if the default flixel splash screen should be skipped
@@ -126,6 +125,11 @@ class Main extends Sprite
 		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
+
+		#if VIDEOS_ALLOWED
+		objects.video.Video4.init();
+		#end
+		
 		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		
 		#if mobile

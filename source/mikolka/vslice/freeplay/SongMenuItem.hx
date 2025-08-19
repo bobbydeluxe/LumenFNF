@@ -1,10 +1,11 @@
 package mikolka.vslice.freeplay;
 
-import mikolka.funkin.freeplay.FreeplayStyle;
+import mikolka.vslice.bts.AtlasText.AtlasFont;
+import mikolka.vslice.bts.freeplay.FreeplayStyle;
 import mikolka.vslice.freeplay.obj.PixelatedIcon;
 import mikolka.compatibility.ModsHelper;
 import mikolka.compatibility.FreeplayHelpers;
-import mikolka.funkin.Scoring.ScoringRank;
+import mikolka.vslice.bts.Scoring.ScoringRank;
 import mikolka.compatibility.FreeplaySongData;
 import shaders.Grayscale;
 import shaders.HSVShader;
@@ -47,6 +48,7 @@ class SongMenuItem extends FlxSpriteGroup
 
   public var fakeRanking:FreeplayRank;
   public var fakeBlurredRanking:FreeplayRank;
+  public var txtWeek:AtlasText;
 
   var ranks:Array<String> = ["fail", "average", "great", "excellent", "perfect", "perfectsick"];
 
@@ -95,6 +97,9 @@ class SongMenuItem extends FlxSpriteGroup
     difficultyText = new FlxSprite(414, 87).loadGraphic(Paths.image('freeplay/freeplayCapsule/difficultytext'));
     difficultyText.setGraphicSize(Std.int(difficultyText.width * 0.9));
     add(difficultyText);
+
+    txtWeek = new AtlasText(298, 91, 'week 69', AtlasFont.CAPSULE_TEXT);
+    add(txtWeek);
 
     newText = new FlxSprite(454, 9);
     newText.frames = Paths.getSparrowAtlas('freeplay/freeplayCapsule/new');
@@ -495,7 +500,7 @@ class SongMenuItem extends FlxSpriteGroup
 
     refreshDisplay();
 
-    checkWeek(songData?.levelId);
+    txtWeek.text = songData?.songWeekName ?? "Random";
   }
 
   var frameInTicker:Float = 0;

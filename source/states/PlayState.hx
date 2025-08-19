@@ -1,6 +1,12 @@
 package states;
 
-import substates.StickerSubState;
+#if VIDEOS_ALLOWED
+import hxvlc.flixel.FlxVideo;
+import hxvlc.flixel.FlxVideoSprite;
+import objects.video.Video4;
+#end
+
+import states.substates.StickerSubState;
 import mikolka.vslice.freeplay.FreeplayState;
 import states.PsychFreeplayState;
 import backend.Highscore;
@@ -22,13 +28,13 @@ import openfl.utils.Assets as OpenFlAssets;
 import openfl.events.KeyboardEvent;
 import haxe.Json;
 
-import cutscenes.DialogueBoxPsych;
+import objects.cutscenes.DialogueBoxPsych;
 
 import states.StoryMenuState;
 
 import lime.math.Matrix3;
-import mikolka.funkin.Scoring;
-import mikolka.funkin.custom.FunkinTools;
+import mikolka.vslice.bts.Scoring;
+import mikolka.vslice.bts.custom.FunkinTools;
 import mikolka.vslice.results.Tallies;
 import mikolka.vslice.results.ResultState;
 import openfl.media.Sound;
@@ -36,8 +42,8 @@ import openfl.media.Sound;
 import states.editors.ChartingState;
 import states.editors.CharacterEditorState;
 
-import substates.PauseSubState;
-import substates.GameOverSubstate;
+import states.substates.PauseSubState;
+import states.substates.GameOverSubstate;
 
 #if !flash
 import flixel.addons.display.FlxRuntimeShader;
@@ -235,8 +241,8 @@ class PlayState extends ScriptedState
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
-	public var scoreTxt:FlxText;
-	var timeTxt:FlxText;
+	public var scoreTxt:FunkinText;
+	var timeTxt:FunkinText;
 	var scoreTxtTween:FlxTween;
 
 	public static var campaignScore:Int = 0;
@@ -494,11 +500,8 @@ class PlayState extends ScriptedState
 		Conductor.songPosition = -Conductor.crochet * 5 + Conductor.offset;
 
 		var showTime:Bool = (ClientPrefs.data.timeBarType != 'Disabled');
-		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
-		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		timeTxt.scrollFactor.set();
+		timeTxt = new FunkinText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32, true, 'center', 2);
 		timeTxt.alpha = 0;
-		timeTxt.borderSize = 2;
 		timeTxt.visible = updateTime = showTime;
 		if(ClientPrefs.data.downScroll) timeTxt.y = FlxG.height - 44;
 		if(ClientPrefs.data.timeBarType == 'Song Name') timeTxt.text = SONG.song;
@@ -561,18 +564,12 @@ class PlayState extends ScriptedState
 		iconP1.visible = !ClientPrefs.data.hideHud;
 		uiGroup.add(iconP1);
 
-		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.scrollFactor.set();
-		scoreTxt.borderSize = 1.25;
+		scoreTxt = new FunkinText(0, healthBar.y + 40, FlxG.width, "", 20, true, 'center', 1.25);
 		scoreTxt.visible = !ClientPrefs.data.hideHud;
 		updateScore(false);
 		uiGroup.add(scoreTxt);
 
-		botplayTxt = new FlxText(400, healthBar.y - 90, FlxG.width - 800, Language.getPhrase("Botplay").toUpperCase(), 32);
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		botplayTxt.scrollFactor.set();
-		botplayTxt.borderSize = 1.25;
+		botplayTxt = new FunkinText(400, healthBar.y - 90, FlxG.width - 800, Language.getPhrase("Botplay").toUpperCase(), 32, true, 'center', 1.25);
 		botplayTxt.visible = cpuControlled;
 		uiGroup.add(botplayTxt);
 		if(ClientPrefs.data.downScroll)
@@ -1551,6 +1548,10 @@ class PlayState extends ScriptedState
 			}
 			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = false);
 			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = false);
+
+			#if VIDEOS_ALLOWED
+			forEachOfType(Video4, video -> if (video != null && video.isStateAffected) video.pause(), true);
+			#end
 		}
 
 		super.openSubState(SubState);
@@ -1570,6 +1571,10 @@ class PlayState extends ScriptedState
 			}
 			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = true);
 			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = true);
+
+			#if VIDEOS_ALLOWED
+			forEachOfType(Video4, video -> if (video != null && video.isStateAffected) video.resume(), true);
+			#end
 
 			paused = false;
 			callOnScripts('onResume');
@@ -1976,11 +1981,13 @@ class PlayState extends ScriptedState
 				canResync = false;
 				canPause = false;
 				#if VIDEOS_ALLOWED
+				/*
 				if(videoCutscene != null)
 				{
 					videoCutscene.destroy();
 					videoCutscene = null;
 				}
+				*/
 				#end
 
 				persistentUpdate = false;
@@ -2315,7 +2322,7 @@ class PlayState extends ScriptedState
 					return;
 				}
 				var floaties = keyValues.map(s -> Std.parseFloat(s));
-				if(mikolka.funkin.utils.ArrayTools.findIndex(floaties,s -> Math.isNaN(s)) != -1) {
+				if(mikolka.vslice.bts.utils.ArrayTools.findIndex(floaties,s -> Math.isNaN(s)) != -1) {
 					trace("INVALID FLOATIES");
 					return;
 				}

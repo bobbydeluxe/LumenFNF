@@ -8,7 +8,7 @@ import objects.HealthIcon;
 import objects.MusicPlayer;
 
 import options.GameplayChangersSubstate;
-import substates.ResetScoreSubState;
+import states.substates.ResetScoreSubState;
 
 import flixel.math.FlxMath;
 import flixel.util.FlxDestroyUtil;
@@ -17,7 +17,7 @@ import openfl.utils.Assets;
 
 import haxe.Json;
 
-import substates.StickerSubState;
+import states.substates.StickerSubState;
 
 import mikolka.compatibility.ModsHelper;
 

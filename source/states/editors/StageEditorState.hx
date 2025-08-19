@@ -267,8 +267,7 @@ class StageEditorState extends MusicBeatState implements PsychUIEventHandler.Psy
 		add(highQualityCheckbox);
 		visibilityFilterUpdate();
 
-		posTxt = new FlxText(0, 50, 500, 'X: 0\nY: 0', 24);
-		posTxt.setFormat(Paths.font('vcr.ttf'), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		posTxt = new FunkinText(0, 50, 500, 'X: 0\nY: 0', 24, true, 'center');
 		posTxt.borderSize = 2;
 		posTxt.cameras = [camHUD];
 		posTxt.screenCenter(X);

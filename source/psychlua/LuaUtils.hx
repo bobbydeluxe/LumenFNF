@@ -8,7 +8,7 @@ import openfl.display.BlendMode;
 import flixel.util.FlxSave;
 import Type.ValueType;
 
-import substates.GameOverSubstate;
+import states.substates.GameOverSubstate;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 

@@ -12,7 +12,7 @@ import flash.display.BlendMode;
 import flash.display.Sprite;
 import flash.Lib;
 import flixel.system.FlxBasePreloader;
-import mikolka.funkin.utils.MathUtil;
+import mikolka.vslice.bts.utils.MathUtil;
 import lime.app.Future;
 import lime.math.Rectangle;
 import openfl.display.Sprite;

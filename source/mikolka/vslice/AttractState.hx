@@ -7,7 +7,7 @@ import hxcodec.flixel.FlxVideoSprite;
 #else
 import hxvlc.flixel.FlxVideoSprite;
 #end
-using mikolka.funkin.utils.ArrayTools;
+using mikolka.vslice.bts.utils.ArrayTools;
 
 /**
  * After about 2 minutes of inactivity on the title screen,
@@ -120,9 +120,9 @@ class AttractState extends MusicBeatSubstate
     // If the user presses any button, skip the video.
     #if LEGACY_PSYCH
     if (TouchUtil.justPressed || FlxG.keys.justPressed.ANY && 
-      !FlxG.keys.anyJustPressed(TitleState.muteKeys) && 
-      !FlxG.keys.anyJustPressed(TitleState.volumeDownKeys) && 
-      !FlxG.keys.anyJustPressed(TitleState.volumeUpKeys))
+      !FlxG.keys.anyJustPressed(InitState.muteKeys) && 
+      !FlxG.keys.anyJustPressed(InitState.volumeDownKeys) && 
+      !FlxG.keys.anyJustPressed(InitState.volumeUpKeys))
     #else
     if (TouchUtil.justPressed || FlxG.keys.justPressed.ANY && !controls.justPressed("volume_up") && !controls.justPressed("volume_down") && !controls.justPressed("volume_mute"))
     #end

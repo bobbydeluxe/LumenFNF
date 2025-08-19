@@ -1,46 +1,12 @@
 package shaders;
 
-import flixel.system.FlxAssets.FlxShader;
-
-class AdjustColorLegacy {
-	public var shader(default, null):AdjustColorLegacyShader = new AdjustColorLegacyShader();
-	
-	public var hue(default, set):Float = 0;
-	public var saturation(default, set):Float = 0;
-	public var brightness(default, set):Float = 0;
-	public var contrast(default, set):Float = 0;
-	
-	public function new(?hue:Float, ?saturation:Float, ?brightness:Float, ?contrast:Float) {
-		this.set(hue, saturation, brightness, contrast);
-	}
-	
-	public function set(hue:Float = 0, saturation:Float = 0, brightness:Float = 0, contrast:Float = 0) {
-		this.hue = hue;
-		this.saturation = saturation;
-		this.brightness = brightness;
-		this.contrast = contrast;
-	}
-	
-	function set_hue(value:Float) {
-		shader.hue.value = [value];
-		return hue = value;
-	}
-	function set_saturation(value:Float) {
-		shader.saturation.value = [value];
-		return saturation = value;
-	}
-	function set_brightness(value:Float) {
-		shader.brightness.value = [value];
-		return brightness = value;
-	}
-	function set_contrast(value:Float) {
-		shader.contrast.value = [value];
-		return contrast = value;
-	}
-}
-
-class AdjustColorLegacyShader extends flixel.system.FlxAssets.FlxShader {
-	@:glFragmentSource('
+/*
+  A variation of the AdjustColor shader that redoes the color adjustment process with a different algorithm.
+  It essentially is a more classic HSBC adjustment, making it look less like Adobe Animate/Flash and more like traditional image editing software.
+ */
+class AdjustColorLegacy extends AdjustColor
+{
+  @:glFragmentSource('
 		#pragma header
 		
 		uniform float hue;
@@ -92,8 +58,8 @@ class AdjustColorLegacyShader extends flixel.system.FlxAssets.FlxShader {
 			gl_FragColor = applyColorTransform(outColor);
 		}
 	')
-	
-	public function new() {
-		super();
-	}
+
+    public function new(_hue:Float = 0, _saturation:Float = 0, _brightness:Float = 0, _contrast:Float = 0) {
+        super(_hue, _saturation, _brightness, _contrast);
+    }
 }

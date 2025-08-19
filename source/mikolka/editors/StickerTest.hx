@@ -2,7 +2,7 @@ package mikolka.editors;
 
 import mikolka.compatibility.FunkinControls;
 import mikolka.compatibility.ModsHelper;
-import substates.StickerSubState;
+import states.substates.StickerSubState;
 
 class StickerTest extends MusicBeatState {
     private var stickerSet:String;

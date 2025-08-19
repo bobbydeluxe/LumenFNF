@@ -122,7 +122,7 @@
   <haxelib name="FlxPartialSound" version="git"/>
   <haxelib name="grig.audio"      version="git" />
   <haxelib name="funkin.vis"      version="git" />
-  <haxelib name="bob-utils"           version="git" />
+  <haxelib name="bmath"           version="git" />
 
   <!-- scripting backends -->
   <haxelib name="linc_luajit"   if="LUA_ALLOWED"/>

@@ -20,6 +20,6 @@ haxelib git hscript-iris https://github.com/pisayesiwsi/hscript-iris.git dev
 haxelib git funkin.vis https://github.com/FunkinCrew/funkVis 22b1ce089dd924f15cdc4632397ef3504d464e90
 haxelib git grig.audio https://gitlab.com/haxe-grig/grig.audio.git cbf91e2180fd2e374924fe74844086aab7891666
 haxelib git FlxPartialSound https://github.com/FunkinCrew/FlxPartialSound.git f986332ba5ab02abd386ce662578baf04904604a
-haxelib git bob-utils https://github.com/bobbydeluxe/bob-utils.git
+haxelib git bmath https://github.com/bobbydeluxe/bmath.git
 echo Finished!
 pause

@@ -15,15 +15,15 @@ import backend.Achievements;
 #end
 
 // Deprecated Mobile Controls [so p-slice don't break]
-import mobile.input.MobileInputID;
-import mobile.backend.SwipeUtil;
-import mobile.backend.TouchUtil;
+import mikolka.mobile.input.MobileInputID;
+import mikolka.mobile.backend.SwipeUtil;
+import mikolka.mobile.backend.TouchUtil;
 #if TOUCH_CONTROLS_ALLOWED
-import mobile.objects.Hitbox;
-import mobile.objects.TouchPad;
-import mobile.objects.TouchButton;
-import mobile.backend.MobileData;
-import mobile.input.MobileInputManager;
+import mikolka.mobile.objects.Hitbox;
+import mikolka.mobile.objects.TouchPad;
+import mikolka.mobile.objects.TouchButton;
+import mikolka.mobile.backend.MobileData;
+import mikolka.mobile.input.MobileInputManager;
 #end
 
 // Android
@@ -47,10 +47,10 @@ import js.html.*;
 #end
 
 // P-Slice
-import mikolka.funkin.*;
-import mikolka.funkin.utils.*;
-import mikolka.funkin.custom.*;
-import mikolka.funkin.players.*;
+import mikolka.vslice.bts.*;
+import mikolka.vslice.bts.utils.*;
+import mikolka.vslice.bts.custom.*;
+import mikolka.vslice.bts.players.*;
 
 // Backend Shit
 import backend.Paths;
@@ -69,13 +69,14 @@ import backend.Mods;
 import backend.Highscore;
 import backend.Language;
 
-import mobile.backend.StorageUtil;
+import mikolka.mobile.backend.StorageUtil;
 
 import backend.ui.*; // Psych-UI
 
 import debug.Log;
 
 import objects.Alphabet;
+import objects.FunkinText;
 import objects.BGSprite;
 
 import states.PlayState;

@@ -17,7 +17,7 @@ import flixel.FlxState;
 import flixel.addons.display.FlxRuntimeShader;
 #end
 
-import cutscenes.DialogueBoxPsych;
+import objects.cutscenes.DialogueBoxPsych;
 
 import objects.StrumNote;
 import objects.Note;
@@ -29,8 +29,8 @@ import states.StoryMenuState;
 import mikolka.vslice.freeplay.FreeplayState;
 import states.PsychFreeplayState;
 
-import substates.PauseSubState;
-import substates.GameOverSubstate;
+import states.substates.PauseSubState;
+import states.substates.GameOverSubstate;
 
 import psychlua.LuaUtils;
 import psychlua.ModchartSprite;
@@ -1481,16 +1481,16 @@ class FunkinLua {
 				{
 					PlayState.storyPlaylist = [];
 					if(skipTransition) FlxG.switchState(() -> new StoryMenuState())
-					else target.openSubState(new substates.StickerSubState(null, (sticker) -> new StoryMenuState(sticker)));
+					else target.openSubState(new states.substates.StickerSubState(null, (sticker) -> new StoryMenuState(sticker)));
 				}
 				else
 				{
 					if (psychlua.EpicConstants.legacyFreeplay == true) {
 						if(skipTransition) FlxG.switchState(() -> new PsychFreeplayState())
-					else target.openSubState(new substates.StickerSubState(null, (sticker) -> new PsychFreeplayState(sticker)));
+					else target.openSubState(new states.substates.StickerSubState(null, (sticker) -> new PsychFreeplayState(sticker)));
 					} else {
 						if(skipTransition) FlxG.switchState(() -> FreeplayState.build(null, null))
-						else target.openSubState(new substates.StickerSubState(null, (sticker) -> FreeplayState.build(null, sticker)));
+						else target.openSubState(new states.substates.StickerSubState(null, (sticker) -> FreeplayState.build(null, sticker)));
 					}
 				}
 			return true;
