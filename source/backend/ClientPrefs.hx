@@ -56,7 +56,6 @@ import states.TitleState;
 
 	public var ghostTapping:Bool = true;
 	public var timeBarType:String = 'Time Left';
-	public var scoreZoom:Bool = true;
 	public var noReset:Bool = false;
 	public var hitsoundVolume:Float = 0;
 	public var pauseMusic:String = 'Tea Time';

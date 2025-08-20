@@ -95,7 +95,7 @@
   </section>
 
   <!-- a tiny surprise :) -->
-  <assets path="art/readme.txt" rename="modding_guide.txt" unless="mobile" />
+  <assets path="art/readme.txt" rename="mods/mod_setup.txt" />
 
   <!-- ───────────────────────── scripting / macro setup ────────────────────── -->
   <haxeflag name="-dce no" if="SCRIPTS_ALLOWED" />

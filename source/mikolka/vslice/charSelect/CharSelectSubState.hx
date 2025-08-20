@@ -21,23 +21,23 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
-import mikolka.vslice.bts.FunkinSound;
-import mikolka.vslice.bts.players.PlayerData;
-import mikolka.vslice.bts.players.PlayerRegistry;
-import mikolka.vslice.bts.FlxAtlasSprite;
+import mikolka.funkin.FunkinSound;
+import mikolka.funkin.players.PlayerData;
+import mikolka.funkin.players.PlayerRegistry;
+import mikolka.funkin.FlxAtlasSprite;
 import openfl.filters.DropShadowFilter;
 import mikolka.compatibility.FunkinCamera;
 import shaders.BlueFade;
-import mikolka.vslice.bts.players.PlayableCharacter;
+import mikolka.funkin.players.PlayableCharacter;
 import mikolka.vslice.freeplay.obj.PixelatedIcon;
-import mikolka.vslice.bts.utils.MathUtil;
+import mikolka.funkin.utils.MathUtil;
 import funkin.vis.dsp.SpectralAnalyzer;
 import openfl.display.BlendMode;
 import openfl.filters.ShaderFilter;
-import mikolka.vslice.bts.FramesJSFLParser;
-import mikolka.vslice.bts.FramesJSFLParser.FramesJSFLInfo;
-import mikolka.vslice.bts.FramesJSFLParser.FramesJSFLFrame;
-import mikolka.vslice.bts.custom.VsliceSubState as MusicBeatSubState;
+import mikolka.funkin.FramesJSFLParser;
+import mikolka.funkin.FramesJSFLParser.FramesJSFLInfo;
+import mikolka.funkin.FramesJSFLParser.FramesJSFLFrame;
+import mikolka.funkin.custom.VsliceSubState as MusicBeatSubState;
 import mikolka.compatibility.FunkinPath as Paths;
 
 class CharSelectSubState extends MusicBeatSubState
@@ -133,6 +133,8 @@ class CharSelectSubState extends MusicBeatSubState
     preCreate();
 
     super.create();
+
+    FreeplayHelpers.BPM = 90;
 
     bopInfo = FramesJSFLParser.parse("images/charSelect/iconBopInfo/iconBopInfo.txt");
 

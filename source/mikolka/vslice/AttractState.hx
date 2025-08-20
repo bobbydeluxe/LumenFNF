@@ -7,7 +7,7 @@ import hxcodec.flixel.FlxVideoSprite;
 #else
 import hxvlc.flixel.FlxVideoSprite;
 #end
-using mikolka.vslice.bts.utils.ArrayTools;
+using mikolka.funkin.utils.ArrayTools;
 
 /**
  * After about 2 minutes of inactivity on the title screen,

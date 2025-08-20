@@ -49,9 +49,10 @@ class ScriptedSubState extends MusicBeatSubstate {
 		_shouldUpdate = (callOnScripts('onUpdate', [elapsed], true) != LuaUtils.Function_Stop);
 	}
 	public override function update(elapsed:Float):Void {
-		if (_shouldUpdate)
-			super.update(elapsed);
+		//if (_shouldUpdate)
+		//	super.update(elapsed);
 		_shouldUpdate = true;
+		super.update(elapsed);
 	}
 	public function postUpdate(elapsed:Float):Void {
 		callOnScripts('onUpdatePost', [elapsed]);

@@ -1,7 +1,7 @@
 package mikolka.vslice.freeplay;
 
-import mikolka.vslice.bts.freeplay.album.AlbumRegistry;
-import mikolka.vslice.bts.freeplay.album.Album;
+import mikolka.funkin.freeplay.album.AlbumRegistry;
+import mikolka.funkin.freeplay.album.Album;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxSort;

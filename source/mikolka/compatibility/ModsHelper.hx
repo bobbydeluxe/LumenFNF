@@ -7,7 +7,7 @@ import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
 import haxe.io.Path;
 
-using mikolka.vslice.bts.utils.ArrayTools;
+using mikolka.funkin.utils.ArrayTools;
 
 class ModsHelper {
 	public inline static function isModDirEnabled(directory:String) {

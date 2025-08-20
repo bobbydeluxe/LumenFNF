@@ -33,8 +33,8 @@ import objects.cutscenes.DialogueBoxPsych;
 import states.StoryMenuState;
 
 import lime.math.Matrix3;
-import mikolka.vslice.bts.Scoring;
-import mikolka.vslice.bts.custom.FunkinTools;
+import mikolka.funkin.Scoring;
+import mikolka.funkin.custom.FunkinTools;
 import mikolka.vslice.results.Tallies;
 import mikolka.vslice.results.ResultState;
 import openfl.media.Sound;
@@ -299,6 +299,8 @@ class PlayState extends ScriptedState
 	public var luaTouchPad:TouchPad;
 	#end
 
+	private var lastRating:String; // used for nightmarevision style rating popups
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -555,11 +557,13 @@ class PlayState extends ScriptedState
 		uiGroup.add(healthBar);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
+		if (dad.iconSplits != null) iconP2.setFrameCount(dad.iconSplits);
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.data.hideHud;
 		uiGroup.add(iconP2);
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
+		if (boyfriend.iconSplits != null) iconP1.setFrameCount(boyfriend.iconSplits);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.data.hideHud;
 		uiGroup.add(iconP1);
@@ -1118,8 +1122,6 @@ class PlayState extends ScriptedState
 			return;
 
 		updateScoreText();
-		if (!miss && !cpuControlled && scoreBop)
-			doScoreBop();
 
 		callOnScripts('onUpdateScore', [miss]);
 	}
@@ -1158,22 +1160,6 @@ class PlayState extends ScriptedState
 			if (songMisses < 10) ratingFC = 'SDCB';
 			else ratingFC = 'Clear';
 		}
-	}
-
-	public function doScoreBop():Void {
-		if(!ClientPrefs.data.scoreZoom)
-			return;
-
-		if(scoreTxtTween != null)
-			scoreTxtTween.cancel();
-
-		scoreTxt.scale.x = 1.075;
-		scoreTxt.scale.y = 1.075;
-		scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
-			onComplete: function(twn:FlxTween) {
-				scoreTxtTween = null;
-			}
-		});
 	}
 
 	public function setSongTime(time:Float)
@@ -2204,6 +2190,7 @@ class PlayState extends ScriptedState
 							boyfriend.alpha = lastAlpha;
 							boyfriend.shader = lastShader;
 							iconP1.changeIcon(boyfriend.healthIcon);
+							if (boyfriend.iconSplits != null) iconP1.setFrameCount(boyfriend.iconSplits);
 						}
 						setOnScripts('boyfriendName', boyfriend.curCharacter);
 
@@ -2221,6 +2208,7 @@ class PlayState extends ScriptedState
 							dad.alpha = lastAlpha;
 							dad.shader = lastShader;
 							iconP2.changeIcon(dad.healthIcon);
+							if (dad.iconSplits != null) iconP2.setFrameCount(dad.iconSplits);
 						}
 						setOnScripts('dadName', dad.curCharacter);
 
@@ -2322,7 +2310,7 @@ class PlayState extends ScriptedState
 					return;
 				}
 				var floaties = keyValues.map(s -> Std.parseFloat(s));
-				if(mikolka.vslice.bts.utils.ArrayTools.findIndex(floaties,s -> Math.isNaN(s)) != -1) {
+				if(mikolka.funkin.utils.ArrayTools.findIndex(floaties,s -> Math.isNaN(s)) != -1) {
 					trace("INVALID FLOATIES");
 					return;
 				}
@@ -2845,7 +2833,20 @@ class PlayState extends ScriptedState
 			comboSpr.antialiasing = antialias;
 			comboSpr.y += 60;
 			comboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
-			comboGroup.add(rating);
+
+			// nmv style rating popups, yes this is intentional
+			if (daRating.name != lastRating) {
+				comboGroup.add(rating);
+			} else {
+				var randomNumTest:Float = bobbydx.MathUtil.random(0, 2);
+				if (randomNumTest > 1.25) {
+					comboGroup.add(rating);
+				} else {
+					comboGroup.insert(0, rating);
+				}
+			}
+
+			lastRating = daRating.name;
 
 			if (!PlayState.isPixelStage)
 			{

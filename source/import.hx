@@ -47,10 +47,10 @@ import js.html.*;
 #end
 
 // P-Slice
-import mikolka.vslice.bts.*;
-import mikolka.vslice.bts.utils.*;
-import mikolka.vslice.bts.custom.*;
-import mikolka.vslice.bts.players.*;
+import mikolka.funkin.*;
+import mikolka.funkin.utils.*;
+import mikolka.funkin.custom.*;
+import mikolka.funkin.players.*;
 
 // Backend Shit
 import backend.Paths;

@@ -29,7 +29,7 @@ clone/download it into your mods folder if you want the base game.
 ## compiling
 you’ll need:
 - **haxe 4.3.7** (or lower, untested on older)  
-- **lime + openfl** (latest versions)  
+- **lime + openfl** (not the LATEST versions)  
 - other libs: see `setup/windows.bat`
 
 build commands:
@@ -51,6 +51,11 @@ or alternatively `haxelib run lime test windows`
 
 contact: discord `bobbydx428`  
 fork it or use code as needed, just credit me somewhere.
+
+---
+
+## TODO:
+- custom classes in hscript (akin to codename engine, but its in iris)
 
 ---
 

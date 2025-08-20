@@ -210,7 +210,6 @@ class FunkinLua {
 			set('hideHud', ClientPrefs.data.hideHud);
 			set('antialiasing', ClientPrefs.data.antialiasing);
 			set('timeBarType', ClientPrefs.data.timeBarType);
-			set('scoreZoom', ClientPrefs.data.scoreZoom);
 			set('cameraZoomOnBeat', ClientPrefs.data.camZooms);
 			set('flashingLights', ClientPrefs.data.flashing);
 			set('noteOffset', ClientPrefs.data.noteOffset);

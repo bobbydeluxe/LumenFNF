@@ -1,6 +1,6 @@
 package mikolka.editors.editorProps;
 
-import mikolka.vslice.bts.players.PlayerData;
+import mikolka.funkin.players.PlayerData;
 import haxe.Json;
 
 class CharJson

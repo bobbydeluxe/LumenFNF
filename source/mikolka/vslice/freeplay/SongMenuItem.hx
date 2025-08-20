@@ -1,11 +1,11 @@
 package mikolka.vslice.freeplay;
 
-import mikolka.vslice.bts.AtlasText.AtlasFont;
-import mikolka.vslice.bts.freeplay.FreeplayStyle;
+import mikolka.funkin.AtlasText.AtlasFont;
+import mikolka.funkin.freeplay.FreeplayStyle;
 import mikolka.vslice.freeplay.obj.PixelatedIcon;
 import mikolka.compatibility.ModsHelper;
 import mikolka.compatibility.FreeplayHelpers;
-import mikolka.vslice.bts.Scoring.ScoringRank;
+import mikolka.funkin.Scoring.ScoringRank;
 import mikolka.compatibility.FreeplaySongData;
 import shaders.Grayscale;
 import shaders.HSVShader;

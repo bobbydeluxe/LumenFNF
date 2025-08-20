@@ -1,6 +1,6 @@
 package mikolka.vslice.freeplay;
 
-import mikolka.vslice.bts.freeplay.FreeplayStyle;
+import mikolka.funkin.freeplay.FreeplayStyle;
 import shaders.GaussianBlurShader;
 import openfl.filters.BitmapFilterQuality;
 import shaders.LeftMaskShader;

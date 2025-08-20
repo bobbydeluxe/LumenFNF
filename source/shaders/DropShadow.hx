@@ -153,7 +153,7 @@ class DropShadow extends AdjustColor
       altMaskImage = bmp;
     });
     #else
-    altMaskImage = mikolka.vslice.bts.custom.NativeFileSystem.getBitmap(path);
+    altMaskImage = mikolka.funkin.custom.NativeFileSystem.getBitmap(path);
     #end
   }
 
@@ -381,7 +381,7 @@ class DropShadow extends AdjustColor
       }
 
     ')
-  public function new(_hue:Float = 0, _saturation:Float = 0, _brightness:Float = 0, _contrast:Float = 0, _threshold:Float = 1, _color:FlxColor = 0xFFDFEF3C, _angle:Float = 90, _antialias:Float = 2) {
+  public function new(_hue:Float = 0, _saturation:Float = 0, _brightness:Float = 0, _contrast:Float = 0, _threshold:Float = 0.1, _color:FlxColor = 0xFFDFEF3C, _angle:Float = 90, _antialias:Float = 2) {
     super();
 
     setAdjustColor(_hue, _saturation, _brightness, _contrast);

@@ -2,8 +2,8 @@ package mikolka.editors.editorProps;
 
 import mikolka.compatibility.FunkinControls;
 import mikolka.vslice.freeplay.BGScrollingText;
-import mikolka.vslice.bts.freeplay.FreeplayStyle;
-import mikolka.vslice.bts.freeplay.FreeplayStyleRegistry;
+import mikolka.funkin.freeplay.FreeplayStyle;
+import mikolka.funkin.freeplay.FreeplayStyleRegistry;
 import shaders.AngleMask;
 import mikolka.vslice.freeplay.backcards.BackingCard;
 

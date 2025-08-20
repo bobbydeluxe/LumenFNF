@@ -4,7 +4,7 @@ import mikolka.compatibility.FunkinPath;
 import mikolka.compatibility.ModsHelper;
 import mikolka.compatibility.FreeplayHelpers;
 import flixel.FlxSprite;
-import mikolka.vslice.bts.FlxFilteredSprite;
+import mikolka.funkin.FlxFilteredSprite;
 
 /**
  * The icon that gets used for Freeplay capsules and char select

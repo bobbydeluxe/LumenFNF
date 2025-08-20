@@ -18,7 +18,7 @@ class EpicConstants {
     public static var storyMenuFlashCount:Int = 6;
 
     // intro splash state sound
-    public static var introSound:String = "openSound";
+    public static var introSound:String = "introSplash";
 
     public static function resetConstants():Void {
         legacyFreeplay = false;
@@ -26,6 +26,6 @@ class EpicConstants {
         iconBopSpeed = 9;
         storyMenuFlashColor = 0xFF33FFFF;
         storyMenuFlashCount = 6;
-        introSound = "openSound";
+        introSound = "introSplash";
     }
 }

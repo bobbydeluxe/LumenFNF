@@ -1,7 +1,7 @@
 package mikolka.vslice.freeplay.obj;
 
 import shaders.PureColor;
-using mikolka.vslice.bts.utils.StringTools;
+using mikolka.funkin.utils.StringTools;
 
 class CapsuleOptionsMenu extends FlxSpriteGroup
 {

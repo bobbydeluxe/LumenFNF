@@ -234,7 +234,7 @@ class HScript extends Iris {
 		set('FlxTimer', flixel.util.FlxTimer);
 		set('FlxTween', flixel.tweens.FlxTween);
 		set('FlxEase', flixel.tweens.FlxEase);
-		set('FlxColor', bobbydx.HScriptFlxColor);
+		set('FlxColor', psychlua.CustomFlxColor);
 		set('Countdown', backend.BaseStage.Countdown);
 		set('PlayState', PlayState);
 		set('Paths', Paths);

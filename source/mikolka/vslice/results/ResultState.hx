@@ -2,9 +2,9 @@ package mikolka.vslice.results;
 
 import mikolka.compatibility.ModsHelper;
 import mikolka.compatibility.VsliceOptions;
-import mikolka.vslice.bts.FlxAtlasSprite;
-import mikolka.vslice.bts.FunkinSprite;
-import mikolka.vslice.bts.players.PlayerData;
+import mikolka.funkin.FlxAtlasSprite;
+import mikolka.funkin.FunkinSprite;
+import mikolka.funkin.players.PlayerData;
 import flixel.FlxSubState;
 import mikolka.compatibility.FreeplayHelpers;
 import mikolka.compatibility.FunkinPath as Paths;
@@ -13,7 +13,7 @@ import mikolka.compatibility.FunkinCamera;
 import mikolka.vslice.freeplay.FreeplayState;
 import flixel.addons.transition.FlxTransitionableState;
 import states.substates.StickerSubState;
-import mikolka.vslice.bts.Scoring;
+import mikolka.funkin.Scoring;
 import shaders.LeftMaskShader;
 import flixel.FlxSprite;
 
@@ -33,10 +33,10 @@ import flixel.addons.display.FlxBackdrop;
 
 import flixel.util.FlxGradient;
 import flixel.util.FlxTimer;
-import mikolka.vslice.bts.players.*;
-import mikolka.vslice.bts.players.PlayerData.PlayerFreeplayDJData;
-import mikolka.vslice.bts.custom.VsliceSubState as EpicSubState;
-using mikolka.vslice.bts.custom.FunkinTools;
+import mikolka.funkin.players.*;
+import mikolka.funkin.players.PlayerData.PlayerFreeplayDJData;
+import mikolka.funkin.custom.VsliceSubState as EpicSubState;
+using mikolka.funkin.custom.FunkinTools;
 
 /**
  * The state for the results screen after a song or week is finished.

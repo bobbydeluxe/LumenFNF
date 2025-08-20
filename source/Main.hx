@@ -1,6 +1,4 @@
 package;
-import psychlua.HScript;
-import psychlua.GlobalScriptHandler;
 import debug.FPSCounter as FPS;
 import mikolka.GameBorder;
 import flixel.graphics.FlxGraphic;
@@ -110,27 +108,10 @@ class Main extends Sprite
 			game.zoom = 1.0;
 		#end
 
-		#if LUA_ALLOWED
-		Mods.pushGlobalMods();
-		#end
-		Mods.loadTopMod();
-
 		FlxG.save.bind('funkin', CoolUtil.getSavePath());
-		Difficulty.resetList();
-		Highscore.load();
-
-		HScript.init();
-		GlobalScriptHandler.init();
 
 		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
-		ClientPrefs.loadDefaultKeys();
-
-		#if VIDEOS_ALLOWED
-		objects.video.Video4.init();
-		#end
-		
-		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		
 		#if mobile
 		FlxG.signals.postGameStart.addOnce(() -> {

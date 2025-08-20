@@ -1,6 +1,6 @@
 package mikolka.vslice.freeplay;
 
-import mikolka.vslice.bts.players.PlayerData.PlayerFreeplayDJData;
+import mikolka.funkin.players.PlayerData.PlayerFreeplayDJData;
 import mikolka.compatibility.FunkinPath as Paths;
 
 import flixel.FlxSprite;

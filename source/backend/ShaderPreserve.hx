@@ -9,7 +9,7 @@ import shaders.TwoToneShader;
 import shaders.WiggleEffectRuntime;
 import shaders.ColorMatrixShader;
 import shaders.DiamondShader;
-import shaders.OverlayBlend;
+import shaders.OverlayShader;
 
 import backend.QuickMemBank;
 

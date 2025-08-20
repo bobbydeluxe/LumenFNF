@@ -612,6 +612,7 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 	var positionYStepper:PsychUINumericStepper;
 	var positionCameraXStepper:PsychUINumericStepper;
 	var positionCameraYStepper:PsychUINumericStepper;
+	var healthIconFrameStepper:PsychUINumericStepper;
 
 	var flipXCheckBox:PsychUICheckBox;
 	var noAntialiasingCheckBox:PsychUICheckBox;
@@ -644,6 +645,8 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 			});
 
 		healthIconInputText = new PsychUIInputText(15, imageInputText.y + 35, 75, healthIcon.getCharacter(), 8);
+
+		healthIconFrameStepper = new PsychUINumericStepper(healthIconInputText.x + 100, healthIconInputText.y, 1, 2, 1, 15, 0);
 
 		vocalsInputText = new PsychUIInputText(15, healthIconInputText.y + 35, 75, character.vocalsFile != null ? character.vocalsFile : '', 8);
 
@@ -691,6 +694,7 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 		tab_group.add(new FlxText(positionXStepper.x, positionXStepper.y - 18, 100, 'Character X/Y:'));
 		tab_group.add(new FlxText(positionCameraXStepper.x, positionCameraXStepper.y - 18, 100, 'Camera X/Y:'));
 		tab_group.add(new FlxText(healthColorStepperR.x, healthColorStepperR.y - 18, 100, 'Health Bar R/G/B:'));
+		tab_group.add(new FlxText(healthIconFrameStepper.x, healthIconFrameStepper.y - 18, 100, 'Icon frame splits:'));
 		tab_group.add(imageInputText);
 		tab_group.add(reloadImage);
 		tab_group.add(decideIconColor);
@@ -708,6 +712,7 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 		tab_group.add(healthColorStepperG);
 		tab_group.add(healthColorStepperB);
 		tab_group.add(saveCharacterButton);
+		tab_group.add(healthIconFrameStepper);
 	}
 
 	public function UIEvent(id:String, sender:Dynamic) {
@@ -737,6 +742,7 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 		}
 		else if(id == PsychUINumericStepper.CHANGE_EVENT)
 		{
+			// fuckyeah
 			if (sender == scaleStepper)
 			{
 				reloadCharacterImage();
@@ -791,6 +797,12 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 			{
 				character.healthColorArray[2] = Math.round(healthColorStepperB.value);
 				updateHealthBar();
+				unsavedProgress = true;
+			}
+			else if(sender == healthIconFrameStepper)
+			{
+				character.iconSplits = Math.round(healthIconFrameStepper.value);
+				healthIcon.setFrameCount(Math.round(healthIconFrameStepper.value));
 				unsavedProgress = true;
 			}
 		}
@@ -1304,7 +1316,8 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 			"no_antialiasing": character.noAntialiasing,
 			"healthbar_colors": character.healthColorArray,
 			"vocals_file": character.vocalsFile,
-			"_editor_isPlayer": character.isPlayer
+			"_editor_isPlayer": character.isPlayer,
+			"_icon_splits": character.iconSplits
 		};
 
 		var data:String = PsychJsonPrinter.print(json, ['offsets', 'position', 'healthbar_colors', 'camera_position', 'indices']);

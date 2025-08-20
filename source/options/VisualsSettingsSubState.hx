@@ -102,13 +102,6 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 			'camZooms',
 			BOOL);
 		addOption(option);
-
-		var option:Option = new Option('Score Text Pulse',
-			"If checked, the score display will pulse for every note hit.",
-			'scoreZoom',
-			BOOL,
-			'score_text_grow_on_hit');
-		addOption(option);
 		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',

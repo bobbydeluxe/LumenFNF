@@ -1,6 +1,6 @@
 package mikolka.vslice.freeplay;
 
-import mikolka.vslice.bts.freeplay.FreeplayStyle;
+import mikolka.funkin.freeplay.FreeplayStyle;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 

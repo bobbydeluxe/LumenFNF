@@ -1,12 +1,12 @@
 package mikolka.compatibility;
 
 import mikolka.vslice.freeplay.pslice.BPMCache;
-import mikolka.vslice.bts.Scoring.ScoringRank;
+import mikolka.funkin.Scoring.ScoringRank;
 import backend.Highscore;
 import backend.WeekData;
 
-using mikolka.vslice.bts.custom.FunkinTools;
-using mikolka.vslice.bts.utils.ArrayTools;
+using mikolka.funkin.custom.FunkinTools;
+using mikolka.funkin.utils.ArrayTools;
 
 /**
  * Data about a specific song in the freeplay menu. Very heaviely dependent on exact engine

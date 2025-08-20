@@ -4,9 +4,9 @@ import mikolka.vslice.freeplay.obj.CapsuleOptionsMenu;
 import mikolka.compatibility.FunkinControls;
 import mikolka.vslice.charSelect.CharSelectSubState;
 import openfl.filters.ShaderFilter;
-import mikolka.vslice.bts.freeplay.FreeplayStyleRegistry;
+import mikolka.funkin.freeplay.FreeplayStyleRegistry;
 import shaders.BlueFade;
-import mikolka.vslice.bts.freeplay.FreeplayStyle;
+import mikolka.funkin.freeplay.FreeplayStyle;
 import mikolka.vslice.freeplay.DJBoyfriend.FreeplayDJ;
 import mikolka.compatibility.ModsHelper;
 import mikolka.compatibility.VsliceOptions;
@@ -15,16 +15,16 @@ import mikolka.vslice.freeplay.pslice.BPMCache;
 import mikolka.compatibility.FreeplaySongData;
 import mikolka.compatibility.FreeplayHelpers;
 import mikolka.compatibility.FunkinPath as Paths;
-import mikolka.vslice.bts.custom.VsliceSubState as MusicBeatSubstate;
+import mikolka.funkin.custom.VsliceSubState as MusicBeatSubstate;
 import openfl.utils.AssetCache;
-import mikolka.vslice.bts.AtlasText;
+import mikolka.funkin.AtlasText;
 import shaders.PureColor;
 import shaders.HSVShader;
 import shaders.StrokeShader;
 import shaders.AngleMask;
-import mikolka.vslice.bts.IntervalShake;
+import mikolka.funkin.IntervalShake;
 import states.substates.StickerSubState;
-import mikolka.vslice.bts.Scoring.ScoringRank;
+import mikolka.funkin.Scoring.ScoringRank;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxCamera;
 import flixel.FlxSprite;
@@ -45,8 +45,8 @@ import flixel.util.FlxTimer;
 import mikolka.vslice.freeplay.backcards.BackingCard;
 import mikolka.vslice.freeplay.backcards.ScriptedCard;
 
-using mikolka.vslice.bts.custom.FunkinTools;
-using mikolka.vslice.bts.utils.ArrayTools;
+using mikolka.funkin.custom.FunkinTools;
+using mikolka.funkin.utils.ArrayTools;
 
 /**
  * Parameters used to initialize the FreeplayState.
@@ -271,7 +271,7 @@ class FreeplayState extends ScriptedSubState
 
 	public var angleMaskShader:AngleMask = new AngleMask();
 
-	override function create():Void
+	public override function create():Void
 	{
 		// ? Psych might've reloaded the mod list. Make sure we select current character's mod for the style
 		var saveBox = VsliceOptions.LAST_MOD;
@@ -328,12 +328,12 @@ class FreeplayState extends ScriptedSubState
 
 		if (stickerSubState != null)
 		{
-			this.persistentUpdate = true;
-			this.persistentDraw = true;
-
 			openSubState(stickerSubState);
 			stickerSubState.degenStickers();
 		}
+
+		this.persistentUpdate = true;
+		this.persistentDraw = true;
 
 		#if discord_rpc
 		// Updating Discord Rich Presence
@@ -1508,11 +1508,15 @@ class FreeplayState extends ScriptedSubState
 
 	var hintTimer:Float = 0;
 
-	override function update(elapsed:Float):Void
+	public override function update(elapsed:Float):Void
 	{
 		preUpdate(elapsed);
 
 		super.update(elapsed);
+
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
+		// this fucking saved me; thank you titlestate.hx
 
 		if (charSelectHint != null)
 		{
@@ -1884,7 +1888,7 @@ class FreeplayState extends ScriptedSubState
 		}
 	}
 
-	override function beatHit(beat:Int)
+	public override function beatHit(beat:Int)
 	{
 		backingCard.beatHit(beat);
 
@@ -2284,6 +2288,7 @@ class FreeplayState extends ScriptedSubState
 				restartTrack: false
 			});
 			FlxG.sound.music.fadeIn(2, 0, 0.8);
+			Conductor.bpm = 145;
 		}
 		else
 		{
@@ -2311,10 +2316,11 @@ class FreeplayState extends ScriptedSubState
 					FlxG.sound.music.fadeIn(FADE_IN_DURATION, FADE_IN_START_VOLUME, endVolume);
 					// ? set BPMs
 					var newBPM = daSongCapsule.songData.songStartingBpm;
-					FreeplayHelpers.BPM = newBPM; // ? reimplementing
+					Conductor.bpm = newBPM; // ? reimplementing
 				}
 			});
 		}
+		callOnScripts('onSongPreviewPost', [daSongCapsule], true);
 	}
 
 	/**

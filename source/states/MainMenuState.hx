@@ -16,7 +16,7 @@ enum abstract MainMenuColumn(String) to String {
 
 class MainMenuState extends ScriptedState
 {
-	public static var lumenEngineVersion:String = '1.0.0';
+	public static var lumenEngineVersion:String = '0.1.0';
 	public static var psychEngineVersion:String = '1.0.4';
 	public static var pSliceVersion:String = '2.3.1';
 	public static var emiForkVersion:String = '0.0.4h';

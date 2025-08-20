@@ -20,9 +20,9 @@ import openfl.display.Bitmap;
 import flixel.FlxState;
 
 using Lambda;
-using mikolka.vslice.bts.IteratorTools;
+using mikolka.funkin.IteratorTools;
 using StringTools;
-using mikolka.vslice.bts.utils.ArrayTools;
+using mikolka.funkin.utils.ArrayTools;
 
 class StickerSubState extends MusicBeatSubstate
 {
