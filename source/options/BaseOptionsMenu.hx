@@ -14,16 +14,16 @@ import backend.InputFormatter;
 
 class BaseOptionsMenu extends ScriptedSubState
 {
-	private var optionsArray:Array<Option>;
-	private var curOption:Option = null;
-	private var curSelected:Int = 0;
+	public var optionsArray:Array<Option>;
+	public var curOption:Option = null;
+	public var curSelected:Int = 0;
 
-	private var grpOptions:FlxTypedGroup<Alphabet>;
-	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
-	private var grpTexts:FlxTypedGroup<AttachedText>;
+	public var grpOptions:FlxTypedGroup<Alphabet>;
+	public var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
+	public var grpTexts:FlxTypedGroup<AttachedText>;
 
-	private var descBox:FlxSprite;
-	private var descText:FlxText;
+	public var descBox:FlxSprite;
+	public var descText:FlxText;
 
 	public var title:String;
 
@@ -79,6 +79,7 @@ class BaseOptionsMenu extends ScriptedSubState
 	
 	public function setupOptions():Void {
 		optionsArray ??= [];
+		callOnScripts('setupOptions', [], true);
 		for (i => option in optionsArray) {
 			var optionText:Alphabet = new Alphabet(220, 260, option.name, false);
 			optionText.isMenuItem = true;
@@ -109,6 +110,7 @@ class BaseOptionsMenu extends ScriptedSubState
 			//optionText.snapToPosition(); //Don't ignore me when i ask for not making a fucking pull request to uncomment this line ok
 			updateTextFrom(option);
 		}
+		callOnScripts('setupOptionsPost', [optionsArray]);
 	}
 
 	public function addOption(option:Option) {
@@ -483,6 +485,7 @@ class BaseOptionsMenu extends ScriptedSubState
 	}
 	
 	function changeSelection(change:Int = 0) {
+		callOnScripts('onChangeSelection', [optionsArray]);
 		if (optionsArray.length == 0) return;
 		
 		var next:Int = FlxMath.wrap(curSelected + change, 0, optionsArray.length - 1);
@@ -525,6 +528,7 @@ class BaseOptionsMenu extends ScriptedSubState
 	}
 
 	function reloadCheckboxes() {
+		callOnScripts('onReloadCheckboxes', [optionsArray], true);
 		for (checkbox in checkboxGroup)
 			checkbox.daValue = Std.string(optionsArray[checkbox.ID].getValue()) == 'true'; //Do not take off the Std.string() from this, it will break a thing in Mod Settings Menu
 	}
