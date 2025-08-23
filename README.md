@@ -2,7 +2,7 @@
     <img src="art/lumenLogo.png">
 </p>
 
-sum goofy ass p-slice fork that i made for fun
+sum goofy ass p-slice fork that i made for fun. no idea why i did this.
 
 ---
 

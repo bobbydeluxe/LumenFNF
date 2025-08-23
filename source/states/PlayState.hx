@@ -299,8 +299,6 @@ class PlayState extends ScriptedState
 	public var luaTouchPad:TouchPad;
 	#end
 
-	private var lastRating:String; // used for nightmarevision style rating popups
-
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -2834,17 +2832,7 @@ class PlayState extends ScriptedState
 			comboSpr.y += 60;
 			comboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
 
-			// nmv style rating popups, yes this is intentional
-			if (daRating.name != lastRating) {
-				comboGroup.add(rating);
-			} else {
-				var randomNumTest:Float = bobbydx.MathUtil.random(0, 2);
-				if (randomNumTest > 1.25) {
-					comboGroup.add(rating);
-				} else {
-					comboGroup.insert(0, rating);
-				}
-			}
+			comboGroup.add(rating);
 
 			lastRating = daRating.name;
 

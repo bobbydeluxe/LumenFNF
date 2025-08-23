@@ -32,8 +32,6 @@ class NoteOffsetState extends ScriptedState
 	var _lastControllerMode:Bool = false;
 
 	override public function create() {
-		preCreate();
-		
 		rpcDetails = 'Delay/Combo Offset Menu';
 
 		// Cameras

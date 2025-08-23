@@ -14,6 +14,8 @@ class InitState extends ScriptedState {
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
 
+	public static var customTrans:Bool = false;
+
     override public function create():Void
 	{
         preCreate(); // init scripting
@@ -62,6 +64,8 @@ class InitState extends ScriptedState {
 		}
 
         ScreenshotPlugin.initialize();
-        FlxG.switchState(new states.IntroSplashState());
+
+		if (!customTrans)
+        	FlxG.switchState(new states.TitleState());
 	}
 }
