@@ -42,8 +42,8 @@ class BackingCard extends FlxSpriteGroup
   var _exitMovers:Null<FreeplayState.ExitMoverData>;
   var _exitMoversCharSel:Null<FreeplayState.ExitMoverData>;
 
-  public var beatFreq:Int = 1;
-  public var beatFreqList:Array<Int> = [1, 2, 4, 8];
+  public var beatFreq:Int = 2;
+  public var beatFreqList:Array<Int> = [2, 4, 8];
 
   public var instance:FreeplayState;
 

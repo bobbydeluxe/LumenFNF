@@ -2271,6 +2271,7 @@ class FreeplayState extends ScriptedSubState
 			//tweenCurSongColor(daSongCapsule);
 			grpCapsules.members[curSelected].selected = true;
 		}
+		Conductor.songPosition = 0; // reset position
 		callOnScripts('onChangeSelectionPost', [prevSelected, curSelected], true);
 	}
 
