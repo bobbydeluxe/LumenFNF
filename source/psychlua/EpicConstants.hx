@@ -8,9 +8,6 @@ class EpicConstants {
     // main menu music i guess
     public static var mainMenuMusic:String = "freakyMenu";
 
-    // determines the speed at which the icons bop in the song playstate
-    public static var iconBopSpeed:Float = 9;
-
     // the color the story mode menu items flash
     public static var storyMenuFlashColor = 0xFF33FFFF;
 
@@ -20,12 +17,42 @@ class EpicConstants {
     // intro splash state sound
     public static var introSound:String = "introSplash";
 
+    // note postfix functions to override
+    public static function noteSkinPostfixFunc():String {
+        return "";
+    }
+
+    public static function noteSplashPostfixFunc():String {
+        return "";
+    }
+
+    // hurt note data
+    public static var hurtNoteData:Array<Dynamic> = [
+        0xFF101010, // note r
+        0xFFFF0000, // note g
+        0xFF990022,  // note b
+        0xFFFF0000,  // splash r
+        0xFF101010,  // splash g
+        'noteSplashes/noteSplashes-electric' // splash texture
+    ];
+
+    // note splash alpha
+    public static var noteSplashAlpha:Float = 1;
+
     public static function resetConstants():Void {
         legacyFreeplay = false;
         mainMenuMusic = "freakyMenu";
-        iconBopSpeed = 9;
         storyMenuFlashColor = 0xFF33FFFF;
         storyMenuFlashCount = 6;
         introSound = "introSplash";
+        hurtNoteData = [
+            0xFF101010, // note r
+            0xFFFF0000, // note g
+            0xFF990022,  // note b
+            0xFFFF0000,  // splash r
+            0xFF101010,  // splash g
+            'noteSplashes/noteSplashes-electric' // splash texture
+        ];
+        noteSplashAlpha = 1;
     }
 }

@@ -64,6 +64,7 @@ import psychlua.HScript;
 #end
 
 import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;
+import mikolka.funkin.utils.MathUtil;
 
 /**
  * This is where all the Gameplay stuff happens and is managed
@@ -358,8 +359,6 @@ class PlayState extends ScriptedState
 		Conductor.mapBPMChanges(SONG);
 		Conductor.bpm = SONG.bpm;
 
-		psychlua.EpicConstants.iconBopSpeed = 9;
-
 		#if DISCORD_ALLOWED
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		storyDifficultyText = Difficulty.getString();
@@ -446,6 +445,8 @@ class PlayState extends ScriptedState
 		}
 
 		set_stageUI(stageUI); // so that custom stageUIs load - bobbyDX
+
+		EpicConstants.noteSplashAlpha = 1;
 
 		preCreate();
 		
@@ -2833,8 +2834,6 @@ class PlayState extends ScriptedState
 			comboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
 
 			comboGroup.add(rating);
-
-			lastRating = daRating.name;
 
 			if (!PlayState.isPixelStage)
 			{

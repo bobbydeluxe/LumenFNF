@@ -11,6 +11,8 @@ import objects.StrumNote;
 import flixel.math.FlxRect;
 import flixel.util.FlxColor;
 
+import psychlua.EpicConstants;
+
 using StringTools;
 
 typedef EventNote = {
@@ -110,7 +112,7 @@ class Note extends FlxSprite
 		r: -1,
 		g: -1,
 		b: -1,
-		a: ClientPrefs.data.splashAlpha
+		a: EpicConstants.noteSplashAlpha
 	};
 
 	public var offsetX:Float = 0;
@@ -205,14 +207,14 @@ class Note extends FlxSprite
 					//but i've changed it to something more optimized with the implementation of RGBPalette:
 				
 					// note colors
-					rgbShader.r = 0xFF101010;
-					rgbShader.g = 0xFFFF0000;
-					rgbShader.b = 0xFF990022;
+					rgbShader.r = EpicConstants.hurtNoteData[0];
+					rgbShader.g = EpicConstants.hurtNoteData[1];
+					rgbShader.b = EpicConstants.hurtNoteData[2];
 
 					// splash data and colors
-					noteSplashData.r = 0xFFFF0000;
-					noteSplashData.g = 0xFF101010;
-					noteSplashData.texture = 'noteSplashes/noteSplashes-electric';
+					noteSplashData.r = EpicConstants.hurtNoteData[3];
+					noteSplashData.g = EpicConstants.hurtNoteData[4];
+					noteSplashData.texture = EpicConstants.hurtNoteData[5];
 
 					// gameplay data
 					lowPriority = true;
@@ -397,10 +399,7 @@ class Note extends FlxSprite
 
 	public static function getNoteSkinPostfix()
 	{
-		var skin:String = '';
-		if(ClientPrefs.data.noteSkin != ClientPrefs.defaultData.noteSkin)
-			skin = '-' + ClientPrefs.data.noteSkin.trim().toLowerCase().replace(' ', '_');
-		return skin;
+		return EpicConstants.noteSkinPostfixFunc();
 	}
 
 	function loadNoteAnims() {

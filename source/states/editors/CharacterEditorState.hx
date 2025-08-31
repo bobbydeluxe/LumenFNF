@@ -859,6 +859,12 @@ class CharacterEditorState extends ScriptedState implements PsychUIEventHandler.
 		check_player.checked = character.isPlayer;
 		imageInputText.text = character.imageFile;
 		healthIconInputText.text = character.healthIcon;
+
+		if (character.iconSplits != null)
+			healthIconFrameStepper.value = character.iconSplits;
+		else
+			healthIconFrameStepper.value = 2;
+
 		vocalsInputText.text = character.vocalsFile != null ? character.vocalsFile : '';
 		singDurationStepper.value = character.singDuration;
 		scaleStepper.value = character.jsonScale;

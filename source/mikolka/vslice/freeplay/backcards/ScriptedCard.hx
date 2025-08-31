@@ -13,12 +13,13 @@ import psychlua.HScript;
 import crowplexus.iris.Iris;
 import crowplexus.hscript.Expr.Error as IrisError;
 import crowplexus.hscript.Printer;
+import openfl.utils.AssetType;
 
 class ScriptedCard extends BackingCard
 {
 	var hscript:HScript;
 	public static inline function hasCustomCard(charId:String):Bool {
-		return Paths.fileExists('registry/cards/$charId.hx',TEXT);
+		return Paths.fileExists('registry/cards/$charId.hx',AssetType.TEXT);
 	}
 	public override function new(currentCharacter:PlayableCharacter, charId:String,allowMessages:Bool = true)
 	{
@@ -26,7 +27,7 @@ class ScriptedCard extends BackingCard
 
 		if (Mods.currentModDirectory != null && Mods.currentModDirectory.trim().length > 0)
 		{
-			var scriptPath:String = Paths.getPath('registry/cards/$charId.hx',TEXT);//'mods/${Mods.currentModDirectory}/registry/cards/$charId.hx'; // mods/My-Mod/data/LoadingScreen.hx
+			var scriptPath:String = Paths.getPath('registry/cards/$charId.hx',AssetType.TEXT);//'mods/${Mods.currentModDirectory}/registry/cards/$charId.hx'; // mods/My-Mod/data/LoadingScreen.hx
 			if (NativeFileSystem.exists(scriptPath))
 			{
 				try
@@ -44,14 +45,10 @@ class ScriptedCard extends BackingCard
 					hscript.set('confirmGlow2', this.confirmGlow2);
 					hscript.set('confirmTextGlow', this.confirmTextGlow);
 					hscript.set('cardGlow', this.cardGlow);
-					hscript.set('glow', this.glow);
-					hscript.set('glowDark', this.glowDark);
 					hscript.set('djText1', currentCharacter.getFreeplayDJText(1));
 					hscript.set('djText2', currentCharacter.getFreeplayDJText(2));
 					hscript.set('djText3', currentCharacter.getFreeplayDJText(3));
 					hscript.set('freeplayState', instance);
-					hscript.set('beatFreq', this.beatFreq);
-					hscript.set('beatFreqList', this.beatFreqList);
 
 					if (hscript.exists('onCreate'))
 					{

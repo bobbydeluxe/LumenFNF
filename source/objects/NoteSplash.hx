@@ -4,6 +4,8 @@ import backend.animation.PsychAnimationController;
 import shaders.RGBPalette;
 import flixel.system.FlxAssets.FlxShader;
 
+import psychlua.EpicConstants;
+
 typedef RGB = {
 	r:Null<Int>,
 	g:Null<Int>,
@@ -292,7 +294,7 @@ class NoteSplash extends FlxSprite
 			spawned = false;
 		});
 
-		alpha = ClientPrefs.data.splashAlpha;
+		alpha = EpicConstants.noteSplashAlpha;
 		if (note != null) alpha = note.noteSplashData.a;
 
 		antialiasing = ClientPrefs.data.antialiasing;
@@ -361,10 +363,7 @@ class NoteSplash extends FlxSprite
 
 	public static function getSplashSkinPostfix()
 	{
-		var skin:String = '';
-		if (ClientPrefs.data.splashSkin != ClientPrefs.defaultData.splashSkin)
-			skin = '-' + ClientPrefs.data.splashSkin.trim().toLowerCase().replace(' ', '-');
-		return skin;
+		return EpicConstants.noteSplashPostfixFunc();
 	}
 
 	public static function createConfig():NoteSplashConfig

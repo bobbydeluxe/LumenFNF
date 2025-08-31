@@ -36,14 +36,8 @@ class BackingCard extends FlxSpriteGroup
   public var confirmTextGlow:FlxSprite;
   public var cardGlow:FlxSprite;
 
-  public var glow:FlxSprite;
-  public var glowDark:FlxSprite;
-
   var _exitMovers:Null<FreeplayState.ExitMoverData>;
   var _exitMoversCharSel:Null<FreeplayState.ExitMoverData>;
-
-  public var beatFreq:Int = 2;
-  public var beatFreqList:Array<Int> = [2, 4, 8];
 
   public var instance:FreeplayState;
 
@@ -169,17 +163,6 @@ class BackingCard extends FlxSpriteGroup
     cardGlow.blend = BlendMode.ADD;
     cardGlow.visible = false;
 
-    glowDark = new FlxSprite(-300, 330).loadGraphic(Paths.image('freeplay/beatglow'));
-    glowDark.blend = BlendMode.MULTIPLY;
-    add(glowDark);
-
-    glow = new FlxSprite(-300, 330).loadGraphic(Paths.image('freeplay/beatglow'));
-    glow.blend = BlendMode.ADD;
-    add(glow);
-
-    glowDark.visible = false;
-    glow.visible = false;
-
     add(cardGlow);
   }
 
@@ -193,8 +176,6 @@ class BackingCard extends FlxSpriteGroup
     alsoOrangeLOL.visible = true;
     cardGlow.visible = true;
     FlxTween.tween(cardGlow, {alpha: 0, "scale.x": 1.2, "scale.y": 1.2}, 0.45, {ease: FlxEase.sineOut});
-    glowDark.visible = true;
-    glow.visible = true;
   }
 
   /**
@@ -208,9 +189,6 @@ class BackingCard extends FlxSpriteGroup
 
     confirmGlow.visible = true;
     confirmGlow2.visible = true;
-
-    glowDark.visible = false;
-    glow.visible = false;
 
     backingTextYeah.anim.play("");
     confirmGlow2.alpha = 0;
@@ -251,19 +229,7 @@ class BackingCard extends FlxSpriteGroup
   /**
    * Called on each beat in freeplay state.
    */
-  public function beatHit(curBeat:Int):Void {
-    // increases the amount of beats that need to go by to pulse the glow because itd flash like craazy at high bpms.....
-    beatFreq = beatFreqList[Math.floor(FreeplayHelpers.BPM / 140)];
-
-    if (curBeat % beatFreq != 0) return;
-    FlxTween.cancelTweensOf(glow);
-    FlxTween.cancelTweensOf(glowDark);
-
-    glow.alpha = 0.8;
-    FlxTween.tween(glow, {alpha: 0}, 16 / 24, {ease: FlxEase.quartOut});
-    glowDark.alpha = 0;
-    FlxTween.tween(glowDark, {alpha: 0.6}, 18 / 24, {ease: FlxEase.quartOut});
-  }
+  public function beatHit(curBeat:Int):Void {}
 
   /**
    * Called when exiting the freeplay menu.
@@ -279,7 +245,5 @@ class BackingCard extends FlxSpriteGroup
 
     orangeBackShit.visible = false;
     alsoOrangeLOL.visible = false;
-    glowDark.visible = false;
-    glow.visible = false;
   }
 }
