@@ -81,8 +81,8 @@ class FunkinSoundTray extends FlxSoundTray
 
   override public function update(MS:Float):Void
   {
-    y = MathUtil.coolLerp(y, lerpYPos, 0.1);
-    alpha = MathUtil.coolLerp(alpha, alphaTarget, 0.25);
+    y = bobbydx.MathUtil.coolLerp(y, lerpYPos, 0.1);
+    alpha = bobbydx.MathUtil.coolLerp(alpha, alphaTarget, 0.25);
 
     // Animate sound tray thing
     if (_timer > 0)

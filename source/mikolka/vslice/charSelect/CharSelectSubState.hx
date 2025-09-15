@@ -954,14 +954,14 @@ class CharSelectSubState extends MusicBeatSubState
     cursorLocIntended.x += cursorOffsetX;
     cursorLocIntended.y += cursorOffsetY;
 
-    chrSelectCursor.x = MathUtil.coolLerp(chrSelectCursor.x, cursorLocIntended.x, lerpAmnt,false); //? disable wobbling here
-    chrSelectCursor.y = MathUtil.coolLerp(chrSelectCursor.y, cursorLocIntended.y, lerpAmnt,false);
+    chrSelectCursor.x = bobbydx.MathUtil.coolLerp(chrSelectCursor.x, cursorLocIntended.x, lerpAmnt); //? disable wobbling here
+    chrSelectCursor.y = bobbydx.MathUtil.coolLerp(chrSelectCursor.y, cursorLocIntended.y, lerpAmnt);
 
-    cursorBlue.x = MathUtil.coolLerp(cursorBlue.x, chrSelectCursor.x, lerpAmnt * 0.4,false);
-    cursorBlue.y = MathUtil.coolLerp(cursorBlue.y, chrSelectCursor.y, lerpAmnt * 0.4,false);
+    cursorBlue.x = bobbydx.MathUtil.coolLerp(cursorBlue.x, chrSelectCursor.x, lerpAmnt * 0.4);
+    cursorBlue.y = bobbydx.MathUtil.coolLerp(cursorBlue.y, chrSelectCursor.y, lerpAmnt * 0.4);
     //! buggy code
-    cursorDarkBlue.x = MathUtil.coolLerp(cursorDarkBlue.x, cursorLocIntended.x, lerpAmnt * 0.2,false);
-    cursorDarkBlue.y = MathUtil.coolLerp(cursorDarkBlue.y, cursorLocIntended.y, lerpAmnt * 0.2,false);
+    cursorDarkBlue.x = bobbydx.MathUtil.coolLerp(cursorDarkBlue.x, cursorLocIntended.x, lerpAmnt * 0.2);
+    cursorDarkBlue.y = bobbydx.MathUtil.coolLerp(cursorDarkBlue.y, cursorLocIntended.y, lerpAmnt * 0.2);
 
     postUpdate(elapsed);
   }

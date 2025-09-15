@@ -15,7 +15,7 @@ after that let's begin
 lumen uses the same overall mod structure as psych engine with one key difference:
 your modpack metadata file goes in:
 
-    urMod/data/metadata.json
+    urMod/mod.json
 
 instead of psych's:
 
@@ -23,7 +23,7 @@ instead of psych's:
 
 the icon for your modpack also lives in:
 
-    urMod/data/icon.png
+    urMod/icon.png
 
 instead of psych's:
 
@@ -33,10 +33,10 @@ everything else (assets, scripts, charts, etc.) can be dragged straight from a p
 
 ---
 
-2. METADATA.JSON FORMAT
+2. MOD.JSON FORMAT
 -----------------------
 
-your metadata.json needs to be strict JSON. here's an example:
+your mod.json needs to be strict JSON. here's an example:
 
 {
     "name": "Name",           // name shown in the mods menu

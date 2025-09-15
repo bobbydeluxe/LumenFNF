@@ -2,7 +2,7 @@
     <img src="art/lumenLogo.png">
 </p>
 
-sum goofy ass p-slice fork that i made for fun. no idea why i did this.
+sum goofy ass p-slice fork that i made for fun. no idea why i did this. development is not very active.
 
 ---
 
@@ -51,11 +51,6 @@ or alternatively `haxelib run lime test windows`
 
 contact: discord `bobbydx428`  
 fork it or use code as needed, just credit me somewhere.
-
----
-
-## TODO:
-- custom classes in hscript (akin to codename engine, but its in iris)
 
 ---
 

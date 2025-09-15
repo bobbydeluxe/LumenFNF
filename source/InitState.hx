@@ -40,6 +40,7 @@ class InitState extends ScriptedState {
 		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 
 		ClientPrefs.loadPrefs();
+		states.substates.OutdatedSubState.updateVersion = CoolUtil.checkForUpdates();
 
         QuickMemBank.clear();
 

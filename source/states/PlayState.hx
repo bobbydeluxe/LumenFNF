@@ -1842,8 +1842,7 @@ class PlayState extends ScriptedState
 	// Health icon updaters
 	public dynamic function updateIconsScale(elapsed:Float)
 	{
-		var easeParams:Float = elapsed * psychlua.EpicConstants.iconBopSpeed * playbackRate;
-		var decay:Float = Math.max(0, Math.min(1, 1 - easeParams));
+		var decay:Float = Math.exp(-elapsed * 9 * playbackRate);
 
 		for (icon in [iconP1, iconP2]) {
 			var mult:Float = FlxMath.lerp(1, icon.scale.x, decay);
