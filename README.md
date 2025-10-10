@@ -1,3 +1,5 @@
+# heads-up: this is DISCONTINUED! mainly due to boredom and now im realizing pslice kinda sucks imo
+
 <p align="center">
     <img src="art/lumenLogo.png">
 </p>
